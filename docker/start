@@ -1,0 +1,4 @@
+#!/bin/bash
+docker-compose ps
+docker-compose up -d
+rm -f tmp/pids/server.pid
