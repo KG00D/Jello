@@ -1,0 +1,14 @@
+version: '3.8'
+x-service: &default-service
+  build:
+    context: .
+services:
+  jello_shell:
+    <<: *default-service
+    # build: .
+    # ports:
+    #   - "4000:80"
+    # environment:
+    #   - NAME=World
+    command: tail -F /dev/null
+    container_name: jello_shell
