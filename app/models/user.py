@@ -19,6 +19,9 @@ userscards = db.Table("userscards",
 if environment == "production":
     usersboards.schema=SCHEMA
 
+if environment == "production":
+    userscards.schema=SCHEMA
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
