@@ -4,14 +4,20 @@ from flask_login import UserMixin
 from datetime import datetime
 
 
-users_boards = db.Table( "users_boards",
-                db.Model.metadata,
-                db.Column("users", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
-                db.Column("boards", db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")), primary_key=True)
-                )
+usersboards = db.Table( "usersboards",
+                        db.Model.metadata,
+                        db.Column("users", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+                        db.Column("boards", db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")), primary_key=True)
+                        )
+
+userscards = db.Table("userscards",
+                       db.Model.metadata,
+                       db.Column("users", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+                       db.Column("cards", db.Integer, db.ForeignKey(add_prefix_for_prod("cards.id")), primary_key=True),
+                       )
 
 if environment == "production":
-    users_boards.schema=SCHEMA
+    usersboards.schema=SCHEMA
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -28,9 +34,14 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    users_boards = db.relationship("Board", secondary=users_boards, back_populates="boards_users")
+    users_boards = db.relationship("Board", secondary=usersboards, back_populates="boards_users")
 
     owner_boards = db.relationship("Board", back_populates="boards_owner", cascade="all, delete-orphan")
+
+    users_cards = db.relationship("Card", secondary=userscards, back_populates="cards_users")
+
+    user_comments = db.relationship("Comment", back_populates="comments_user", cascade="all, delete-orphan")
+
 
     @property
     def password(self):

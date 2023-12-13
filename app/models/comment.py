@@ -17,4 +17,16 @@ class Comment(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    comments_card = db.relationship("Card", back_populates="card_comments")
 
+    comments_user = db.relationship("User", back_populates="user_comments")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'comment_text': self.comment_text,
+            'user_id': self.user_id,
+            "card_id": self.card_id,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+        }

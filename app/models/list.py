@@ -18,6 +18,13 @@ class List(db.Model, UserMixin):
 
     lists_board = db.relationship("Board", back_populates="board_lists")
 
-    def init(self, title, board):
-        self.title = title
-        self.board = board
+    list_cards = db.relationship("Card", back_populates="cards_list")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'board_id': self.board_id,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+        }

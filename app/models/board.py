@@ -2,8 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
-from .user import users_boards
-
+from .user import usersboards
 
 class Board(db.Model, UserMixin):
     __tablename__ = 'boards'
@@ -19,7 +18,7 @@ class Board(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
-    boards_users = db.relationship("User", secondary=users_boards, back_populates="users_boards")
+    boards_users = db.relationship("User", secondary=usersboards, back_populates="users_boards")
 
     board_lists = db.relationship("List", back_populates="lists_board", cascade="all, delete-orphan")
 
