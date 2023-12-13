@@ -1,9 +1,17 @@
-
-
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
+
+users_boards = db.Table( "users_boards",
+                db.Model.metadata,
+                db.Column("users", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+                db.Column("boards", db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")), primary_key=True)
+                )
+
+if environment == "production":
+    users_boards.schema=SCHEMA
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -17,10 +25,12 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    created_at = db.Column(db.DateTime)
-    updated_at = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    users_boards = db.relationship("Board", back_populates="users_boards")
+    users_boards = db.relationship("Board", secondary=userboards, back_populates="boards_users")
+
+    owner_boards = db.relationship("Board", back_populates="boards_owner", cascade="all, delete-orphan")
 
     @property
     def password(self):
