@@ -28,7 +28,7 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    users_boards = db.relationship("Board", secondary=userboards, back_populates="boards_users")
+    users_boards = db.relationship("Board", secondary=users_boards, back_populates="boards_users")
 
     owner_boards = db.relationship("Board", back_populates="boards_owner", cascade="all, delete-orphan")
 
