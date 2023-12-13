@@ -6,14 +6,14 @@ from datetime import datetime
 
 usersboards = db.Table( "usersboards",
                         db.Model.metadata,
-                        db.Column("users", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
-                        db.Column("boards", db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")), primary_key=True)
+                        db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+                        db.Column("board_id", db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")), primary_key=True)
                         )
 
 userscards = db.Table("userscards",
                        db.Model.metadata,
-                       db.Column("users", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
-                       db.Column("cards", db.Integer, db.ForeignKey(add_prefix_for_prod("cards.id")), primary_key=True),
+                       db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+                       db.Column("card_id", db.Integer, db.ForeignKey(add_prefix_for_prod("cards.id")), primary_key=True),
                        )
 
 if environment == "production":
