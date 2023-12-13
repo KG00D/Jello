@@ -24,3 +24,14 @@ class Board(db.Model, UserMixin):
     board_lists = db.relationship("List", back_populates="lists_board", cascade="all, delete-orphan")
 
     boards_owner = db.relationship("User", back_populates="owner_boards")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'is_public': self.is_public,
+            "background_image": self.background_image,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+            "user_id": self.user_id
+        }
