@@ -26,7 +26,7 @@ def seed_users():
         hashed_password='password'
         )
     zaviar = User(
-        email='zaviar@will.io',
+        email='zaviar@zaviar.io',
         username='zaviar',
         first_name='Zaviar',
         last_name='Brown',
