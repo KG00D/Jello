@@ -1,35 +1,38 @@
-from app.models import db, User, environment, SCHEMA
+from app.models import db, Board, environment, SCHEMA
 from sqlalchemy.sql import text
-import bcrypt
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        email='demo@aa.io',
-        username='demo',
-        first_name="Demo",
-        last_name="Demo",
-        hashed_password=bcrypt.hashpw('password')
+    wish_list = Board(
+        name='Wish List',
+        is_public=True,
+        background_image="red",
+        user_id=1
         )
-    will = User(
-        email='will@will.io',
-        username='will',
-        first_name='Will',
-        last_name='Duffy',
-        password='password'
+    gift_ideas = Board(
+        name='Gift Ideas',
+        is_public=False,
+        background_image="orange",
+        user_id=2
         )
-    zaviar = User(
-        email='zaviar@will.io',
-        username='zaviar',
-        first_name='Zaviar',
-        last_name='Brown',
-        password='password'
+    chores = Board(
+        name='Chores',
+        is_public=False,
+        background_image="yellow",
+        user_id=3
+        )
+    group_project = Board(
+        name='Group Project',
+        is_public=True,
+        background_image="green",
+        user_id=3
         )
 
-    db.session.add(demo)
-    db.session.add(will)
-    db.session.add(zaviar)
+    db.session.add(wish_list)
+    db.session.add(gift_ideas)
+    db.session.add(chores)
+    db.session.add(group_project)
     db.session.commit()
 
 
