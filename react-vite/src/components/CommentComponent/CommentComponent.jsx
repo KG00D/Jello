@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom"
 import { useModal } from "../../context/Modal";
+import * as commentActions from "../../redux/comments"
 
 const Comment = () => {
   const dispatch = useDispatch()
+  const cardId = useParams()
   const comments = useSelector(state => {
     return state.comments
+  })
+
+  useEffect(() => {
+    dispatch(commentActions.getCommentsThunk(cardId))
   })
 
   if (!comments) {
