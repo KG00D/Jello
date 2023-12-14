@@ -21,7 +21,7 @@ def seed_cards():
         )
     hotwheels = Card(
         name='Hotwheels',
-        description=None,
+        description="None",
         list_id=2
         )
     macaroni = Card(
@@ -51,12 +51,12 @@ def seed_cards():
         )
     oven = Card(
         name='Clean the oven',
-        description=None,
+        description="None",
         list_id=5
         )
     vacuum = Card(
         name='Vacuum',
-        description=None,
+        description="None",
         list_id=6
         )
     tidy = Card(
@@ -66,57 +66,57 @@ def seed_cards():
         )
     vacuum2 = Card(
         name='Vacuum',
-        description=None,
+        description="None",
         list_id=7
         )
     clothes = Card(
         name='Put clothes away',
-        description=None,
+        description="None",
         list_id=7
         )
     boards = Card(
         name='Create Boards model',
-        description=None,
+        description="None",
         list_id=8
         )
     lists = Card(
         name='Create Lists model',
-        description=None,
+        description="None",
         list_id=8
         )
     cards = Card(
         name='Create Cards model',
-        description=None,
+        description="None",
         list_id=8
         )
     boards2 = Card(
         name='Seed Boards model',
-        description=None,
+        description="None",
         list_id=9
         )
     lists2 = Card(
         name='Seed Lists model',
-        description=None,
+        description="None",
         list_id=9
         )
     cards2 = Card(
         name='Seed Cards model',
-        description=None,
+        description="None",
         list_id=9
         )
     boards3 = Card(
         name='Create Boards form',
-        description=None,
+        description="None",
         list_id=10
         )
     lists3 = Card(
         name='Create Lists form',
-        description=None,
+        description="None",
         list_id=10
         )
     cards3 = Card(
         name='Create Cards form',
-        description=None,
+        description="None",
         list_id=10
         )
 

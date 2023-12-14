@@ -1,8 +1,9 @@
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
 import bcrypt
-
-
+password = 'password123'
+bytes = password.encode('utf-8')
+salt = bcrypt.gensalt()
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
@@ -10,7 +11,7 @@ def seed_users():
         username='demo',
         first_name="Demo",
         last_name="Demo",
-        hashed_password=bcrypt.hashpw('password')
+        hashed_password=bcrypt.hashpw(bytes, salt)
         )
     will = User(
         email='will@will.io',
