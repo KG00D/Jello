@@ -14,7 +14,7 @@ const Comment = () => {
 
   useEffect(() => {
     dispatch(commentActions.getCommentsThunk(cardId))
-  })
+  }, [dispatch])
 
   if (!comments) {
     return (
