@@ -1,35 +1,35 @@
-from app.models import db, User, environment, SCHEMA
+from app.models import db, Comment, environment, SCHEMA
 from sqlalchemy.sql import text
-import bcrypt
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        email='demo@aa.io',
-        username='demo',
-        first_name="Demo",
-        last_name="Demo",
-        hashed_password=bcrypt.hashpw('password')
+    comment1 = Comment(
+        comment_text='everyone loves a good hot wheel',
+        user_id=3,
+        card_id=3
         )
-    will = User(
-        email='will@will.io',
-        username='will',
-        first_name='Will',
-        last_name='Duffy',
-        password='password'
+    comment2 = Comment(
+        comment_text='seriously, that\'s a terrible idea',
+        user_id=1,
+        card_id=5
         )
-    zaviar = User(
-        email='zaviar@will.io',
-        username='zaviar',
-        first_name='Zaviar',
-        last_name='Brown',
-        password='password'
+    comment3 = Comment(
+        comment_text='don\'t forget the inside too',
+        user_id=2,
+        card_id=10
+        )
+    comment4 = Comment(
+        comment_text='only the clean clothes this time, pls',
+        user_id=2,
+        card_id=14
         )
 
-    db.session.add(demo)
-    db.session.add(will)
-    db.session.add(zaviar)
+
+    db.session.add(comment1)
+    db.session.add(comment2)
+    db.session.add(comment3)
+    db.session.add(comment4)
     db.session.commit()
 
 
