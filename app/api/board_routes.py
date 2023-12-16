@@ -6,7 +6,7 @@ board_routes = Blueprint('boards', __name__)
 
 @board_routes.route('/')
 def landing_page():
-    public_query = Board.query.filter(Bo).all()
+    public_query = Board.query.filter(Board.is_public==True).all()
     public_boards = [board.to_dict() for board in public_query]
     print(public_boards)
     # user_query = []
