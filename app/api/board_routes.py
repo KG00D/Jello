@@ -27,14 +27,14 @@ def my_boards():
 
 @board_routes.route('/<int:id>')
 def board_details(id):
-    board_query = Board.query.filter(Board.id==id).join(List).join(Card).first_or_404()
+    board_query = Board.query.filter(Board.id==id).outerjoin(List).outerjoin(Card).first_or_404()
     board_details = board_query.to_dict()
     if board_query.board_lists:
         board_details["Lists"] = [list_item.to_dict() for list_item in board_query.board_lists]
 
-    for index, list in enumerate(board_details["Lists"]):
-        if board_query.board_lists[index].list_cards:
-            board_details["Lists"][index]["Cards"] = [card.to_dict() for card in board_query.board_lists[index].list_cards]
+        for index, list in enumerate(board_details["Lists"]):
+            if board_query.board_lists[index].list_cards:
+                board_details["Lists"][index]["Cards"] = [card.to_dict() for card in board_query.board_lists[index].list_cards]
 
     return {
         "Board Details": board_details
@@ -60,5 +60,31 @@ def new_board():
     return form.errors, 401
 
 # update
+@board_routes.route('/<int:id>', methods=["PUT"])
+@login_required
+def update_board(id):
+    board = Board.query.get(id)
+    if not board:
+        return {"message": "Board not found"}
+
+    form = BoardForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        board.name = form.data["name"]
+        board.background_image = form.data["background_image"]
+        board.is_public = form.data["is_public"]
+        db.session.commit()
+        return board.to_dict()
+
+    return form.errors, 401
 
 # delete
+@board_routes.route('/<int:id>', methods=["DELETE"])
+@login_required
+def delete_board(id):
+    board = Board.query.get(id)
+    if not board:
+        return {"message": "Board not found"}
+    db.session.delete(board)
+    db.session.commit()
+    return {"message": f"Board {id} has been deleted"}
