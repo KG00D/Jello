@@ -29,7 +29,7 @@ def seed():
     seed_boards()
     seed_list()
     seed_cards()
-    seed_comments
+    seed_comments()
     # Add other seed functions here
 
 
