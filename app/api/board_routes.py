@@ -29,9 +29,12 @@ def board_details(id):
     board_query = Board.query.filter(Board.id==id).join(List).join(Card).first_or_404()
     board_details = board_query.to_dict()
     if board_query.board_lists:
-        board_details["lists"] = [list_item.to_dict() for list_item in board_query.board_lists]
+        board_details["Lists"] = [list_item.to_dict() for list_item in board_query.board_lists]
 
-    
+    for index, list in enumerate(board_details["Lists"]):
+        if board_query.board_lists[index].list_cards:
+            board_details["Lists"][index]["Cards"] = [card.to_dict() for card in board_query.board_lists[index].list_cards]
+
     return {
-        id: board_details
+        "Board Details": board_details
     }
