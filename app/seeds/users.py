@@ -16,7 +16,7 @@ def seed_users():
         username='demo',
         first_name="Demo",
         last_name="Demo",
-        hashed_password=bcrypt.hashpw(bytes, salt)
+        hashed_password='password'
         )
     will = User(
         email='will@will.io',
