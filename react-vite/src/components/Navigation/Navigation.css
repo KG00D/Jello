@@ -1,3 +1,18 @@
-.profile-dropdown {
+.profile-dropdown  {
   position: absolute;
+  top: 39px;
+  border: black solid 1px;
+  width: 100px;
+  height: 100px;
+}
+
+.navigation {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px;
+}
+
+.navigation > * a {
+  text-decoration: none;
 }
