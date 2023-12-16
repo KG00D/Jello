@@ -23,14 +23,14 @@ def seed_users():
         username='will',
         first_name='Will',
         last_name='Duffy',
-        hashed_password='password'
+        password='password'
         )
     zaviar = User(
         email='zaviar@will.io',
         username='zaviar',
         first_name='Zaviar',
         last_name='Brown',
-        hashed_password='password'
+        password='password'
         )
 
     db.session.add(demo)
