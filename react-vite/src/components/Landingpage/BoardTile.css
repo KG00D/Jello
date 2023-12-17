@@ -1,0 +1,10 @@
+.board-tile {
+  height: 100px;
+  width: 100px;
+  border: 1px black solid;
+  color: white;
+}
+
+.board-tile > a {
+  text-decoration: none;
+}
