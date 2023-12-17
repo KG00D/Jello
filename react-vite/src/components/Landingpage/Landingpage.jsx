@@ -32,8 +32,7 @@ function Landingpage() {
     setOwnedBoards(tempOwnedBoards);
     setSharedBoards(tempSharedBoards);
   }, [myBoards]);
-  console.log("owned-->", ownedBoards);
-  console.log("myboards-->", myBoards);
+
   return (
     <div className="Landing-Page">
       <h4>YOUR WORKSPACES</h4>

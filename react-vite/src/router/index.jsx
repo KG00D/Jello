@@ -2,9 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import LoginFormPage from "../components/LoginFormPage";
 import SignupFormPage from "../components/SignupFormPage";
 import Homepage from "../components/HomepageComponent";
-import Landingpage from '../components/Landingpage'
+import Landingpage from "../components/Landingpage";
 import Layout from "./Layout";
 import Cards from "../components/CardsComponent";
+import BoardDetails from "../components/BoardDetails";
 
 export const router = createBrowserRouter([
   {
@@ -28,8 +29,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "/session/boards",
-        element: <Landingpage />
-      }
+        element: <Landingpage />,
+      },
+      {
+        path: "/boards/:id",
+        element: <BoardDetails />,
+      },
     ],
   },
 ]);

@@ -19,6 +19,13 @@ const myBoards = (myBoards) => {
   };
 };
 
+const boardDetails = (boardDetails) => {
+  return {
+    type: GET_BOARD_DETAILS,
+    payload: boardDetails,
+  };
+};
+
 export const publicBoardsThunk = () => async (dispatch) => {
   const response = await fetch("/api/boards");
 
@@ -45,6 +52,19 @@ export const myBoardsThunk = () => async (dispatch) => {
   }
 };
 
+export const boardDetailsThunk = (id) => async (dispatch) => {
+  const response = await fetch(`/api/boards/${id}`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(boardDetails(data.Board_Details));
+    return data;
+  } else {
+    const error = await response.json();
+    return error;
+  }
+};
+
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
 function boardReducer(boards = initialState, action) {
@@ -52,15 +72,23 @@ function boardReducer(boards = initialState, action) {
   switch (action.type) {
     case GET_PUBLIC_BOARDS:
       newBoards = { ...boards };
+      newBoards.publicBoards = {};
       action.payload.forEach((board) => {
         newBoards.publicBoards[board.id] = board;
       });
       return newBoards;
     case GET_MY_BOARDS:
       newBoards = { ...boards };
+      newBoards.myBoards = {};
       action.payload.forEach((board) => {
         newBoards.myBoards[board.id] = board;
       });
+      return newBoards;
+    case GET_BOARD_DETAILS:
+      newBoards = { ...boards };
+      newBoards.boardDetails = {};
+      newBoards.boardDetails[action.payload.id] = action.payload;
+
       return newBoards;
     default:
       return boards;

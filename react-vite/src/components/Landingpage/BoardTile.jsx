@@ -1,19 +1,17 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./BoardTile.css";
 
 function BoardTile({ board }) {
   let { background_image, name, id } = board;
+  console.log(background_image);
   return (
-    <div className="board-tile">
-      <Link to={`/boards/${id}`}>
-        <div
-          className="board-tile"
-          style={{ backgroundColor: background_image }}
-        >
-          {name}
-        </div>
-      </Link>
-    </div>
+    <NavLink
+      to={`/boards/${id}`}
+      className="board-tile"
+      style={{ backgroundColor: background_image }}
+    >
+      {name}
+    </NavLink>
   );
 }
 
