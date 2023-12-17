@@ -6,6 +6,6 @@ html {
 
 }
 
-button {
+button, .login-signup {
   cursor: pointer;
 }
