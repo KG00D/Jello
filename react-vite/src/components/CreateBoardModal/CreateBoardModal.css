@@ -1,0 +1,6 @@
+.create-board {
+  position: absolute;
+  border: solid black 1px;
+  height: 300px;
+  width: 200px;
+}
