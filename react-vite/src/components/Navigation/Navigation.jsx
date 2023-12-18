@@ -4,9 +4,9 @@ import "./Navigation.css";
 
 function Navigation() {
   return (
-    <ul>
+    <ul className = "navigation">
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/">Jello</NavLink>
       </li>
 
       <li>

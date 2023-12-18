@@ -1,7 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom';
-import LoginFormPage from '../components/LoginFormPage';
-import SignupFormPage from '../components/SignupFormPage';
-import Layout from './Layout';
+import { createBrowserRouter } from "react-router-dom";
+import LoginFormPage from "../components/LoginFormPage";
+import SignupFormPage from "../components/SignupFormPage";
+import Homepage from "../components/HomepageComponent";
+import Landingpage from "../components/Landingpage";
+import Layout from "./Layout";
+import Cards from "../components/CardsComponent";
+import BoardDetails from "../components/BoardDetails";
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +13,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <Homepage />,
       },
       {
         path: "login",
@@ -18,6 +22,18 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "cards",
+        element: <Cards />,
+      },
+      {
+        path: "/session/boards",
+        element: <Landingpage />,
+      },
+      {
+        path: "/boards/:id",
+        element: <BoardDetails />,
       },
     ],
   },
