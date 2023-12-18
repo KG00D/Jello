@@ -1,7 +1,73 @@
 .create-board {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   border: solid black 1px;
-  height: 300px;
+  height: 350px;
   width: 200px;
   background-color: white;
+  padding: 10px;
+}
+.create-board > h4 {
+  margin: 0px;
+  margin-bottom: 5px;
+}
+.preview-1 {
+  background-color: white;
+  height: 60px;
+  width: 30px;
+  display: flex;
+  border: 3px rgb(236, 234, 234) solid;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+.preview-2 {
+    background-color: white;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    border: 3px rgb(236, 234, 234) solid;
+    position: absolute;
+    top: 40px;
+    left: 95px;
+  }
+  .preview-3 {
+    background-color: white;
+    height: 60px;
+    width: 30px;
+    display: flex;
+    border: 3px rgb(236, 234, 234) solid;
+    position: absolute;
+    top: 40px;
+    left: 150px;
+  }
+.create-board > h5 {
+  margin-bottom: 3px;
+}
+input[type="radio"] {
+  display: none;
+}
+.preview-board {
+  display: flex;
+  height: 100px;
+  width: 180px;
+  margin: 0px auto;
+}
+input[type="radio"]:checked + .radio-label {
+  border: 3px solid black;
+}
+
+label.radio-label {
+  box-sizing: border-box;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+}
+
+.background-colors {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
