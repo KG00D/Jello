@@ -11,7 +11,7 @@ class Comment(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    comment_text = db.Column(db.Text(1000), nullable=False)
+    comment_text = db.Column(db.String(256), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     card_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("cards.id")), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
