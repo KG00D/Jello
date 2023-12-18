@@ -11,7 +11,7 @@ def public_boards():
     public_query = Board.query.filter(Board.is_public==True).all()
     public_boards = [board.to_dict() for board in public_query]
     return {
-        "Public Boards": public_boards,
+        "Public_Boards": public_boards,
     }
 
 @board_routes.route('/session')
@@ -22,7 +22,7 @@ def my_boards():
         my_query = Board.query.filter(Board.user_id == current_user.id).all()
         my_boards = [board.to_dict() for board in my_query]
     return {
-        "My Boards": my_boards
+        "My_Boards": my_boards
     }
 
 @board_routes.route('/<int:id>')
@@ -37,7 +37,7 @@ def board_details(id):
                 board_details["Lists"][index]["Cards"] = [card.to_dict() for card in board_query.board_lists[index].list_cards]
 
     return {
-        "Board Details": board_details
+        "Board_Details": board_details
     }
 
 # post

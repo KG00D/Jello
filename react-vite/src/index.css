@@ -1,11 +1,10 @@
 /* TODO: Add sitewide styles */
 html {
-  max-width: 1000px;
+
   margin: 0px auto;
-  margin-bottom: 100px;
 
 }
 
-button {
+button, .login-signup {
   cursor: pointer;
 }
