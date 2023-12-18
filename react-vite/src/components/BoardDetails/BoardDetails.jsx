@@ -15,8 +15,9 @@ function BoardDetails() {
 
   if (!boardDetails) return <div></div>;
 
-  const { name, background_image, Lists } = boardDetails;
-  console.log("-->", Lists);
+  const { name, background_image } = boardDetails;
+  let Lists = {};
+  if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
   return (
     <div
       className="board-details"

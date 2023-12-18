@@ -1,6 +1,7 @@
 .profile-dropdown  {
   position: absolute;
-  top: 39px;
+  top: 40px;
+  right: 10px;
   border: black solid 1px;
   width: 100px;
   height: 100px;
