@@ -1,14 +1,11 @@
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
-import bcrypt
 import os
 
 password = os.environ.get('DEMO_USER_PASSWORD')
 if not password:
     raise ValueError("No password set for demo user in environment variables")
 
-bytes = password.encode('utf-8')
-salt = bcrypt.gensalt()
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
@@ -16,7 +13,7 @@ def seed_users():
         username='demo',
         first_name="Demo",
         last_name="Demo",
-        hashed_password='password'
+        password='password'
         )
     will = User(
         email='will@will.io',

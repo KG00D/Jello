@@ -65,7 +65,7 @@ def upgrade():
     op.create_table('cards',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=64), nullable=False),
-    sa.Column('description', sa.Text(), nullable=False),
+    sa.Column('description', sa.String(), nullable=False),
     sa.Column('list_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
@@ -74,7 +74,7 @@ def upgrade():
     )
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('comment_text', sa.Text(length=1000), nullable=False),
+    sa.Column('comment_text', sa.String(length=256), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('card_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
