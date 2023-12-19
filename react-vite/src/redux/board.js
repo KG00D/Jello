@@ -26,6 +26,13 @@ const boardDetails = (boardDetails) => {
   };
 };
 
+const addBoard = (newBoard) => {
+  return {
+    type: ADD_BOARD,
+    payload: newBoard,
+  };
+};
+
 export const publicBoardsThunk = () => async (dispatch) => {
   const response = await fetch("/api/boards");
 
@@ -65,6 +72,21 @@ export const boardDetailsThunk = (id) => async (dispatch) => {
   }
 };
 
+export const newBoardThunk =
+  ({ name, is_public, background_image, user_id }) =>
+  async (dispatch) => {
+    //addboard details to be continued
+    const response = await fetch("");
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(addBoard(data));
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  };
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
 function boardReducer(boards = initialState, action) {
