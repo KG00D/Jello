@@ -1,4 +1,4 @@
-.profile-dropdown  {
+.profile-dropdown {
   position: absolute;
   top: 40px;
   right: 10px;
@@ -16,4 +16,13 @@
 
 .navigation > * a {
   text-decoration: none;
+}
+
+.new-board-button {
+  background-color: rgb(96, 188, 255);
+  font-weight: bold;
+  border: 1px black solid;
+  border-radius: 5px;
+  height: 35px;
+  width: 70px;
 }
