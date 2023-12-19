@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import List, Board, db
+from app.models import List, Board, Card, db
 from flask import current_app
+from app.forms.card_form import CardForm
 
 lists_routes = Blueprint('lists', __name__)
 
@@ -56,3 +57,37 @@ def delete_list(board_id, list_id):
     db.session.delete(lst)
     db.session.commit()
     return jsonify({'message': 'List deleted successfully'}), 200
+
+@lists_routes.route("/lists/<int:list_id>/cards")
+@login_required
+def view_all_cards(list_id):
+    cards = Card.query.filter(Card.list_id == list_id).all()
+    response = []
+    for single_card in cards:
+        card_dict = single_card.to_dict()
+        response.append(card_dict)
+    if len(response) == 0:
+        return { "Cards": None }
+    return { "Cards": response }
+
+@lists_routes.route("/lists/<int:list_id>/cards", methods=["POST"])
+@login_required
+def create_new_card(list_id):
+    form = CardForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    list_query = List.query.filter(List.id == list_id).all()
+    
+    if not list_query:
+        return { "message": "List does not exist" }
+
+    list_query_list = [list_query[0].to_dict()]
+    if form.validate_on_submit():
+        card_data = request.json
+        new_card = Card(
+            name=card_data["name"],
+            description=card_data["description"],
+            list_id= list_query_list[0]["id"])
+
+        db.session.add(new_card)
+        db.session.commit()
+        return { "Card": new_card.to_dict() }
