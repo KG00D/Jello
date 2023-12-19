@@ -91,3 +91,5 @@ def create_new_card(list_id):
         db.session.add(new_card)
         db.session.commit()
         return { "Card": new_card.to_dict() }
+
+

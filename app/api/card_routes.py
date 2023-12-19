@@ -4,37 +4,25 @@ from .user_routes import login_required
 from ..forms import card_form
 
 card_routes = Blueprint("cards", __name__)
-
-##needs to be in lists router
-# @card_routes.route("/:id/cards", methods=["POST"])
-# @login_required
-# def create_new_card(list_id):
-#     form = CardForm()
-#     lst = List.query.filter(List.list_id == list_id)
-#     if len(lst) == 0:
-#         return jsonify({"message": "List does not exist"})
-#     if form.validate_on_submit():
-#         new_card = Card(
-#             name=form.data["name"],
-#             description=form.data["description"],
-#             list_id=lst["id"])
-#         db.session.add(new_card)
-#         db.session.commit()
-#         return new_card
     
-@card_routes.route("/:id", methods=["PUT"])
+@card_routes.route("/<int:card_id>", methods=["PUT"])
 @login_required
 def update_card(card):
-    card_data = request.json
+    print(card, '-----card in update_card route')
     form = CardForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     card = Card.query.filter(Card.id == card["id"])
+    if not card:
+        return { "message": "Card does not exist" }
+    
     if form.validate_on_submit():
-        card.name = form.data["name"]
-        card.description = form.data["description"]
+        card_data = request.json
+        card.name = card_data["name"]
+        card.description = card_data["description"]
         db.session.commit()
-    ##TO DO members##
-    card = Card.query.filter(Card.id == card["id"])
-    return card
+    card = Card.query.filter(Card.id == card["id"]).all()
+    card_dict = [card[0].to_dict()][0]
+    return { "Card": card_dict}
 
 @card_routes.route("/:id", methods=["DELETE"])
 @login_required

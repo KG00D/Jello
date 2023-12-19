@@ -1,4 +1,4 @@
-import { GET_CARDS, ADD_CARD, EDIT_CARD, DELETE_CARD } from './actionTypes';
+import { GET_CARD, GET_CARDS, ADD_CARD, EDIT_CARD, DELETE_CARD } from './actionTypes';
 
 const getCards = (cards) => {
     return {
@@ -7,9 +7,9 @@ const getCards = (cards) => {
     }
 }
 
-const addCard = (card) => {
+const getCard = (card) => {
     return {
-        type: ADD_CARD,
+        type: GET_CARD,
         payload: card
     }
 }
@@ -56,6 +56,33 @@ export const addCardThunk = (data) => async (dispatch) => {
    }
 }
 
+export const updateCardThunk = (card) => async (dispatch) => {
+    console.log(card, '---- card in updatedCardThunk')
+    const fetchObj = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(card) 
+   } 
+
+   const res = await fetch(`/cards/${card.id}`, fetchObj)
+
+   if (res.ok) {
+    const updatedCard = res.json()
+        if (updatedCard.message) {
+            return updatedCard.message
+        } else {
+            console.log(updatedCard, 'updatedCard -----updatedCard in updatedCardThunk')
+            dispatch(getCard(updatedCard))
+            return updatedCard
+        }
+   } else {
+    const error = res.json()
+    return error
+   }
+}
+
 const initialState = {
     Cards: {}
 }
@@ -65,6 +92,9 @@ function cardReducer(cards = initialState, action) {
         case GET_CARDS:
             let newState = { Cards: action.payload.Cards }
             return newState;
+        case GET_CARD:
+            let cardState = { Cards: action.payload.Cards}
+            return cardState
         default:
             return cards
     }
