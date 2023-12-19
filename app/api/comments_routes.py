@@ -49,6 +49,16 @@ def post_comment_on_card(card_id):
   card = Card.query.get(card_id)
   form = CommentForm()
 
+  # print('\n','request.data: ', request.data)
+  # print('\n','request.form: ', request.form)
+  # print('\n','request.method: ', request.method)
+  # print('\n','request.url: ', request.url)
+  print('\n','request.values: ', request.values)
+
+  print('\n', 'current_user: ', current_user)
+  print('\n', 'dir(current_user): ', dir(current_user))
+  print('\n', 'current_user.get_id(): ', current_user.get_id())
+
   if not card:
     return {
       "message": "Card does not exist"
@@ -57,7 +67,7 @@ def post_comment_on_card(card_id):
   if form.validate_on_submit():
     new_comment = Comment(
       comment_text = form.data['comment_text'],
-      user_id = current_user.get_id(),
+      user_id = current_user.id,
       card_id = card_id
     )
     db.session.add(new_comment)
@@ -84,7 +94,7 @@ def edit_a_comment(comment_id):
   if form.validate_on_submit():
     updated_comment = Comment(
       comment_text = form.data['comment_text'],
-      user_id = current_user.get_id(),
+      user_id = current_user.id,
       card_id = existing_comment['card_id']
     )
     db.session.commit()
