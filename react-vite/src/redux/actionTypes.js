@@ -9,3 +9,7 @@ export const GET_CARD = 'GET_CARD';
 export const ADD_CARD = 'ADD_CARD';
 export const EDIT_CARD = 'EDIT_CARD';
 export const DELETE_CARD = 'DELETE_CARD';
+export const GET_COMMENTS = 'GET_COMMENTS'
+export const POST_COMMENT = 'POST_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
