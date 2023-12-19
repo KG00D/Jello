@@ -16,21 +16,21 @@ def seed_users():
         username='demo',
         first_name="Demo",
         last_name="Demo",
-        hashed_password=bcrypt.hashpw(bytes, salt)
+        hashed_password='password'
         )
     will = User(
         email='will@will.io',
         username='will',
         first_name='Will',
         last_name='Duffy',
-        hashed_password='password'
+        password='password'
         )
     zaviar = User(
         email='zaviar@zaviar.io',
         username='zaviar',
         first_name='Zaviar',
         last_name='Brown',
-        hashed_password='password'
+        password='password'
         )
 
     db.session.add(demo)
