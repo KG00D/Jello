@@ -7,13 +7,12 @@ const getComments = (data) => {
   }
 }
 
-export const getCommentsThunk = (id) => async (dispatch) => {
-  console.log('-----------------------------------------in getCommentsThunk')
+export const getCommentsThunk = (cardId) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/cards/${id}/comments`)
+    const response = await fetch(`/api/cards/${+cardId}/comments`)
 
     const data = await response.json()
-    dispatch(getComments(response))
+    dispatch(getComments(data))
     return data
   } catch (error) {
     return error
