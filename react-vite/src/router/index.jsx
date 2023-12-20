@@ -7,6 +7,7 @@ import Layout from "./Layout";
 import Cards from "../components/CardsComponent";
 import BoardDetails from "../components/BoardDetails";
 import Comment from "../components/CommentComponent/CommentComponent";
+import CreateComment from "../components/CreateCommentComponent/CreateCommentComponent";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/comments/:cardId",
         element: <Comment />,
+      },
+      {
+        path: "/comments/:cardId/create",
+        element: <CreateComment />,
       },
     ],
   },

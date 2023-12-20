@@ -7,6 +7,13 @@ const getComments = (data) => {
   }
 }
 
+const postComment = (data) => {
+  return {
+    type: POST_COMMENT,
+    payload: data
+  }
+}
+
 export const getCommentsThunk = (cardId) => async (dispatch) => {
   try {
     const response = await fetch(`/api/cards/${+cardId}/comments`)
@@ -19,9 +26,9 @@ export const getCommentsThunk = (cardId) => async (dispatch) => {
   }
 }
 
-export const postCommentThunk = (id, commentForm) => async (dispatch) => {
+export const postCommentThunk = (cardId, commentForm) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/cards/${id}/comments`, {
+    const response = await fetch(`/api/cards/${cardId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -30,7 +37,7 @@ export const postCommentThunk = (id, commentForm) => async (dispatch) => {
     })
 
     const data = await response.json()
-    dispatch({ type: POST_COMMENT, payload: data})
+    dispatch(postComment(data))
     return data
   } catch (error) {
     return error

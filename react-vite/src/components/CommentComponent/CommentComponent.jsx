@@ -19,7 +19,7 @@ const Comment = () => {
     dispatch(commentActions.getCommentsThunk(cardId))
   }, [dispatch])
 
-  let commentsArrVals = Object.values(comments)
+  let revCommentsArrVals = Object.values(comments).reverse()
 
   if (!comments) {
     return (
@@ -30,7 +30,7 @@ const Comment = () => {
       <div>
         <h1>Comments:</h1>
 
-        {commentsArrVals.map((comment) => {
+        {revCommentsArrVals.map((comment) => {
           let updatedDateSplit = new Date(comment.updated_at).toDateString().split(' ')
           let updatedTimeSplit = new Date(comment.updated_at).toTimeString().split(' ')
           let dateDay = updatedDateSplit[0]
@@ -42,10 +42,10 @@ const Comment = () => {
           let postedHour
           let meridiem
           if (timeHour < 12) {
-            postedHour = hourArrAM[timeHour]
+            postedHour = hourArrAM[+timeHour]
             meridiem = 'AM'
           } else {
-            postedHour = hourArrPM[timeHour - 12]
+            postedHour = hourArrPM[+timeHour - 12]
             meridiem = 'PM'
           }
           let postedMinute = timeTimeSplit[1]
@@ -56,8 +56,8 @@ const Comment = () => {
               <div>{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
               <div>{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
               <div>{comment.comment_text}</div>
-              <div>edit button</div>
-              <div>delete button</div>
+              <button>Edit</button>
+              <button>Delete</button>
             </div>
 
           )

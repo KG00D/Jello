@@ -40,6 +40,7 @@ def get_all_comments_for_card(card_id):
 def post_comment_on_card(card_id):
   card = Card.query.get(card_id)
   form = CommentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
 
   if not card:
     return {
