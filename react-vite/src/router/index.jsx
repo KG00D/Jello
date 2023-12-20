@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
-        path: "cards",
+        path: "/cards",
         element: <Cards />,
       },
       {
