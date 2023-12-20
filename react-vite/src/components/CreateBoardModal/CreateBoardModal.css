@@ -3,7 +3,8 @@
   flex-direction: column;
   position: absolute;
   border: solid black 1px;
-  height: 350px;
+  height: 400px;
+
   width: 200px;
   background-color: white;
   padding: 10px;
@@ -23,25 +24,25 @@
   left: 40px;
 }
 .preview-2 {
-    background-color: white;
-    height: 30px;
-    width: 30px;
-    display: flex;
-    border: 3px rgb(236, 234, 234) solid;
-    position: absolute;
-    top: 40px;
-    left: 95px;
-  }
-  .preview-3 {
-    background-color: white;
-    height: 60px;
-    width: 30px;
-    display: flex;
-    border: 3px rgb(236, 234, 234) solid;
-    position: absolute;
-    top: 40px;
-    left: 150px;
-  }
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  border: 3px rgb(236, 234, 234) solid;
+  position: absolute;
+  top: 40px;
+  left: 95px;
+}
+.preview-3 {
+  background-color: white;
+  height: 60px;
+  width: 30px;
+  display: flex;
+  border: 3px rgb(236, 234, 234) solid;
+  position: absolute;
+  top: 40px;
+  left: 150px;
+}
 .create-board > h5 {
   margin-bottom: 3px;
 }
@@ -71,3 +72,10 @@ label.radio-label {
   justify-content: center;
   align-items: center;
 }
+.create-board-button {
+  background-color: darkslategray;
+  color: lightgray;
+  margin: 15px 0px;
+  height: 40px;
+}
+

@@ -11,7 +11,7 @@ function BoardDetails() {
 
   useEffect(() => {
     dispatch(boardDetailsThunk(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   if (!boardDetails) return <div></div>;
 
