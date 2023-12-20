@@ -1,4 +1,4 @@
-import { GET_CARD, GET_CARDS, ADD_CARD, EDIT_CARD, DELETE_CARD } from './actionTypes';
+import { GET_CARD, GET_CARDS, ADD_CARD, EDIT_CARD, DELETE_CARD, CARD_ERROR } from './actionTypes';
 
 const getCards = (cards) => {
     return {
@@ -11,6 +11,20 @@ const getCard = (card) => {
     return {
         type: GET_CARD,
         payload: card
+    }
+}
+
+const cardError = (error) => {
+    return {
+        type: CARD_ERROR,
+        payload: error
+    }
+}
+
+const deleteCard = (message) => {
+    return {
+        type: DELETE_CARD,
+        payload: message
     }
 }
 
@@ -46,6 +60,7 @@ export const addCardThunk = (data) => async (dispatch) => {
    if (res.ok) {
     const newCard = await res.json()
     if (newCard.message) {
+        dispatch(cardError(newCard))
         return newCard.message
     }
     dispatch(getCardsThunk(listId))
@@ -56,8 +71,7 @@ export const addCardThunk = (data) => async (dispatch) => {
    }
 }
 
-export const updateCardThunk = (card) => async (dispatch) => {
-    console.log(card, '---- card in updatedCardThunk')
+export const editCardThunk = (card) => async (dispatch) => {
     const fetchObj = {
         method: "PUT",
         headers: {
@@ -66,20 +80,42 @@ export const updateCardThunk = (card) => async (dispatch) => {
         body: JSON.stringify(card) 
    } 
 
-   const res = await fetch(`/cards/${card.id}`, fetchObj)
+   const res = await fetch(`/api/cards/${card.id}`, fetchObj)
 
    if (res.ok) {
-    const updatedCard = res.json()
+    const updatedCard = await res.json()
         if (updatedCard.message) {
-            return updatedCard.message
+            dispatch(cardError(updatedCard))
+            return updatedCard
         } else {
-            console.log(updatedCard, 'updatedCard -----updatedCard in updatedCardThunk')
             dispatch(getCard(updatedCard))
             return updatedCard
         }
    } else {
-    const error = res.json()
+    const error = await res.json()
     return error
+   }
+}
+
+export const deleteCardThunk = (cardId) => async (dispatch) => {
+    const fetchObj = {
+        method: "DELETE",
+   } 
+   const res = await fetch(`/api/cards/${cardId}`, fetchObj)
+
+   if (res.ok) {
+        const message = await res.json()
+        console.log(message)
+        if (message.message === "Card does not exist") {
+            dispatch(cardError(message))
+        } else {
+            dispatch(deleteCard(message))
+        }
+        return message
+   } else {
+        const error = await res.json()
+        dispatch(cardError(error))
+        return error
    }
 }
 
@@ -95,6 +131,12 @@ function cardReducer(cards = initialState, action) {
         case GET_CARD:
             let cardState = { Cards: action.payload.Cards}
             return cardState
+        case CARD_ERROR:
+            let errorState = { Error: action.payload}
+            return errorState
+        case DELETE_CARD:
+            let messageState = { Deleted: action.payload}
+            return messageState
         default:
             return cards
     }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCardsThunk, addCardThunk, updateCardThunk } from '../../redux/cards';
+import { getCardsThunk, addCardThunk, editCardThunk, deleteCardThunk } from '../../redux/cards';
 
 const Cards = ({listId}) => {
     const dispatch = useDispatch();
@@ -10,12 +10,8 @@ const Cards = ({listId}) => {
     //LIST ID IS HARD CODED - NEEDS TO CHANGE
     //getCardsThunk takes list id as a string
     useEffect(() => {
-        dispatch(updateCardThunk({
-            name: "Make cranberry pie",
-            description: "Make 20 cranberry pies for christmas eve.",
-            id: 112
-        }))
-    }, [dispatch])
+        dispatch(deleteCardThunk("25"))
+    }, [dispatch, listId])
 
     let updatedCard = {
         listId: 1,
