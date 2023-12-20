@@ -11,6 +11,7 @@ const Comment = () => {
   const comments = useSelector(state => {
     return state.comments
   })
+  console.log('cardId: ', cardId)
 
   useEffect(() => {
     dispatch(commentActions.getCommentsThunk(cardId))
