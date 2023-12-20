@@ -88,6 +88,7 @@ export const newBoardThunk = (newBoard) => async (dispatch) => {
     return error;
   }
 };
+
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
 function boardReducer(boards = initialState, action) {

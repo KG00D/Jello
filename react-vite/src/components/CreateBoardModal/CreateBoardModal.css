@@ -4,6 +4,7 @@
   position: absolute;
   border: solid black 1px;
   height: 400px;
+
   width: 200px;
   background-color: white;
   padding: 10px;
@@ -71,10 +72,10 @@ label.radio-label {
   justify-content: center;
   align-items: center;
 }
-
 .create-board-button {
   background-color: darkslategray;
   color: lightgray;
   margin: 15px 0px;
   height: 40px;
 }
+
