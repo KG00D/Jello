@@ -46,6 +46,7 @@ export const getCardsThunk = (listId) => async (dispatch) => {
     }
 }
 
+
 export const addCardThunk = (data) => async (dispatch) => {
    const { listId, card } = data
    const fetchObj = {
