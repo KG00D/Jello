@@ -6,6 +6,7 @@ import Landingpage from "../components/Landingpage";
 import Layout from "./Layout";
 import Cards from "../components/CardsComponent";
 import BoardDetails from "../components/BoardDetails";
+import Comment from "../components/CommentComponent/CommentComponent";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/boards/:id",
         element: <BoardDetails />,
+      },
+      {
+        path: "/comments/:id",
+        element: <Comment />,
       },
     ],
   },

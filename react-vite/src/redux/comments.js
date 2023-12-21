@@ -1,11 +1,19 @@
 import { GET_COMMENTS, POST_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from './actionTypes';
 
+const getComments = (data) => {
+  return {
+    type: GET_COMMENTS,
+    payload: data
+  }
+}
+
 export const getCommentsThunk = (id) => async (dispatch) => {
+  console.log('-----------------------------------------in getCommentsThunk')
   try {
     const response = await fetch(`/api/cards/${id}/comments`)
 
     const data = await response.json()
-    dispatch({ type: GET_COMMENTS, payload: data})
+    dispatch(getComments(response))
     return data
   } catch (error) {
     return error
@@ -45,7 +53,7 @@ const commentReducer = (state = initialState, action) => {
       const newComment = action.payload
       newState[newComment.id] = newComment
       return newState
-    default: 
+    default:
       return state
   }
 }
