@@ -116,6 +116,11 @@ export const deleteCardThunk = (cardId) => async (dispatch) => {
    }
 }
 
+export const getCardThunk = (card) => async (dispatch) => {
+    dispatch(getCard(card))
+    return card
+}
+
 const initialState = {
     Cards: {}
 }
@@ -126,7 +131,7 @@ function cardReducer(cards = initialState, action) {
             let newState = { Cards: action.payload.Cards }
             return newState;
         case GET_CARD:
-            let cardState = { Cards: action.payload.Cards}
+            let cardState = { Card: action.payload}
             return cardState
         case CARD_ERROR:
             let errorState = { Error: action.payload}
