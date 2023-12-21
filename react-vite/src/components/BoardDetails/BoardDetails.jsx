@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { boardDetailsThunk } from "../../redux/board";
+import { useParams } from "react-router-dom";
+import ListEditModal from "../ListEditModal";
+import { boardDetailsThunk } from "../../redux/board"; 
+import { deleteList } from "../../redux/lists";
 import "./BoardDetails.css";
 
 function BoardDetails() {
@@ -11,34 +13,37 @@ function BoardDetails() {
 
   useEffect(() => {
     dispatch(boardDetailsThunk(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
-  if (!boardDetails) return <div></div>;
+  const handleDelete = (listId) => {
+    dispatch(deleteList(id, listId)); 
+    dispatch(boardDetailsThunk(id));
+  };
 
-  const { name, background_image } = boardDetails;
-  let Lists = {};
-  if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
+  if (!boardDetails) return <div>Loading...</div>;
+
+  const { name, background_image, Lists } = boardDetails;
+
   return (
-    <div
-      className="board-details"
-      style={{ backgroundColor: background_image }}
-    >
+    <div className="board-details" style={{ backgroundColor: background_image }}>
       <h4>Board Name: {name}</h4>
-      {Object.values(Lists).map((list) => {
-        return (
-          <>
+      <div className='lists-container'>
+        {Lists && Object.values(Lists).map((list) => (
+          <div key={list.id} className="list-container">
             <h4>List: {list.title}</h4>
-            {Object.values(list.Cards).map((card) => {
-              return (
-                <>
-                  <h5>Card Name: {card.name}</h5>
-                  <p>Card Description: {card.description}</p>
-                </>
-              );
-            })}
-          </>
-        );
-      })}
+            <button onClick={() => handleDelete(list.id)}>Delete List</button>
+            {list.Cards && Object.values(list.Cards).map((card) => (
+              <div key={card.id}>
+                <h5>Card Name: {card.name}</h5>
+                <p>Card Description: {card.description}</p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className="modal-container">
+        <ListCreateModal boardId={id} />
+      </div>
     </div>
   );
 }
