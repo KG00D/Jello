@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import ListCreateModal from "../ListsComponent";
+import ListCreateModal from "../ListsCreateModal";
 import { boardDetailsThunk } from "../../redux/board"; 
 import { deleteList } from "../../redux/lists";
 import "./BoardDetails.css";
@@ -49,3 +49,6 @@ function BoardDetails() {
 }
 
 export default BoardDetails;
+
+
+
