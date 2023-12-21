@@ -11,7 +11,6 @@ const removeUser = () => ({
 });
 
 export const thunkAuthenticate = () => async (dispatch) => {
-  console.log('in thunk Authenticate dispatch, ---front')
 	const response = await fetch("/api/auth/");
 	if (response.ok) {
 		const data = await response.json();

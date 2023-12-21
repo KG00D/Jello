@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import CreateBoardModal from "../CreateBoardModal";
@@ -8,9 +9,11 @@ import { useModal } from "../../context/Modal";
 function Navigation() {
   const { setModalContent } = useModal();
   const [showMenu, setShowMenu] = useState(false);
+  const user = useSelector((store) => store.session.user);
+
   const ulRef = useRef();
   const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+    e.stopPropagation();
     setShowMenu(!showMenu);
   };
 
@@ -31,10 +34,16 @@ function Navigation() {
   return (
     <ul className="navigation">
       <li>
-        <NavLink to="/">Jello</NavLink>
+        {user ? (
+          <NavLink to="/session/boards">Jello</NavLink>
+        ) : (
+          <NavLink to="/">Jello</NavLink>
+        )}
       </li>
       <li>
-        <button className="new-board-button" onClick={toggleMenu}>Board+</button>
+        <button className="new-board-button" onClick={toggleMenu}>
+          Board+
+        </button>
         {showMenu && <CreateBoardModal />}
       </li>
       <li>

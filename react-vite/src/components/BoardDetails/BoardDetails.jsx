@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
+import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { boardDetailsThunk } from "../../redux/board";
+import { boardDetailsThunk, deleteBoardThunk } from "../../redux/board";
+import DeleteBoardModal from "./DeleteBoardModal";
 import "./BoardDetails.css";
 
 function BoardDetails() {
+  const { setModalContent } = useModal();
   const dispatch = useDispatch();
+ 
   const { id } = useParams();
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
 
@@ -14,6 +18,12 @@ function BoardDetails() {
   }, [dispatch, id]);
 
   if (!boardDetails) return <div></div>;
+
+  const deleteBoard = async (e) => {
+    e.preventDefault();
+    setModalContent(<DeleteBoardModal id={id} />);
+
+  };
 
   const { name, background_image } = boardDetails;
   let Lists = {};
@@ -39,6 +49,9 @@ function BoardDetails() {
           </>
         );
       })}
+      <button className="delete-board" onClick={deleteBoard}>
+        Delete Board
+      </button>
     </div>
   );
 }

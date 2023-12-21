@@ -29,12 +29,9 @@ const deleteCard = (message) => {
 }
 
 export const getCardsThunk = (listId) => async (dispatch) => {
-    console.log('in getCardsThunk, frontend')
     const res = await fetch(`/api/lists/${listId}/cards`)
-    console.log('in get cards thunk after fetch, frontend')
     if (res.ok) {
         const cards = await res.json()
-        console.log(cards, '----cards in getCard thunk after res.ok')
         if (!cards.Cards) {
             return undefined
         }
@@ -54,7 +51,7 @@ export const addCardThunk = (data) => async (dispatch) => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(card) 
+        body: JSON.stringify(card)
    }
    const res = await fetch(`/api/lists/${listId}/cards`, fetchObj)
 
@@ -78,8 +75,8 @@ export const editCardThunk = (card) => async (dispatch) => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(card) 
-   } 
+        body: JSON.stringify(card)
+   }
 
    const res = await fetch(`/api/cards/${card.id}`, fetchObj)
 
@@ -101,12 +98,11 @@ export const editCardThunk = (card) => async (dispatch) => {
 export const deleteCardThunk = (cardId) => async (dispatch) => {
     const fetchObj = {
         method: "DELETE",
-   } 
+   }
    const res = await fetch(`/api/cards/${cardId}`, fetchObj)
 
    if (res.ok) {
         const message = await res.json()
-        console.log(message)
         if (message.message === "Card does not exist") {
             dispatch(cardError(message))
         } else {
