@@ -10,8 +10,8 @@ function Navigation() {
   const { setModalContent } = useModal();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
-
   const ulRef = useRef();
+
   const toggleMenu = (e) => {
     e.stopPropagation();
     setShowMenu(!showMenu);
@@ -41,7 +41,7 @@ function Navigation() {
         )}
       </li>
       <li>
-        <button className="new-board-button" onClick={toggleMenu}>
+        <button className="new-board-button" onClick={toggleMenu} ref={ulRef}>
           Board+
         </button>
         {showMenu && <CreateBoardModal />}

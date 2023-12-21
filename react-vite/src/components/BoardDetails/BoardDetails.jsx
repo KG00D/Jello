@@ -9,23 +9,33 @@ import "./BoardDetails.css";
 function BoardDetails() {
   const { setModalContent } = useModal();
   const dispatch = useDispatch();
- 
   const { id } = useParams();
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
+  const [boardName, setBoardName] = useState("");
 
   useEffect(() => {
     dispatch(boardDetailsThunk(id));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (!boardDetails) return;
+    setBoardName(boardDetails.name);
+  }, [boardDetails]);
 
   if (!boardDetails) return <div></div>;
 
   const deleteBoard = async (e) => {
     e.preventDefault();
     setModalContent(<DeleteBoardModal id={id} />);
+  };
 
+  const updateTitle = async (e) => {
+    //add update board title thunk
+    console.log("updated");
   };
 
   const { name, background_image } = boardDetails;
+
   let Lists = {};
   if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
   return (
@@ -33,7 +43,15 @@ function BoardDetails() {
       className="board-details"
       style={{ backgroundColor: background_image }}
     >
-      <h4>Board Name: {name}</h4>
+      <h4>
+        Board Name:{" "}
+        <input
+          className="live-board-title"
+          value={boardName}
+          onChange={(e) => setBoardName(e.target.value)}
+          onBlur={(e) => updateTitle()}
+        />
+      </h4>
       {Object.values(Lists).map((list) => {
         return (
           <>

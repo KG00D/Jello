@@ -1,4 +1,10 @@
 .board-details {
-    /* height: 100vh;
+  /* height: 100vh;
     width: 100vw; */
+}
+
+.live-board-title {
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
