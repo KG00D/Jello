@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
         element: <BoardDetails />,
       },
       {
-        path: "/comments/:id",
+        path: "/comments/:cardId",
         element: <Comment />,
       },
     ],
