@@ -3,8 +3,9 @@ const GET_MY_BOARDS = "board/my";
 const GET_BOARD_DETAILS = "board/details";
 const ADD_BOARD = "board/add";
 const EDIT_BOARD = "board/edit";
-const DELETE_bOARD = "board/delete";
+const DELETE_BOARD = "board/delete";
 import { ADD_LIST } from "./actionTypes";
+
 
 const publicBoards = (publicBoards) => {
   return {
@@ -27,10 +28,17 @@ const boardDetails = (boardDetails) => {
   };
 };
 
-const addBoard = (newBoard) => {
+// const addBoard = (newBoard) => {
+//   return {
+//     type: ADD_BOARD,
+//     payload: newBoard,
+//   };
+// };
+
+const deleteBoard = (boardId) => {
   return {
-    type: ADD_BOARD,
-    payload: newBoard,
+    type: DELETE_BOARD,
+    payload: boardId,
   };
 };
 
@@ -82,8 +90,19 @@ export const newBoardThunk = (newBoard) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    // dispatch(addBoard(data));
     return data.id;
+  } else {
+    const error = await response.json();
+    return error;
+  }
+};
+
+export const deleteBoardThunk = (boardId) => async (dispatch) => {
+  const response = await fetch(`/api/boards/${boardId}`, { method: "DELETE" });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
   } else {
     const error = await response.json();
     return error;
@@ -116,6 +135,12 @@ function boardReducer(boards = initialState, action) {
 
       return newBoards;
 
+    case DELETE_BOARD:
+      newBoards = { ...boards };
+      delete newBoards.myBoards[action.payload];
+      return newBoards;
+
+
     case ADD_LIST:
       const { boardId, list } = action.payload;
       return {
@@ -131,6 +156,7 @@ function boardReducer(boards = initialState, action) {
         }
       };
     
+
     default:
       return boards;
   }
