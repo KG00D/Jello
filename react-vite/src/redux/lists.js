@@ -26,7 +26,8 @@ export const addList = (boardId, title) => async (dispatch) => {
     });
     if (response.ok) {
       const newList = await response.json();
-      dispatch({ type: ADD_LIST, list: newList });
+      // dispatch({ type: ADD_LIST, list: newList });
+      dispatch({ type: ADD_LIST, payload: { boardId, list: newList } });
     } else {
       dispatch({ type: LISTS_ERROR, error: 'Failed to add list' });
     }
