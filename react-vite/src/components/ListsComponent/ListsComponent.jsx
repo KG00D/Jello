@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getLists, addList } from './redux/actionTypes'; 
+import { getLists, addList } from "../../redux/lists";
+
 
 const Lists = ({ boardId }) => {
   const dispatch = useDispatch();

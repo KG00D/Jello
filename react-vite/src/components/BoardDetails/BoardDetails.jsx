@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import ListEditModal from "../ListEditModal";
+import ListCreateModal from "../ListsComponent";
 import { boardDetailsThunk } from "../../redux/board"; 
 import { deleteList } from "../../redux/lists";
 import "./BoardDetails.css";
