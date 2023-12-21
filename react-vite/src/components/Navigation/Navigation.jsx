@@ -41,10 +41,14 @@ function Navigation() {
         )}
       </li>
       <li>
-        <button className="new-board-button" onClick={toggleMenu} ref={ulRef}>
+        <button className="new-board-button" onClick={toggleMenu}>
           Board+
         </button>
-        {showMenu && <CreateBoardModal />}
+        {showMenu && (
+          <span ref={ulRef}>
+            <CreateBoardModal />
+          </span>
+        )}
       </li>
       <li>
         <ProfileButton />
