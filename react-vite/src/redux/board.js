@@ -4,6 +4,7 @@ const GET_BOARD_DETAILS = "board/details";
 const ADD_BOARD = "board/add";
 const EDIT_BOARD = "board/edit";
 const DELETE_bOARD = "board/delete";
+import { ADD_LIST } from "./actionTypes";
 
 const publicBoards = (publicBoards) => {
   return {
@@ -112,7 +113,24 @@ function boardReducer(boards = initialState, action) {
       newBoards = { ...boards };
       newBoards.boardDetails = {};
       newBoards.boardDetails[action.payload.id] = action.payload;
+
       return newBoards;
+
+    case ADD_LIST:
+      const { boardId, list } = action.payload;
+      return {
+        ...boards,
+        boardDetails: {
+          ...boards.boardDetails,
+          [boardId]: {
+            ...boards.boardDetails[boardId],
+            Lists: boards.boardDetails[boardId] && boards.boardDetails[boardId].Lists
+              ? [...boards.boardDetails[boardId].Lists, list]
+              : [list]  
+          }
+        }
+      };
+    
     default:
       return boards;
   }
