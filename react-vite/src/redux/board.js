@@ -73,21 +73,23 @@ export const boardDetailsThunk = (id) => async (dispatch) => {
   }
 };
 
-export const newBoardThunk =
-  ({ name, is_public, background_image, user_id }) =>
-  async (dispatch) => {
-    //addboard details to be continued
-    const response = await fetch("");
+export const newBoardThunk = (newBoard) => async (dispatch) => {
+  const response = await fetch("/api/boards/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newBoard),
+  });
 
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(addBoard(data));
-      return data;
-    } else {
-      const error = await response.json();
-      return error;
-    }
-  };
+  if (response.ok) {
+    const data = await response.json();
+    // dispatch(addBoard(data));
+    return data.id;
+  } else {
+    const error = await response.json();
+    return error;
+  }
+};
+
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
 function boardReducer(boards = initialState, action) {
@@ -111,7 +113,7 @@ function boardReducer(boards = initialState, action) {
       newBoards = { ...boards };
       newBoards.boardDetails = {};
       newBoards.boardDetails[action.payload.id] = action.payload;
-    
+
       return newBoards;
 
     case ADD_LIST:
