@@ -63,7 +63,7 @@ export const addCardThunk = ({card}) => async (dispatch) => {
         dispatch(cardError(newCard))
         return newCard.message
     }
-    dispatch(getCardsThunk(listId))
+    dispatch(getCardsThunk(card.list_id))
     return newCard
    } else {
     const error = res.json()

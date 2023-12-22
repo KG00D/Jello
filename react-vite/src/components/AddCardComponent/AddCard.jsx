@@ -13,13 +13,9 @@ const AddCard = ( { listId }) => {
         else setAddCardDisabled(false)
     }, [name])
 
-    const onCancel = () => {
-        reset()
-    }
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log('in onSubmit')
 
         if (!name) reset()
         else {
@@ -29,16 +25,12 @@ const AddCard = ( { listId }) => {
                     list_id: listId
                 }
             }
-
-            console.log(data, '---before dispatch')
             const newCardRes = dispatch(addCardThunk(data))
-            
-            console.log(newCardRes, '----after dispatch')
+            reset()
         }
     }
 
     const reset = () => {
-        console.log('---in reset')
         setShowAddButton(!showAddButton)
         setAddCardDisabled(false)
         setName('')
@@ -54,7 +46,7 @@ const AddCard = ( { listId }) => {
                 <input placeholder='Enter a title for this card...' id='new-card-name' type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
                 <div>
                     <button disabled={addCardDisabled} onClick={onSubmit}>Save</button>
-                    <button onClick={onCancel}>X</button>
+                    <button onClick={reset}>X</button>
                 </div>
              </form>
             }
