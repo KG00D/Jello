@@ -59,7 +59,7 @@ const Comment = () => {
               <div className="comment-name-time">
                 <div className="comment-name">{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
 
-                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
+                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div> {/*look into Moment.js */}
               </div>
 
               <div className="comment-text">{comment.comment_text}</div>
