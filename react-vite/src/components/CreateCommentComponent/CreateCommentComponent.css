@@ -1,0 +1,67 @@
+.create-comment-container {
+  font-family: 'Open Sans';
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: 50px 45px;
+  grid-template-rows: 30px 40px 30px;
+  grid-template-areas:
+  "initials text-area text-area"
+  "initials text-area text-area"
+  ". save-button .";
+}
+
+.create-comment-initials {
+  grid-area: initials;
+  background-color: lightcoral;
+  border-radius: 100px;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-comment-text {
+  grid-area: text-area;
+  font-family: 'Open Sans';
+  font-size: 13px;
+  background-color: white;
+  border: 1px solid #e9ebee;
+  border-radius: 10px;
+  box-shadow: 0px 1px #b7bdc8;
+  padding: 4px 10px;
+  margin: 3px;
+  /* height: 25px; */
+  display: flex;
+  align-items: center;
+}
+
+.create-comment-save {
+  font-family: 'Open Sans';
+  font-size: 13px;
+  font-weight: 300;
+  grid-area: save-button;
+  background-color: #e9ebee;
+  color: #808b9d;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  margin: 3px;
+}
+
+.create-comment-save-enabled {
+  font-family: 'Open Sans';
+  font-size: 13px;
+  font-weight: bold;
+  grid-area: save-button;
+  color: white;
+  background-color: #0c66e4;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  margin: 3px;
+}
+
+.create-comment-save-hidden {
+  display: none;
+}
