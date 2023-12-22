@@ -5,6 +5,7 @@ import Homepage from "../components/HomepageComponent";
 import Landingpage from "../components/Landingpage";
 import Layout from "./Layout";
 import Cards from "../components/CardsComponent";
+import AddCard from "../components/AddCardComponent/AddCard";
 import BoardDetails from "../components/BoardDetails";
 import Comment from "../components/CommentComponent/CommentComponent";
 import CreateComment from "../components/CreateCommentComponent/CreateCommentComponent";
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/cards",
-        element: <Cards />,
+        element: <AddCard listId={'1'} />,
       },
       {
         path: "/session/boards",

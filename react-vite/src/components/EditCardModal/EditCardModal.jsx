@@ -27,7 +27,6 @@ function EditCardModal() {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        console.log('in onsubmit')
         if (errors.name) {
             setShowErrors(true)
             console.log(errors, '----we are in errors')
@@ -38,7 +37,7 @@ function EditCardModal() {
                 description,
                 id: card.id
             }
-    
+
             const updatedCardRes = dispatch(editCardThunk(updatedCard))
             console.log(updatedCardRes, '----updatedCardRes')
             closeModal()
@@ -65,7 +64,7 @@ function EditCardModal() {
 
     const descriptionText = !description ? 'Add a more detailed description' : description
 
-    
+
     const deleteCard = () => {
         console.log('-delete clicked')
         dispatch(deleteCardThunk(card.id))
@@ -94,7 +93,7 @@ function EditCardModal() {
                     </div>
                 </div>
                 <div className='comments box'>
-                    
+
                 </div>
                 <div>
                     <button onClick={onSubmit}>Save</button>

@@ -6,7 +6,6 @@ const EDIT_BOARD = "board/edit";
 const DELETE_BOARD = "board/delete";
 import { ADD_LIST } from "./actionTypes";
 
-
 const publicBoards = (publicBoards) => {
   return {
     type: GET_PUBLIC_BOARDS,
@@ -39,6 +38,13 @@ const deleteBoard = (boardId) => {
   return {
     type: DELETE_BOARD,
     payload: boardId,
+  };
+};
+
+const editBoard = (boardDetails) => {
+  return {
+    type: EDIT_BOARD,
+    payload: boardDetails,
   };
 };
 
@@ -109,6 +115,22 @@ export const deleteBoardThunk = (boardId) => async (dispatch) => {
   }
 };
 
+export const editBoardThunk = (boardDetails, id) => async (dispatch) => {
+  const response = await fetch(`/api/boards/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(boardDetails),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data.id;
+  } else {
+    const error = await response.json();
+    return error;
+  }
+};
+
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
 function boardReducer(boards = initialState, action) {
@@ -140,7 +162,6 @@ function boardReducer(boards = initialState, action) {
       delete newBoards.myBoards[action.payload];
       return newBoards;
 
-
     case ADD_LIST:
       const { boardId, list } = action.payload;
       return {
@@ -149,13 +170,20 @@ function boardReducer(boards = initialState, action) {
           ...boards.boardDetails,
           [boardId]: {
             ...boards.boardDetails[boardId],
-            Lists: boards.boardDetails[boardId] && boards.boardDetails[boardId].Lists
-              ? [...boards.boardDetails[boardId].Lists, list]
-              : [list]  
-          }
-        }
+            Lists:
+              boards.boardDetails[boardId] && boards.boardDetails[boardId].Lists
+                ? [...boards.boardDetails[boardId].Lists, list]
+                : [list],
+          },
+        },
       };
-    
+    case EDIT_BOARD:
+      newBoards = { ...boards };
+      const { id, name, is_public, background_image } = action.payload;
+      newBoards.boardDetails[id].name = name;
+      newBoards.boardDetails[id].is_public = is_public;
+      newBoards.boardDetails[id].background_image = background_image;
+      return newBoards;
 
     default:
       return boards;
