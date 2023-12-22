@@ -3,7 +3,7 @@ import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-import { boardDetailsThunk, deleteBoardThunk } from "../../redux/board";
+import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
 import DeleteBoardModal from "./DeleteBoardModal";
 
 import ListCreateModal from "../ListCreateModal";
@@ -16,6 +16,8 @@ function BoardDetails() {
   const { id } = useParams();
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
   const [boardName, setBoardName] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
+  const [backgroundImage, setBackgroundImage] = useState("");
 
   useEffect(() => {
     dispatch(boardDetailsThunk(id));
@@ -24,6 +26,8 @@ function BoardDetails() {
   useEffect(() => {
     if (!boardDetails) return;
     setBoardName(boardDetails.name);
+    setIsPublic(boardDetails.is_public);
+    setBackgroundImage(boardDetails.background_image);
   }, [boardDetails]);
 
   if (!boardDetails) return <div></div>;
@@ -34,8 +38,12 @@ function BoardDetails() {
   };
 
   const updateTitle = async (e) => {
-    //add update board title thunk
-    console.log("updated");
+    const boardDetails = {
+      name: boardName,
+      is_public: isPublic,
+      background_image: backgroundImage,
+    };
+    dispatch(editBoardThunk(boardDetails, id));
   };
 
   const { name, background_image } = boardDetails;

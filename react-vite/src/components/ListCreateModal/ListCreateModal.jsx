@@ -7,7 +7,6 @@ import { addList } from "../../redux/lists";
 function ListCreateModal({ boardId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-  console.log("Board ID : ", boardId)
   const [title, setTitle] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
@@ -15,7 +14,7 @@ function ListCreateModal({ boardId }) {
     e.preventDefault();
     if (title.trim()) {
       dispatch(addList(boardId, title));
-      setTitle(''); 
+      setTitle('');
       setIsAdding(false);
     }
   };
