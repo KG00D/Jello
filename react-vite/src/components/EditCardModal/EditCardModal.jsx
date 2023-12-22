@@ -27,7 +27,6 @@ function EditCardModal() {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        console.log('in onsubmit')
         if (errors.name) {
             setShowErrors(true)
             console.log(errors, '----we are in errors')
@@ -82,11 +81,13 @@ function EditCardModal() {
                     </div>
                     <div className='card-name-right'>
                         <input onClick={showNameBorder} placeholder={card.name} id='card-name' className={ showNameBorder ? `card-name-border-visible` : 'card-name-border-hidden'}type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
+                        {errors.name && <p>{errors.name}</p>}
+                        <p>in list LIST </p>
                     </div>
                 </div>
                 <div className='card-description-box'>
                     <div className='card-description-logo'>
-                        <p><i class="fa-solid fa-bars-staggered"></i></p>
+                        <p><i className="fa-solid fa-bars-staggered"></i></p>
                     </div>
                     <div className='card-description-text'>
                         <p>Description</p>
