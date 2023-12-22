@@ -44,8 +44,10 @@ export const getCardsThunk = (listId) => async (dispatch) => {
 }
 
 
-export const addCardThunk = (data) => async (dispatch) => {
-   const { listId, card } = data
+export const addCardThunk = ({card}) => async (dispatch) => {
+//    const { listId, card } = data
+//    console.log(listId, '----listID in thunk')
+   console.log(card, '----card in thunk')
    const fetchObj = {
         method: "POST",
         headers: {
@@ -53,7 +55,7 @@ export const addCardThunk = (data) => async (dispatch) => {
         },
         body: JSON.stringify(card)
    }
-   const res = await fetch(`/api/lists/${listId}/cards`, fetchObj)
+   const res = await fetch(`/api/lists/${card.list_id}/cards`, fetchObj)
 
    if (res.ok) {
     const newCard = await res.json()

@@ -83,13 +83,22 @@ def create_new_card(list_id):
     list_query_list = [list_query[0].to_dict()]
     if form.validate_on_submit():
         card_data = request.json
+        description = None
+        if card_data["description"] is not None:
+            description = card_data["description"]
         new_card = Card(
             name=card_data["name"],
-            description=card_data["description"],
-            list_id= list_query_list[0]["id"])
+            description = description,
+            list_id= card_data["list_id"])
+            # list_id= list_query_list[0]["id"])
 
         db.session.add(new_card)
         db.session.commit()
+        print(new_card.to_dict(), '-----new_card to dict')
         return { "Card": new_card.to_dict() }
+    else:
+        print('----we are in else statement----')
+        print(request.json, '----request.json')
+        return { "Message": "validation error"}
 
 
