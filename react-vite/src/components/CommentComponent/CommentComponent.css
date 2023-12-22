@@ -1,0 +1,88 @@
+.comment-container {
+  font-family: 'Open Sans';
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: 50px 2fr 2fr 5fr;
+  grid-template-rows: 15px 45px 15px;
+  grid-template-areas:
+  "initials name-time name-time ."
+  "initials comment-text comment-text comment-text"
+  ". edit-delete edit-delete .";
+  margin: 15px auto;
+  margin-bottom: 25px;
+}
+
+.comment-initials-logo {
+  grid-area: initials;
+  /* font-family: Helvetica; */
+  background-color: lightcoral;
+  border-radius: 100px;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-name-time {
+  grid-area: name-time;
+  display: flex;
+  align-items: center;
+}
+
+.comment-name {
+  grid-area: NTname;
+  font-weight: bold;
+  padding-left: 5px;
+  margin-bottom: 3px;
+}
+
+.comment-timestamp {
+  grid-area: NTtime;
+  font-size: 12px;
+  color: #808b9d;
+  padding-left: 10px;
+  margin-bottom: 3px;
+}
+
+.comment-text {
+  grid-area: comment-text;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #e9ebee;
+  border-radius: 10px;
+  box-shadow: 0px 1px #b7bdc8;
+  padding: 4px 10px;
+  margin: 3px;
+}
+
+.comment-edit-delete {
+  grid-area: edit-delete;
+  display: flex;
+}
+
+.comment-edit {
+  grid-area: edit-button;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #808b9d;
+  font-size: 12px;
+}
+
+.comment-dot {
+  grid-area: dot;
+  color: #808b9d;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.comment-delete {
+  grid-area: delete-button;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #808b9d;
+  font-size: 12px;
+}

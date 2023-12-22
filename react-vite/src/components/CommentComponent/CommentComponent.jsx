@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { useModal } from "../../context/Modal";
 import * as commentActions from "../../redux/comments"
+import './CommentComponent.css'
 
 const hourArrAM = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 const hourArrPM = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
@@ -19,7 +20,7 @@ const Comment = () => {
     dispatch(commentActions.getCommentsThunk(cardId))
   }, [dispatch])
 
-  let commentsArrVals = Object.values(comments)
+  let revCommentsArrVals = Object.values(comments).reverse()
 
   if (!comments) {
     return (
@@ -28,9 +29,9 @@ const Comment = () => {
   } else {
     return (
       <div>
-        <h1>Comments:</h1>
+        <h1>Comments: (this isn't staying)</h1>
 
-        {commentsArrVals.map((comment) => {
+        {revCommentsArrVals.map((comment) => {
           let updatedDateSplit = new Date(comment.updated_at).toDateString().split(' ')
           let updatedTimeSplit = new Date(comment.updated_at).toTimeString().split(' ')
           let dateDay = updatedDateSplit[0]
@@ -42,22 +43,33 @@ const Comment = () => {
           let postedHour
           let meridiem
           if (timeHour < 12) {
-            postedHour = hourArrAM[timeHour]
+            postedHour = hourArrAM[+timeHour]
             meridiem = 'AM'
           } else {
-            postedHour = hourArrPM[timeHour - 12]
+            postedHour = hourArrPM[+timeHour - 12]
             meridiem = 'PM'
           }
           let postedMinute = timeTimeSplit[1]
 
           return (
-            <div>
-              <div>{comment.commenter_details.first_name[0]}{comment.commenter_details.last_name[0]}</div>
-              <div>{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
-              <div>{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
-              <div>{comment.comment_text}</div>
-              <div>edit button</div>
-              <div>delete button</div>
+            <div className="comment-container">
+
+              <div className="comment-initials-logo">{comment.commenter_details.first_name[0]}{comment.commenter_details.last_name[0]}</div>
+
+              <div className="comment-name-time">
+                <div className="comment-name">{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
+
+                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
+              </div>
+
+              <div className="comment-text">{comment.comment_text}</div>
+
+              <div className="comment-edit-delete">
+                <button className="comment-edit">Edit</button>
+                <div className="comment-dot">·</div>
+                <button className="comment-delete">Delete</button>
+              </div>
+
             </div>
 
           )
