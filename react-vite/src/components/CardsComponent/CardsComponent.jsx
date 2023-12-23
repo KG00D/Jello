@@ -1,28 +1,37 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCardsThunk, addCardThunk, editCardThunk, deleteCardThunk } from '../../redux/cards';
+import { getCardsThunk, addCardThunk, editCardThunk, deleteCardThunk, getCardThunk } from '../../redux/cards';
+import { useModal } from '../../context/Modal';
+import EditCardModal from '../EditCardModal/EditCardModal';
+import OpenModalCardEdit from './OpenModalCardEdit';
 
-const Cards = ({listId}) => {
-    const dispatch = useDispatch();
-    const allCards = useSelector((state) => Object.values(state.cards))
+const Cards = ({ card }) => {
+    const dispatch = useDispatch()
 
-    console.log('in cards component')
-    //LIST ID IS HARD CODED - NEEDS TO CHANGE
-    //getCardsThunk takes list id as a string
-    useEffect(() => {
-        dispatch(deleteCardThunk("25"))
-    }, [dispatch, listId])
-
-    let updatedCard = {
+    const cardPlaceholder = {
+        name: 'Hat',
+        id: 11,
+        description: 'we have a hat',
         listId: 1,
-        card: {
-            name: "Make apple pie",
-            description: "Make 20 apple pies for christmas eve.",
-            id: 1
-        }
+        
     }
+
+    const currentCard = card ? card : cardPlaceholder
+
+    console.log(currentCard)
+    
+    const openEditCardModal = () => {
+        dispatch(getCardThunk(currentCard))
+        return <EditCardModal />
+    }
+
+
     return (
-        <h1>'Cards'</h1>
+        <>
+            <div>
+                <OpenModalCardEdit modalComponent={openEditCardModal} itemText={card ? card.name : cardPlaceholder.name}/>
+            </div>
+        </>
     )
 }
 

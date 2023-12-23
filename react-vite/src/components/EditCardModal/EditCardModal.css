@@ -1,0 +1,15 @@
+.card-name-border-visible {
+    border: black
+}
+
+.card-name-border-hidden {
+    border: none
+}
+
+.card-description-border-visible {
+    border: black
+}
+
+.card-description-border-hidden {
+    border: none
+}

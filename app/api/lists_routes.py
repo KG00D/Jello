@@ -85,11 +85,13 @@ def create_new_card(list_id):
         card_data = request.json
         new_card = Card(
             name=card_data["name"],
-            description=card_data["description"],
-            list_id= list_query_list[0]["id"])
-
+            list_id= card_data["list_id"])
         db.session.add(new_card)
         db.session.commit()
         return { "Card": new_card.to_dict() }
+    else:
+        print('----we are in else statement----')
+        print(request.json, '----request.json')
+        return { "Message": "validation error"}
 
 

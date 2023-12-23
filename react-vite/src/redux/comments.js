@@ -1,20 +1,34 @@
 import { GET_COMMENTS, POST_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from './actionTypes';
 
-export const getCommentsThunk = (id) => async (dispatch) => {
+const getComments = (data) => {
+  return {
+    type: GET_COMMENTS,
+    payload: data
+  }
+}
+
+const postComment = (data) => {
+  return {
+    type: POST_COMMENT,
+    payload: data
+  }
+}
+
+export const getCommentsThunk = (cardId) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/cards/${id}/comments`)
+    const response = await fetch(`/api/cards/${+cardId}/comments`)
 
     const data = await response.json()
-    dispatch({ type: GET_COMMENTS, payload: data})
+    dispatch(getComments(data))
     return data
   } catch (error) {
     return error
   }
 }
 
-export const postCommentThunk = (id, commentForm) => async (dispatch) => {
+export const postCommentThunk = (cardId, commentForm) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/cards/${id}/comments`, {
+    const response = await fetch(`/api/cards/${cardId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -23,7 +37,7 @@ export const postCommentThunk = (id, commentForm) => async (dispatch) => {
     })
 
     const data = await response.json()
-    dispatch({ type: POST_COMMENT, payload: data})
+    dispatch(postComment(data))
     return data
   } catch (error) {
     return error
@@ -45,7 +59,7 @@ const commentReducer = (state = initialState, action) => {
       const newComment = action.payload
       newState[newComment.id] = newComment
       return newState
-    default: 
+    default:
       return state
   }
 }

@@ -29,12 +29,9 @@ const deleteCard = (message) => {
 }
 
 export const getCardsThunk = (listId) => async (dispatch) => {
-    console.log('in getCardsThunk, frontend')
     const res = await fetch(`/api/lists/${listId}/cards`)
-    console.log('in get cards thunk after fetch, frontend')
     if (res.ok) {
         const cards = await res.json()
-        console.log(cards, '----cards in getCard thunk after res.ok')
         if (!cards.Cards) {
             return undefined
         }
@@ -46,16 +43,19 @@ export const getCardsThunk = (listId) => async (dispatch) => {
     }
 }
 
-export const addCardThunk = (data) => async (dispatch) => {
-   const { listId, card } = data
+
+export const addCardThunk = ({card}) => async (dispatch) => {
+//    const { listId, card } = data
+//    console.log(listId, '----listID in thunk')
+   console.log(card, '----card in thunk')
    const fetchObj = {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(card) 
+        body: JSON.stringify(card)
    }
-   const res = await fetch(`/api/lists/${listId}/cards`, fetchObj)
+   const res = await fetch(`/api/lists/${card.list_id}/cards`, fetchObj)
 
    if (res.ok) {
     const newCard = await res.json()
@@ -63,7 +63,7 @@ export const addCardThunk = (data) => async (dispatch) => {
         dispatch(cardError(newCard))
         return newCard.message
     }
-    dispatch(getCardsThunk(listId))
+    dispatch(getCardsThunk(card.list_id))
     return newCard
    } else {
     const error = res.json()
@@ -77,8 +77,8 @@ export const editCardThunk = (card) => async (dispatch) => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(card) 
-   } 
+        body: JSON.stringify(card)
+   }
 
    const res = await fetch(`/api/cards/${card.id}`, fetchObj)
 
@@ -100,12 +100,11 @@ export const editCardThunk = (card) => async (dispatch) => {
 export const deleteCardThunk = (cardId) => async (dispatch) => {
     const fetchObj = {
         method: "DELETE",
-   } 
+   }
    const res = await fetch(`/api/cards/${cardId}`, fetchObj)
 
    if (res.ok) {
         const message = await res.json()
-        console.log(message)
         if (message.message === "Card does not exist") {
             dispatch(cardError(message))
         } else {
@@ -119,6 +118,11 @@ export const deleteCardThunk = (cardId) => async (dispatch) => {
    }
 }
 
+export const getCardThunk = (card) => async (dispatch) => {
+    dispatch(getCard(card))
+    return card
+}
+
 const initialState = {
     Cards: {}
 }
@@ -129,7 +133,7 @@ function cardReducer(cards = initialState, action) {
             let newState = { Cards: action.payload.Cards }
             return newState;
         case GET_CARD:
-            let cardState = { Cards: action.payload.Cards}
+            let cardState = { Card: action.payload}
             return cardState
         case CARD_ERROR:
             let errorState = { Error: action.payload}

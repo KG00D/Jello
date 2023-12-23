@@ -19,59 +19,8 @@ def get_all_comments():
     "Comments": ret
   }
 
-# move to cards router
-@comments_routes.route('/cards/<int:card_id>/comments', methods=["GET"])
-# @login_required
-def get_all_comments_for_card(card_id):
-  ret = []
-  all_card_comments = Comment.query.filter(Comment.id == card_id).all()
-  for comment in all_card_comments:
-    ret_comment = {
-      "id": comment.id,
-      "comment_text": comment.comment_text,
-      "user_id": comment.user_id,
-      "card_id": comment.card_id,
-      "created_at": comment.created_at,
-      "updated_at": comment.updated_at
-    }
-
-    ret.append(ret_comment)
-
-  return {
-    "Comments": ret
-  }
-
-
-# move to cards router
-@comments_routes.route('/cards/<int:card_id>/comments', methods=["POST"])
-# @login_required
-def post_comment_on_card(card_id):
-  card = Card.query.get(card_id)
-  form = CommentForm()
-
-  if not card:
-    return {
-      "message": "Card does not exist"
-    }
-
-  if form.validate_on_submit():
-    new_comment = Comment(
-      comment_text = form.data['comment_text'],
-      user_id = current_user.get_id(),
-      card_id = card_id
-    )
-    db.session.add(new_comment)
-    db.session.commit()
-
-    return new_comment
-
-  return {
-    "message": "Bad Request",
-    "errors": form.errors
-  }
-
-@comments_routes.route('/comments/<int:comment_id>', methods=["PUT"])
-# @login_required
+@comments_routes.route('/<int:comment_id>', methods=["PUT"])
+@login_required
 def edit_a_comment(comment_id):
   existing_comment = Comment.query.get(comment_id)
   form = CommentForm()
@@ -82,14 +31,10 @@ def edit_a_comment(comment_id):
     }
 
   if form.validate_on_submit():
-    updated_comment = Comment(
-      comment_text = form.data['comment_text'],
-      user_id = current_user.get_id(),
-      card_id = existing_comment['card_id']
-    )
+    existing_comment.comment_text = form.data['comment_text']
     db.session.commit()
 
-    return updated_comment
+    return existing_comment.to_dict()
 
   return {
     "message": "Bad Request",
@@ -97,8 +42,8 @@ def edit_a_comment(comment_id):
   }
 
 
-@comments_routes.route('/comments/<int:comment_id>', methods=['DELETE'])
-# @login_required
+@comments_routes.route('/<int:comment_id>', methods=['DELETE'])
+@login_required
 def delete_a_comment(comment_id):
   comment_to_delete = Comment.query.get(comment_id)
 

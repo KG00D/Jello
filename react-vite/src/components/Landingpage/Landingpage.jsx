@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
 import "./Landingpage.css";
 import { publicBoardsThunk, myBoardsThunk } from "../../redux/board";
 import BoardTile from "./BoardTile";

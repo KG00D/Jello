@@ -3,7 +3,8 @@ const GET_MY_BOARDS = "board/my";
 const GET_BOARD_DETAILS = "board/details";
 const ADD_BOARD = "board/add";
 const EDIT_BOARD = "board/edit";
-const DELETE_bOARD = "board/delete";
+const DELETE_BOARD = "board/delete";
+import { ADD_LIST } from "./actionTypes";
 
 const publicBoards = (publicBoards) => {
   return {
@@ -26,10 +27,24 @@ const boardDetails = (boardDetails) => {
   };
 };
 
-const addBoard = (newBoard) => {
+// const addBoard = (newBoard) => {
+//   return {
+//     type: ADD_BOARD,
+//     payload: newBoard,
+//   };
+// };
+
+const deleteBoard = (boardId) => {
   return {
-    type: ADD_BOARD,
-    payload: newBoard,
+    type: DELETE_BOARD,
+    payload: boardId,
+  };
+};
+
+const editBoard = (boardDetails) => {
+  return {
+    type: EDIT_BOARD,
+    payload: boardDetails,
   };
 };
 
@@ -72,21 +87,50 @@ export const boardDetailsThunk = (id) => async (dispatch) => {
   }
 };
 
-export const newBoardThunk =
-  ({ name, is_public, background_image, user_id }) =>
-  async (dispatch) => {
-    //addboard details to be continued
-    const response = await fetch("");
+export const newBoardThunk = (newBoard) => async (dispatch) => {
+  const response = await fetch("/api/boards/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newBoard),
+  });
 
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(addBoard(data));
-      return data;
-    } else {
-      const error = await response.json();
-      return error;
-    }
-  };
+  if (response.ok) {
+    const data = await response.json();
+    return data.id;
+  } else {
+    const error = await response.json();
+    return error;
+  }
+};
+
+export const deleteBoardThunk = (boardId) => async (dispatch) => {
+  const response = await fetch(`/api/boards/${boardId}`, { method: "DELETE" });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    const error = await response.json();
+    return error;
+  }
+};
+
+export const editBoardThunk = (boardDetails, id) => async (dispatch) => {
+  const response = await fetch(`/api/boards/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(boardDetails),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data.id;
+  } else {
+    const error = await response.json();
+    return error;
+  }
+};
+
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
 function boardReducer(boards = initialState, action) {
@@ -112,6 +156,35 @@ function boardReducer(boards = initialState, action) {
       newBoards.boardDetails[action.payload.id] = action.payload;
 
       return newBoards;
+
+    case DELETE_BOARD:
+      newBoards = { ...boards };
+      delete newBoards.myBoards[action.payload];
+      return newBoards;
+
+    case ADD_LIST:
+      const { boardId, list } = action.payload;
+      return {
+        ...boards,
+        boardDetails: {
+          ...boards.boardDetails,
+          [boardId]: {
+            ...boards.boardDetails[boardId],
+            Lists:
+              boards.boardDetails[boardId] && boards.boardDetails[boardId].Lists
+                ? [...boards.boardDetails[boardId].Lists, list]
+                : [list],
+          },
+        },
+      };
+    case EDIT_BOARD:
+      newBoards = { ...boards };
+      const { id, name, is_public, background_image } = action.payload;
+      newBoards.boardDetails[id].name = name;
+      newBoards.boardDetails[id].is_public = is_public;
+      newBoards.boardDetails[id].background_image = background_image;
+      return newBoards;
+
     default:
       return boards;
   }
