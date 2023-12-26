@@ -3,8 +3,27 @@
   top: 40px;
   right: 10px;
   border: black solid 1px;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
+  background-color: rgb(35, 57, 57);
+  color: lightgray;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 5px;
+}
+.profile-dropdown > li {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+.profile-dropdown > h4 {
+  padding: 0px;
+  margin: 0px;
+}
+
+.profile-dropdown > ul {
+  padding: 5px;
+  margin: 5px;
 }
 
 .navigation {
@@ -12,12 +31,11 @@
   display: flex;
   justify-content: space-between;
   margin: 0px;
-  height: 10vh;
+  height: 6vh;
   background-color: rgb(19, 32, 32);
   align-items: center;
   padding: 0px 20px;
-  border-bottom: rgb(56, 94, 94) solid 1px
-
+  border-bottom: rgb(56, 94, 94) solid 1px;
 }
 
 #logo {
@@ -38,4 +56,14 @@
   border-radius: 5px;
   height: 35px;
   width: 70px;
+}
+
+.profile-logged-in {
+  background-color: rgb(10, 193, 193);
+  border-radius: 100px;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
