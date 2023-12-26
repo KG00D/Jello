@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Landingpage.css";
 import { publicBoardsThunk, myBoardsThunk } from "../../redux/board";
 import BoardTile from "./BoardTile";
+import SidePanel from "../SidePanel";
 
 function Landingpage() {
   //Boards disappear after refresh. only appears when code is changed
@@ -33,15 +34,18 @@ function Landingpage() {
   }, [myBoards]);
 
   return (
-    <div className="Landing-Page">
-      <h4>YOUR WORKSPACES</h4>
-      <div className="your-workspaces">
-        {Object.values(ownedBoards).map((board) => {
-          return <BoardTile board={board} />;
-        })}
+    <div className="Side-Panel">
+      <SidePanel />
+      <div className="Landing-Page">
+        <h4>YOUR WORKSPACES</h4>
+        <div className="your-workspaces">
+          {Object.values(ownedBoards).map((board) => {
+            return <BoardTile board={board} />;
+          })}
+        </div>
+        <h4>GUEST WORKSPACES</h4>
+        <div className="guest-workspaces"></div>
       </div>
-      <h4>GUEST WORKSPACES</h4>
-      <div className="guest-workspaces"></div>
     </div>
   );
 }

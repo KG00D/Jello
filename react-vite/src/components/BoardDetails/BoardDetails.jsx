@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-
 import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
 import DeleteBoardModal from "./DeleteBoardModal";
-
 import ListCreateModal from "../ListCreateModal";
+import SidePanel from "../SidePanel";
 
 import "./BoardDetails.css";
 
@@ -30,7 +29,12 @@ function BoardDetails() {
     setBackgroundImage(boardDetails.background_image);
   }, [boardDetails]);
 
-  if (!boardDetails) return <div></div>;
+  if (!boardDetails)
+    return (
+      <div>
+        <SidePanel />
+      </div>
+    );
 
   const deleteBoard = async (e) => {
     e.preventDefault();
@@ -51,46 +55,49 @@ function BoardDetails() {
   let Lists = {};
   if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
   return (
-    <div
-      className="board-details"
-      style={{ backgroundColor: background_image }}
-    >
-      <h4>
-        Board Name:{" "}
-        <input
-          className="live-board-title"
-          value={boardName}
-          onChange={(e) => setBoardName(e.target.value)}
-          onBlur={updateTitle}
-        />
-      </h4>
-      <div className="lists-container">
-        {Object.values(Lists).map((list) => (
-          <div className="list-container">
-            <h4>List: {list.title}</h4>
-            {list.Cards &&
-              Object.values(list.Cards).map(
-                (
-                  card // Check if Cards exist
-                ) => (
-                  <div key={card.id}>
-                    {" "}
-                    {/* Add a key prop here */}
-                    <h5>Card Name: {card.name}</h5>
-                    <p>Card Description: {card.description}</p>
-                  </div>
-                )
-              )}
-          </div>
-        ))}
-      </div>
-      <div className="modal-container">
-        <ListCreateModal boardId={id} />
-      </div>
+    <div className="Side-Panel">
+      <SidePanel />
+      <div
+        className="board-details"
+        style={{ backgroundColor: background_image }}
+      >
+        <h4>
+          Board Name:{" "}
+          <input
+            className="live-board-title"
+            value={boardName}
+            onChange={(e) => setBoardName(e.target.value)}
+            onBlur={updateTitle}
+          />
+        </h4>
+        <div className="lists-container">
+          {Object.values(Lists).map((list) => (
+            <div className="list-container">
+              <h4>List: {list.title}</h4>
+              {list.Cards &&
+                Object.values(list.Cards).map(
+                  (
+                    card // Check if Cards exist
+                  ) => (
+                    <div key={card.id}>
+                      {" "}
+                      {/* Add a key prop here */}
+                      <h5>Card Name: {card.name}</h5>
+                      <p>Card Description: {card.description}</p>
+                    </div>
+                  )
+                )}
+            </div>
+          ))}
+        </div>
+        <div className="modal-container">
+          <ListCreateModal boardId={id} />
+        </div>
 
-      <button className="delete-board" onClick={deleteBoard}>
-        Delete Board
-      </button>
+        <button className="delete-board" onClick={deleteBoard}>
+          Delete Board
+        </button>
+      </div>
     </div>
   );
 }
