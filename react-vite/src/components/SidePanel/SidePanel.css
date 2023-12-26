@@ -56,3 +56,7 @@
 .item-ellipsis {
   visibility: hidden;
 }
+
+.side-panel-component > * .toggle-menu {
+  cursor: pointer;
+}

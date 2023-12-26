@@ -11,8 +11,8 @@ function SidePanel() {
   const publicBoards = useSelector((state) => state.boards.publicBoards);
   const [ownedBoards, setOwnedBoards] = useState({});
   const [sharedBoards, setSharedBoards] = useState({});
-  const [ownedBoardsMenu, setOwnedBoardsMenu] = useState(false);
-  const [sharedBoardsMenu, setSharedBoardsMenu] = useState(false);
+  const [ownedBoardsMenu, setOwnedBoardsMenu] = useState(true);
+  const [sharedBoardsMenu, setSharedBoardsMenu] = useState(true);
 
   useEffect(() => {
     dispatch(publicBoardsThunk());
@@ -45,7 +45,7 @@ function SidePanel() {
   return (
     <div className="side-panel-component">
       <ul>
-        <h4 onClick={toggleOwnedMenu}>
+        <h4 className="toggle-menu" onClick={toggleOwnedMenu}>
           <span>Your WorkSpaces</span>
           {ownedBoardsMenu ? (
             <i class="fa-solid fa-angle-up"></i>
@@ -57,7 +57,7 @@ function SidePanel() {
           Object.values(ownedBoards).map((item) => <SideItem item={item} />)}
       </ul>
       <ul>
-        <h4 onClick={toggleSharedMenu}>
+        <h4 className="toggle-menu" onClick={toggleSharedMenu}>
           <span>Guest Workspaces</span>
           {sharedBoardsMenu ? (
             <i class="fa-solid fa-angle-up"></i>
