@@ -5,6 +5,7 @@
 .side-panel-component {
   background-color: rgb(19, 32, 32);
   color: lightgray;
+  min-width: 250px;
   width: 250px;
   display: flex;
   flex-direction: column;
@@ -17,12 +18,13 @@
   color: lightgray;
   display: flex;
   justify-content: space-between;
-  margin: 10px 0px;
+  margin: 0px 0px;
+  padding: 10px 10px;
 }
 
 .side-panel-component > ul {
   margin: 0px;
-  padding: 10px;
+  padding: 0px;
   border-bottom: solid rgb(56, 94, 94) 1px;
 }
 
@@ -34,7 +36,7 @@
   display: flex;
   justify-content: space-between;
   margin: 0px;
-  padding: 0px;
+  padding: 10px;
 }
 
 .item-preview {
@@ -54,14 +56,19 @@
 }
 
 /* TODO: Figure out how to hide ellipsis on default and show on hover of link */
-.side-item:hover + .item-ellipsis {
+.side-item:hover .item-ellipsis {
   visibility: visible;
 }
 
 .item-ellipsis {
   visibility: hidden;
+  margin-left: 5px;
 }
 
 .side-panel-component > * .toggle-menu {
   cursor: pointer;
+}
+
+.side-item .active {
+  background-color: rgba(255, 255, 255, 0.266);
 }
