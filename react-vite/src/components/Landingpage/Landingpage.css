@@ -4,5 +4,8 @@
 }
 
 .Landing-Page {
+  background-color: rgb(19, 32, 32);
   padding-left: 20px;
+  width: 90vw;
+  color: lightgray;
 }

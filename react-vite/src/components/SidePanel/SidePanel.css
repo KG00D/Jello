@@ -3,12 +3,13 @@
 }
 
 .side-panel-component {
-  background-color: darkslategray;
+  background-color: rgb(19, 32, 32);
   color: lightgray;
   width: 250px;
   display: flex;
   flex-direction: column;
-  border: solid rgb(111, 160, 160) 1px;
+  border-right: solid rgb(56, 94, 94) 1px;
+  height: 90vh;
 }
 
 .side-panel-component > * a {
@@ -22,7 +23,7 @@
 .side-panel-component > ul {
   margin: 0px;
   padding: 10px;
-  border-bottom: solid rgb(111, 160, 160) 1px;
+  border-bottom: solid rgb(56, 94, 94) 1px;
 }
 
 .side-panel-component > * li {
