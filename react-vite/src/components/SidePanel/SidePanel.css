@@ -25,6 +25,10 @@
   border-bottom: solid rgb(111, 160, 160) 1px;
 }
 
+.side-panel-component > * li {
+  list-style-type: none;
+}
+
 .side-panel-component > * h4 {
   display: flex;
   justify-content: space-between;
