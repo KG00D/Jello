@@ -2,12 +2,15 @@
   display: flex;
   flex-direction: column;
   position: absolute;
+  top: 6vh;
   border: solid black 1px;
   height: 400px;
 
   width: 200px;
-  background-color: white;
+  background-color: rgb(35, 57, 57);
   padding: 10px;
+  color: lightgray;
+  border-radius: 5px;
 }
 .create-board > h4 {
   margin: 0px;
@@ -78,4 +81,3 @@ label.radio-label {
   margin: 15px 0px;
   height: 40px;
 }
-
