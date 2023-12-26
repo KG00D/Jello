@@ -55,7 +55,6 @@
   overflow: hidden;
 }
 
-/* TODO: Figure out how to hide ellipsis on default and show on hover of link */
 .side-item:hover .item-ellipsis {
   visibility: visible;
 }
@@ -71,4 +70,8 @@
 
 .side-item .active {
   background-color: rgba(255, 255, 255, 0.266);
+}
+
+.toggle-menu > *  i {
+  margin-right: 10px;
 }
