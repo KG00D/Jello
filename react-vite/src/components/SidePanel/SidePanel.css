@@ -1,0 +1,27 @@
+.Side-Panel {
+  display: flex;
+}
+
+.side-panel-component {
+  background-color: darkslategray;
+  color: lightgray;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-panel-component > * li {
+  list-style-type: none;
+}
+
+.side-panel-component > ul {
+  margin: 0px;
+  padding: 10px;
+}
+
+.side-panel-component > * h4 {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px;
+  padding: 0px;
+}
