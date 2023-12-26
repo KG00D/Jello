@@ -35,7 +35,7 @@ function Landingpage() {
 
   return (
     <div className="Side-Panel">
-      <SidePanel myboards={ownedBoards} sharedBoards = {sharedBoards}/>
+      <SidePanel />
       <div className="Landing-Page">
         <h4>YOUR WORKSPACES</h4>
         <div className="your-workspaces">

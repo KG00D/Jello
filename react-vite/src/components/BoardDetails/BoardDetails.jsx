@@ -29,7 +29,12 @@ function BoardDetails() {
     setBackgroundImage(boardDetails.background_image);
   }, [boardDetails]);
 
-  if (!boardDetails) return <div></div>;
+  if (!boardDetails)
+    return (
+      <div>
+        <SidePanel />
+      </div>
+    );
 
   const deleteBoard = async (e) => {
     e.preventDefault();

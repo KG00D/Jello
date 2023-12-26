@@ -5,18 +5,24 @@
 .side-panel-component {
   background-color: darkslategray;
   color: lightgray;
-  width: 200px;
+  width: 250px;
   display: flex;
   flex-direction: column;
+  border: solid rgb(111, 160, 160) 1px;
 }
 
-.side-panel-component > * li {
-  list-style-type: none;
+.side-panel-component > * a {
+  text-decoration: none;
+  color: lightgray;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
 }
 
 .side-panel-component > ul {
   margin: 0px;
   padding: 10px;
+  border-bottom: solid rgb(111, 160, 160) 1px;
 }
 
 .side-panel-component > * h4 {
@@ -24,4 +30,29 @@
   justify-content: space-between;
   margin: 0px;
   padding: 0px;
+}
+
+.item-preview {
+  display: flex;
+  min-height: 20px;
+  min-width: 25px;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.side-item > * div {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* TODO: Figure out how to hide ellipsis on default and show on hover of link */
+.side-item:hover + .item-ellipsis {
+  visibility: visible;
+}
+
+.item-ellipsis {
+  visibility: hidden;
 }
