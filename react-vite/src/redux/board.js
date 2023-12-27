@@ -108,6 +108,7 @@ export const deleteBoardThunk = (boardId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+
     return data;
   } else {
     const error = await response.json();
@@ -116,6 +117,7 @@ export const deleteBoardThunk = (boardId) => async (dispatch) => {
 };
 
 export const editBoardThunk = (boardDetails, id) => async (dispatch) => {
+  console.log("thunk called---");
   const response = await fetch(`/api/boards/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -124,6 +126,7 @@ export const editBoardThunk = (boardDetails, id) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+    dispatch(editBoard(data));
     return data.id;
   } else {
     const error = await response.json();
@@ -178,11 +181,15 @@ function boardReducer(boards = initialState, action) {
         },
       };
     case EDIT_BOARD:
+      console.log("in edit board------");
       newBoards = { ...boards };
       const { id, name, is_public, background_image } = action.payload;
       newBoards.boardDetails[id].name = name;
       newBoards.boardDetails[id].is_public = is_public;
       newBoards.boardDetails[id].background_image = background_image;
+      newBoards.myBoards[id].name = name;
+      newBoards.myBoards[id].is_public = is_public;
+      newBoards.myBoards[id].background_image = background_image;
       return newBoards;
 
     default:

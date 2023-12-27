@@ -18,7 +18,9 @@ function SidePanel() {
     dispatch(publicBoardsThunk());
     dispatch(myBoardsThunk());
   }, [dispatch]);
+
   useEffect(() => {
+    console.log("in use effect------")
     let tempOwnedBoards = {};
     let tempSharedBoards = {};
     for (let key in myBoards) {
@@ -30,7 +32,7 @@ function SidePanel() {
     }
     setOwnedBoards(tempOwnedBoards);
     setSharedBoards(tempSharedBoards);
-  }, [myBoards]);
+  }, [myBoards, publicBoards]);
 
   const toggleOwnedMenu = (e) => {
     e.stopPropagation();

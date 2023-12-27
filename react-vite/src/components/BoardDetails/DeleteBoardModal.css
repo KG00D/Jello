@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center;
   border: lightgray solid 1px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .delete-board-modal > h3 {
@@ -36,10 +36,8 @@
   height: 35px;
   width: 90px;
   margin: 0px 5px;
-  border-radius: 5px;
-  background-color: rgb(53, 85, 85);
+  background-color: darkslategray;
   color: lightgray;
-  border: lightgray solid 1px;
 }
 
 .delete-yesno > #delete-yes {
@@ -48,8 +46,6 @@
 
 .delete-board {
   background-color: brown;
-  border: lightgray solid 1px;
-  border-radius: 5px;
   color: lightgray;
   height: 30px;
   width: 100px;

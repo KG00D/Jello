@@ -36,6 +36,7 @@ function BoardDetails() {
     );
 
   const updateTitle = async (e) => {
+    console.log("update called---")
     const boardDetails = {
       name: boardName,
       is_public: isPublic,
