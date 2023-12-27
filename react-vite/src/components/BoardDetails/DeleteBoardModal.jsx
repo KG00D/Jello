@@ -14,9 +14,14 @@ function DeleteBoardModal({ id }) {
   };
   return (
     <div className="delete-board-modal">
-      <h4>Delete Board?</h4>
-      <button onClick={confirmDelete}>Yes</button>
-      <button onClick={closeModal}>No</button>
+      <h3>Delete Board?</h3>
+      <p>Note: This cannot be undone</p>
+      <div className="delete-yesno">
+        <button id="delete-yes" onClick={confirmDelete}>
+          Yes
+        </button>
+        <button onClick={closeModal}>No</button>
+      </div>
     </div>
   );
 }

@@ -37,13 +37,13 @@ function Landingpage() {
     <div className="Side-Panel">
       <SidePanel />
       <div className="Landing-Page">
-        <h4>YOUR WORKSPACES</h4>
+        <h4>YOUR BOARDS</h4>
         <div className="your-workspaces">
           {Object.values(ownedBoards).map((board) => {
             return <BoardTile board={board} />;
           })}
         </div>
-        <h4>GUEST WORKSPACES</h4>
+        <h4>SHARED BOARDS</h4>
         <div className="guest-workspaces"></div>
       </div>
     </div>

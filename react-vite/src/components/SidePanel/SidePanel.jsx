@@ -47,7 +47,7 @@ function SidePanel() {
       <ul>
         <h4 className="toggle-menu" onClick={toggleOwnedMenu}>
           <span>
-            <i class="fa-solid fa-user fa"></i> Your Workspaces
+            <i class="fa-solid fa-user fa"></i> Your Boards
           </span>
           {ownedBoardsMenu ? (
             <i class="fa-solid fa-angle-up"></i>
@@ -61,7 +61,7 @@ function SidePanel() {
       <ul>
         <h4 className="toggle-menu" onClick={toggleSharedMenu}>
           <span>
-            <i class="fa-solid fa-users fa-2xs"></i>Guest Workspaces
+            <i class="fa-solid fa-users fa-2xs"></i>Shared Boards
           </span>
           {sharedBoardsMenu ? (
             <i class="fa-solid fa-angle-up"></i>

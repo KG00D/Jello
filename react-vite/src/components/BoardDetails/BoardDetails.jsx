@@ -3,7 +3,6 @@ import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
-import DeleteBoardModal from "./DeleteBoardModal";
 import ListCreateModal from "../ListCreateModal";
 import SidePanel from "../SidePanel";
 
@@ -35,11 +34,6 @@ function BoardDetails() {
         <SidePanel />
       </div>
     );
-
-  const deleteBoard = async (e) => {
-    e.preventDefault();
-    setModalContent(<DeleteBoardModal id={id} />);
-  };
 
   const updateTitle = async (e) => {
     const boardDetails = {
@@ -93,10 +87,6 @@ function BoardDetails() {
         <div className="modal-container">
           <ListCreateModal boardId={id} />
         </div>
-
-        <button className="delete-board" onClick={deleteBoard}>
-          Delete Board
-        </button>
       </div>
     </div>
   );
