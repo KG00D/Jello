@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-
+import { useParams } from "react-router-dom";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
+import { deleteListThunk , updateListTitleThunk } from '../../redux/lists';
 import DeleteBoardModal from "./DeleteBoardModal";
-
-import ListCreateModal from "../ListCreateModal";
-
+import ListEditModal from "../ListEditModal";
 import "./BoardDetails.css";
 
 function BoardDetails() {
@@ -18,6 +17,9 @@ function BoardDetails() {
   const [boardName, setBoardName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState("");
+
+  const [editingListId, setEditingListId] = useState(null);
+  const [editingTitle, setEditingTitle] = useState("");
 
   useEffect(() => {
     dispatch(boardDetailsThunk(id));
@@ -30,7 +32,7 @@ function BoardDetails() {
     setBackgroundImage(boardDetails.background_image);
   }, [boardDetails]);
 
-  if (!boardDetails) return <div></div>;
+  if (!boardDetails) return <div>Loading...</div>;
 
   const deleteBoard = async (e) => {
     e.preventDefault();
@@ -45,16 +47,44 @@ function BoardDetails() {
     };
     dispatch(editBoardThunk(boardDetails, id));
   };
+  
+  const handleDeleteList = async (listId) => {
+    try {
+      await dispatch(deleteListThunk(id, listId));
+      dispatch(boardDetailsThunk(id));
+    } catch (error) {
+      console.error("Failed to delete list:", error);
+    }
+  };
+  
 
-  const { name, background_image } = boardDetails;
+  const handleEditListTitle = (list) => {
+    setEditingListId(list.id);
+    setEditingTitle(list.title);
+  };
 
-  let Lists = {};
-  if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
+  const handleSaveTitle = async (listId) => {
+    try {
+      if (editingTitle !== "") {
+        await dispatch(updateListTitleThunk(id, listId, editingTitle));
+        setEditingTitle(""); 
+        dispatch(boardDetailsThunk(id)); 
+      }
+    } catch (error) {
+      console.error("Failed to save title:", error);
+    } finally {
+      setEditingListId(null);
+    }
+  };
+  
+
+  const handleTitleChange = (e) => {
+    setEditingTitle(e.target.value);
+    dispatch(boardDetailsThunk(id)); 
+  };
+  
   return (
-    <div
-      className="board-details"
-      style={{ backgroundColor: background_image }}
-    >
+    <div className="board-details" style={{ backgroundColor: backgroundImage }}>
       <h4>
         Board Name:{" "}
         <input
@@ -64,30 +94,41 @@ function BoardDetails() {
           onBlur={updateTitle}
         />
       </h4>
+
       <div className="lists-container">
-        {Object.values(Lists).map((list) => (
-          <div className="list-container">
-            <h4>List: {list.title}</h4>
+        {Object.values(boardDetails.Lists || {}).map((list) => (
+          <div className="list-container" key={list.id}>
+            {editingListId === list.id ? (
+              <input
+                type="text"
+                value={editingTitle}
+                onChange={handleTitleChange}
+                onBlur={() => handleSaveTitle(list.id)}
+                autoFocus
+                className="edit-list-title-input"
+              />
+            ) : (
+              <h4 onClick={() => 
+               handleEditListTitle(list)
+              }>
+                List: {list.title}
+              </h4>
+            )}
             {list.Cards &&
-              Object.values(list.Cards).map(
-                (
-                  card // Check if Cards exist
-                ) => (
-                  <div key={card.id}>
-                    {" "}
-                    {/* Add a key prop here */}
-                    <h5>Card Name: {card.name}</h5>
-                    <p>Card Description: {card.description}</p>
-                  </div>
-                )
-              )}
+              Object.values(list.Cards).map((card) => (
+                <div key={card.id}>
+                  <h5>Card Name: {card.name}</h5>
+                  <p>Card Description: {card.description}</p>
+                </div>
+              ))}
+            <button onClick={() => handleDeleteList(list.id)}>Delete List</button>
           </div>
         ))}
       </div>
+      
       <div className="modal-container">
-        <ListCreateModal boardId={id} />
+        <ListEditModal boardId={id} />
       </div>
-
       <button className="delete-board" onClick={deleteBoard}>
         Delete Board
       </button>
