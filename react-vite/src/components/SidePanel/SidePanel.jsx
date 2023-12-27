@@ -46,7 +46,9 @@ function SidePanel() {
     <div className="side-panel-component">
       <ul>
         <h4 className="toggle-menu" onClick={toggleOwnedMenu}>
-          <span>Your WorkSpaces</span>
+          <span>
+            <i class="fa-solid fa-user fa"></i> Your Workspaces
+          </span>
           {ownedBoardsMenu ? (
             <i class="fa-solid fa-angle-up"></i>
           ) : (
@@ -58,7 +60,9 @@ function SidePanel() {
       </ul>
       <ul>
         <h4 className="toggle-menu" onClick={toggleSharedMenu}>
-          <span>Guest Workspaces</span>
+          <span>
+            <i class="fa-solid fa-users fa-2xs"></i>Guest Workspaces
+          </span>
           {sharedBoardsMenu ? (
             <i class="fa-solid fa-angle-up"></i>
           ) : (

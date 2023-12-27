@@ -26,7 +26,7 @@ function Navigation() {
       }
     };
 
-    document.addEventListener("click", closeMenu);
+    document.addEventListener("click", closeMenu, true);
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
