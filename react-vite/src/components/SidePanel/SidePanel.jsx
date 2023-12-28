@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import "./SidePanel.css";
 import SideItem from "./SideItem";
 import { publicBoardsThunk, myBoardsThunk } from "../../redux/board";
 
 function SidePanel() {
   const dispatch = useDispatch();
+  const { id } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
   const myBoards = useSelector((state) => state.boards.myBoards);
   const publicBoards = useSelector((state) => state.boards.publicBoards);
@@ -20,7 +22,7 @@ function SidePanel() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("in use effect------")
+    console.log("in use effect------");
     let tempOwnedBoards = {};
     let tempSharedBoards = {};
     for (let key in myBoards) {
@@ -32,7 +34,7 @@ function SidePanel() {
     }
     setOwnedBoards(tempOwnedBoards);
     setSharedBoards(tempSharedBoards);
-  }, [myBoards, publicBoards]);
+  }, [myBoards, publicBoards, id]);
 
   const toggleOwnedMenu = (e) => {
     e.stopPropagation();

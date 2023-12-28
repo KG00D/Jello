@@ -59,7 +59,7 @@ input[type="radio"] {
   margin: 0px auto;
 }
 input[type="radio"]:checked + .radio-label {
-  border: 3px solid black;
+  border: 3px solid white;
 }
 
 label.radio-label {
