@@ -2,7 +2,7 @@ import "./BoardOptions.css";
 import DeleteBoardModal from "../BoardDetails/DeleteBoardModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { editBoardThunk } from "../../redux/board";
 
 function BoardOptions({ item }) {
@@ -17,8 +17,7 @@ function BoardOptions({ item }) {
   const [isPublic, setIsPublic] = useState(is_public);
   const [previewColor, setPreviewColor] = useState(background_image);
 
-  const updateBoard = async (e) => {
-    console.log("preview color--->".name, isPublic, previewColor)
+  const updateBoard = (e) => {
     const boardDetails = {
       id: id,
       name: name,
@@ -27,6 +26,10 @@ function BoardOptions({ item }) {
     };
     dispatch(editBoardThunk(boardDetails, id));
   };
+
+  useEffect(() => {
+    updateBoard();
+  }, [previewColor, isPublic]);
 
   return (
     <div className="board-options">
@@ -41,10 +44,7 @@ function BoardOptions({ item }) {
             name="color"
             value="burlywood"
             checked={previewColor === "burlywood"}
-            onChange={(e) => {
-              setPreviewColor(e.target.value);
-              updateBoard();
-            }}
+            onChange={(e) => setPreviewColor(e.target.value)}
           />
           <label
             className="radio-label"
@@ -60,10 +60,7 @@ function BoardOptions({ item }) {
             id="cadetblue"
             name="color"
             value="cadetblue"
-            onChange={(e) => {
-              setPreviewColor(e.target.value);
-              updateBoard();
-            }}
+            onChange={(e) => setPreviewColor(e.target.value)}
             checked={previewColor === "cadetblue"}
           />
           <label
@@ -81,10 +78,7 @@ function BoardOptions({ item }) {
             name="color"
             value="lightsalmon"
             checked={previewColor === "lightsalmon"}
-            onChange={(e) => {
-              setPreviewColor(e.target.value);
-              updateBoard();
-            }}
+            onChange={(e) => setPreviewColor(e.target.value)}
           />
           <label
             className="radio-label"
