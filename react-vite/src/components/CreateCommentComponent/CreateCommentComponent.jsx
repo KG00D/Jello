@@ -47,21 +47,27 @@ const CreateComment = () => {
 
   return (
     <div className="create-comment-container">
+
       <div className="create-comment-initials">{initials}</div>
+
       <form onSubmit={handleSubmit}>
-        <div>
-          <textarea
-            id= "comment-text"
-            className="create-comment-text"
-            type="text"
-            onChange={e => setCommentText(e.target.value)}
-            onClick={() => setSelected(true)}
-            value={commentText}
-            placeholder="Write a comment..."
-          />
+        <div className="create-comment-form">
+          <div className="create-comment-text-container">
+            <textarea
+              id= "comment-text"
+              className="create-comment-text"
+              type="text"
+              onChange={e => setCommentText(e.target.value)}
+              onClick={() => setSelected(true)}
+              value={commentText}
+              placeholder="Write a comment..."
+              contentEditable
+            />
+          </div>
           <button className={buttonClass}>Save</button>
         </div>
       </form>
+
     </div>
   )
 }
