@@ -118,24 +118,27 @@ export const deleteBoardThunk = (boardId) => async (dispatch) => {
   }
 };
 
-export const editBoardThunk = (boardDetails, id) => async (dispatch) => {
-  console.log("thunk called---");
-  const response = await fetch(`/api/boards/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(boardDetails),
-  });
+export const editBoardThunk =
+  (boardDetails, id, currBoardId = null) =>
+  async (dispatch) => {
+    const response = await fetch(`/api/boards/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(boardDetails),
+    });
 
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(editBoard(data));
-    dispatch(myBoardsThunk());
-    return data.id;
-  } else {
-    const error = await response.json();
-    return error;
-  }
-};
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(editBoard(data));
+      dispatch(myBoardsThunk());
+      if (Number(id) === Number(currBoardId))
+        dispatch(boardDetailsThunk(currBoardId));
+      return data.id;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  };
 
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
@@ -181,7 +184,6 @@ function boardReducer(boards = initialState, action) {
         },
       };
     case EDIT_BOARD:
-      console.log("in edit board------", action.payload);
       newBoards = { ...boards };
       const { id, name, is_public, background_image } = action.payload;
       if (newBoards.boardDetails[id]) {

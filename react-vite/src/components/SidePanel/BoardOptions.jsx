@@ -1,13 +1,14 @@
 import "./BoardOptions.css";
 import DeleteBoardModal from "../BoardDetails/DeleteBoardModal";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { useState, useEffect } from "react";
-import { editBoardThunk } from "../../redux/board";
+import { editBoardThunk, boardDetailsThunk } from "../../redux/board";
 
 function BoardOptions({ item }) {
+  const { id: currBoardId } = useParams();
   const dispatch = useDispatch();
-  console.log("item------->}", item);
   const { id, is_public, background_image, name } = item;
   const { setModalContent } = useModal();
   const deleteBoard = (e) => {
@@ -17,14 +18,14 @@ function BoardOptions({ item }) {
   const [isPublic, setIsPublic] = useState(is_public);
   const [previewColor, setPreviewColor] = useState(background_image);
 
-  const updateBoard = (e) => {
+  const updateBoard = async (e) => {
     const boardDetails = {
       id: id,
       name: name,
       is_public: isPublic,
       background_image: previewColor,
     };
-    dispatch(editBoardThunk(boardDetails, id));
+    dispatch(editBoardThunk(boardDetails, id, currBoardId));
   };
 
   useEffect(() => {

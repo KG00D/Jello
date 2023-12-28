@@ -22,7 +22,6 @@ function SidePanel() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("in use effect------");
     let tempOwnedBoards = {};
     let tempSharedBoards = {};
     for (let key in myBoards) {
