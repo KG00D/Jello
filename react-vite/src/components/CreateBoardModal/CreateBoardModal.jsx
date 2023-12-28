@@ -40,7 +40,9 @@ function CreateBoardModal() {
           <div className="preview-1">{""}</div>
           <div className="preview-2">{""}</div>
           <div className="preview-3">{""}</div>
+
           <h5>Background Color</h5>
+
           <div className="background-colors">
             <input
               className="radio-color"

@@ -2,6 +2,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
+
 }
 
 .board-details {
@@ -25,4 +26,29 @@
 .modal-container {
   margin-left: auto;
   padding-right: 10px;
+
 }
+
+.board-details {
+    display: flex; 
+    flex-direction: row; 
+    align-items: flex-start; 
+    gap: 10px; 
+    padding: 10px; 
+    overflow-x: auto; 
+  }
+
+.lists-container {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: flex-start; 
+    align-items: flex-start; 
+    gap: 10px; 
+  }
+
+  .modal-container {
+    margin-left: auto;
+    padding-right: 10px; 
+  }
+
+

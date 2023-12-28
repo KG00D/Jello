@@ -35,9 +35,11 @@ function Navigation() {
     <ul className="navigation">
       <li>
         {user ? (
+
           <NavLink id="logo" to="/session/boards">
             <i class="fa-solid fa-jar"></i> Jello
           </NavLink>
+
         ) : (
           <NavLink to="/">Jello</NavLink>
         )}
