@@ -42,7 +42,7 @@ function SideItem({ item }) {
       </NavLink>
       {showMenu && (
         <span id={`panel-board-${item.id}`} ref={ulRef}>
-          <BoardOptions boardId={item.id} />
+          <BoardOptions item={item} />
         </span>
       )}
     </li>

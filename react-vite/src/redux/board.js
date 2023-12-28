@@ -27,12 +27,12 @@ const boardDetails = (boardDetails) => {
   };
 };
 
-// const addBoard = (newBoard) => {
-//   return {
-//     type: ADD_BOARD,
-//     payload: newBoard,
-//   };
-// };
+const addBoard = (newBoard) => {
+  return {
+    type: ADD_BOARD,
+    payload: newBoard,
+  };
+};
 
 const deleteBoard = (boardId) => {
   return {
@@ -96,6 +96,8 @@ export const newBoardThunk = (newBoard) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+    dispatch(addBoard(data));
+    dispatch(myBoardsThunk());
     return data.id;
   } else {
     const error = await response.json();
@@ -108,6 +110,7 @@ export const deleteBoardThunk = (boardId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+    dispatch(myBoardsThunk());
     return data;
   } else {
     const error = await response.json();
@@ -115,21 +118,27 @@ export const deleteBoardThunk = (boardId) => async (dispatch) => {
   }
 };
 
-export const editBoardThunk = (boardDetails, id) => async (dispatch) => {
-  const response = await fetch(`/api/boards/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(boardDetails),
-  });
+export const editBoardThunk =
+  (boardDetails, id, currBoardId = null) =>
+  async (dispatch) => {
+    const response = await fetch(`/api/boards/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(boardDetails),
+    });
 
-  if (response.ok) {
-    const data = await response.json();
-    return data.id;
-  } else {
-    const error = await response.json();
-    return error;
-  }
-};
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(editBoard(data));
+      dispatch(myBoardsThunk());
+      if (Number(id) === Number(currBoardId))
+        dispatch(boardDetailsThunk(currBoardId));
+      return data.id;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  };
 
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
@@ -154,14 +163,11 @@ function boardReducer(boards = initialState, action) {
       newBoards = { ...boards };
       newBoards.boardDetails = {};
       newBoards.boardDetails[action.payload.id] = action.payload;
-
       return newBoards;
-
     case DELETE_BOARD:
       newBoards = { ...boards };
       delete newBoards.myBoards[action.payload];
       return newBoards;
-
     case ADD_LIST:
       const { boardId, list } = action.payload;
       return {
@@ -180,11 +186,19 @@ function boardReducer(boards = initialState, action) {
     case EDIT_BOARD:
       newBoards = { ...boards };
       const { id, name, is_public, background_image } = action.payload;
-      newBoards.boardDetails[id].name = name;
-      newBoards.boardDetails[id].is_public = is_public;
-      newBoards.boardDetails[id].background_image = background_image;
+      if (newBoards.boardDetails[id]) {
+        newBoards.boardDetails[id].name = name;
+        newBoards.boardDetails[id].is_public = is_public;
+        newBoards.boardDetails[id].background_image = background_image;
+      }
+      newBoards.myBoards[id].name = name;
+      newBoards.myBoards[id].is_public = is_public;
+      newBoards.myBoards[id].background_image = background_image;
       return newBoards;
-
+    case ADD_BOARD:
+      newBoards = { ...boards };
+      newBoards.myBoards[action.payload.id] = action.payload;
+      return newBoards;
     default:
       return boards;
   }
