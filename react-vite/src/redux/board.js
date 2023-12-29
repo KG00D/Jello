@@ -27,12 +27,12 @@ const boardDetails = (boardDetails) => {
   };
 };
 
-// const addBoard = (newBoard) => {
-//   return {
-//     type: ADD_BOARD,
-//     payload: newBoard,
-//   };
-// };
+const addBoard = (newBoard) => {
+  return {
+    type: ADD_BOARD,
+    payload: newBoard,
+  };
+};
 
 const deleteBoard = (boardId) => {
   return {

@@ -1,6 +1,7 @@
 .your-workspaces,
 .guest-workspaces {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .Landing-Page {
