@@ -14,7 +14,6 @@
 
 .comment-initials-logo {
   grid-area: initials;
-  /* font-family: Helvetica; */
   background-color: lightcoral;
   border-radius: 100px;
   height: 35px;

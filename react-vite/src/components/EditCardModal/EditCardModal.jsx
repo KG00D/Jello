@@ -4,7 +4,7 @@ import { useSelector, useDispatch  } from "react-redux";
 import './EditCardModal.css'
 import { deleteCardThunk, editCardThunk } from "../../redux/cards";
 
-function EditCardModal() {
+function EditCardModal({cardList}) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
     const card = useSelector((state) => state.cards.Card)
@@ -62,7 +62,12 @@ function EditCardModal() {
     }
 
 
-    const descriptionText = !description ? 'Add a more detailed description' : description
+    const descriptionText = description === 'None'  || !description ? 'Add a more detailed description' : description
+
+    console.log(description, '---description')
+    console.log(typeof description)
+    console.log(description === 'None')
+    console.log(descriptionText, '----descriptionText')
 
 
     const deleteCard = () => {
@@ -74,13 +79,16 @@ function EditCardModal() {
 
     return (
         <>
-            <div>
+            <div className='edit-card-form'>
                 <div className='card-name-box'>
                     <div className='card-name-logo'>
                         <p><i className="fa-sharp fa-regular fa-credit-card"></i></p>
                     </div>
                     <div className='card-name-right'>
-                        <input onClick={showNameBorder} placeholder={card.name} id='card-name' className={ showNameBorder ? `card-name-border-visible` : 'card-name-border-hidden'}type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
+                        <input onClick={showNameBorder} placeholder={card.name} id='card-name' className={ showNameBorder ? `card-name-border-visible` : 'card-name-border-hidden'} type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
+                    </div>
+                    <div className='card-x' onClick={closeModal}>
+                        X
                     </div>
                 </div>
                 <div className='card-description-box'>
@@ -88,16 +96,16 @@ function EditCardModal() {
                         <p><i class="fa-solid fa-bars-staggered"></i></p>
                     </div>
                     <div className='card-description-text'>
-                        <p>Description</p>
-                        <input onClick={showDescriptionBorder} placeholder={descriptionText} id='card-description' className={ showDescriptionBorder ? `card-description-border-visible` : 'card-description-border-hidden'} type='text' onChange={(e) => setDescription(e.target.value)} value={description}></input>
+                        <p id='card-description-p'>Description</p>
+                        <input onClick={showDescriptionBorder} placeholder={descriptionText} id='card-description' className={ showDescriptionBorder ? `card-description-border-visible` : 'card-description-border-hidden'} type='text' onChange={(e) => setDescription(e.target.value)} ></input>
                     </div>
                 </div>
                 <div className='comments box'>
 
                 </div>
-                <div>
+                <div className='card-button-box'>
                     <button onClick={onSubmit}>Save</button>
-                    <button onClick={deleteCard}>Delete</button>
+                    <button id='card-delete-button' onClick={deleteCard}>Delete</button>
                 </div>
             </div>
         </>
