@@ -1,8 +1,32 @@
-
 .live-board-title {
   background: transparent;
   border: none;
   cursor: pointer;
+
+}
+
+.board-details {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  overflow-x: auto;
+  width: 100vw;
+}
+
+.lists-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.modal-container {
+  margin-left: auto;
+  padding-right: 10px;
+
 }
 
 .board-details {

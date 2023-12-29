@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Landingpage.css";
 import { publicBoardsThunk, myBoardsThunk } from "../../redux/board";
 import BoardTile from "./BoardTile";
+import SidePanel from "../SidePanel";
 
 function Landingpage() {
   //Boards disappear after refresh. only appears when code is changed
   const dispatch = useDispatch();
   const publicBoards = useSelector((state) => state.boards.publicBoards);
+  const boards = useSelector((state) => state.boards);
   const myBoards = useSelector((state) => state.boards.myBoards);
   const sessionUser = useSelector((state) => state.session.user);
   const [ownedBoards, setOwnedBoards] = useState({});
@@ -30,18 +32,21 @@ function Landingpage() {
     }
     setOwnedBoards(tempOwnedBoards);
     setSharedBoards(tempSharedBoards);
-  }, [myBoards]);
+  }, [myBoards, boards]);
 
   return (
-    <div className="Landing-Page">
-      <h4>YOUR WORKSPACES</h4>
-      <div className="your-workspaces">
-        {Object.values(ownedBoards).map((board) => {
-          return <BoardTile board={board} />;
-        })}
+    <div className="Side-Panel">
+      <SidePanel />
+      <div className="Landing-Page">
+        <h4>YOUR BOARDS</h4>
+        <div className="your-workspaces">
+          {Object.values(ownedBoards).map((board) => {
+            return <BoardTile board={board} />;
+          })}
+        </div>
+        <h4>SHARED BOARDS</h4>
+        <div className="guest-workspaces"></div>
       </div>
-      <h4>GUEST WORKSPACES</h4>
-      <div className="guest-workspaces"></div>
     </div>
   );
 }

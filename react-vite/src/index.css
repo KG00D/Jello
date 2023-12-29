@@ -1,10 +1,17 @@
 /* TODO: Add sitewide styles */
 html {
-
   margin: 0px auto;
-
+  height: 100%;
+  margin: 0;
+  overflow-y: hidden;
 }
 
-button, .login-signup {
+button,
+.login-signup {
   cursor: pointer;
+}
+
+body {
+  height: 100%;
+  margin: 0;
 }

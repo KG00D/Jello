@@ -1,0 +1,54 @@
+.delete-board-modal {
+  background-color: rgb(35, 57, 57);
+  color: lightgray;
+  height: 100px;
+  width: 200px;
+  margin: 0px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: lightgray solid 1px;
+  border-radius: 5px;
+}
+
+.delete-board-modal > h3 {
+  margin: 0px 0px;
+  padding: 0px;
+}
+
+#modal-content {
+  background-color: transparent;
+}
+
+.delete-board-modal > p {
+  margin: 0px;
+  padding: 0px;
+  font-style: italic;
+  font-size: small;
+}
+
+.delete-yesno {
+  margin-top: 25px;
+}
+
+.delete-yesno > button {
+  height: 35px;
+  width: 90px;
+  margin: 0px 5px;
+  background-color: darkslategray;
+  color: lightgray;
+}
+
+.delete-yesno > #delete-yes {
+  background-color: brown;
+}
+
+.delete-board {
+  background-color: brown;
+  color: lightgray;
+  height: 30px;
+  width: 100px;
+  margin: 0px 10px;
+  margin-top: 10px;
+}

@@ -26,7 +26,7 @@ function Navigation() {
       }
     };
 
-    document.addEventListener("click", closeMenu);
+    document.addEventListener("click", closeMenu, true);
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
@@ -35,7 +35,11 @@ function Navigation() {
     <ul className="navigation">
       <li>
         {user ? (
-          <NavLink to="/session/boards">Jello</NavLink>
+
+          <NavLink id="logo" to="/session/boards">
+            <i class="fa-solid fa-jar"></i> Jello
+          </NavLink>
+
         ) : (
           <NavLink to="/">Jello</NavLink>
         )}

@@ -1,4 +1,12 @@
 .your-workspaces,
 .guest-workspaces {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.Landing-Page {
+  background-color: rgb(38, 61, 61);
+  padding-left: 20px;
+  width: 90vw;
+  color: lightgray;
 }
