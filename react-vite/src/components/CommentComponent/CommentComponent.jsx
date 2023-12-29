@@ -5,9 +5,11 @@ import { useParams } from "react-router-dom"
 import { useModal } from "../../context/Modal";
 import * as commentActions from "../../redux/comments"
 import './CommentComponent.css'
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeleteComment from "../DeleteCommentModal/DeleteCommentModal";
+import EditComment from "../EditCommentComponent/EditCommentComponent";
 
-const hourArrAM = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-const hourArrPM = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+const hourArr = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 const Comment = () => {
   const dispatch = useDispatch()
@@ -15,6 +17,8 @@ const Comment = () => {
   const comments = useSelector(state => {
     return state.comments
   })
+  const [ isBeingEdited, setIsBeingEdited ] = useState(false)
+  const [ editCommentId, setEditCommentId ] = useState()
 
   useEffect(() => {
     dispatch(commentActions.getCommentsThunk(cardId))
@@ -43,36 +47,49 @@ const Comment = () => {
           let postedHour
           let meridiem
           if (timeHour < 12) {
-            postedHour = hourArrAM[+timeHour]
+            postedHour = hourArr[+timeHour]
             meridiem = 'AM'
           } else {
-            postedHour = hourArrPM[+timeHour - 12]
+            postedHour = hourArr[+timeHour - 12]
             meridiem = 'PM'
           }
           let postedMinute = timeTimeSplit[1]
 
-          return (
-            <div className="comment-container">
+          if (isBeingEdited && editCommentId === comment.id) {
+            return <EditComment commentId={comment.id} key={comment.id}/>
+          } else {
+            return (
+              <div className="comment-container" key={comment.id}>
 
               <div className="comment-initials-logo">{comment.commenter_details.first_name[0]}{comment.commenter_details.last_name[0]}</div>
 
               <div className="comment-name-time">
                 <div className="comment-name">{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
 
-                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
+                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div> {/*look into Moment.js */}
               </div>
 
               <div className="comment-text">{comment.comment_text}</div>
 
               <div className="comment-edit-delete">
-                <button className="comment-edit">Edit</button>
+                <button className="comment-edit" onClick={() => {
+                  setIsBeingEdited(true)
+                  setEditCommentId(comment.id)
+                }}
+                >Edit</button>
                 <div className="comment-dot">·</div>
-                <button className="comment-delete">Delete</button>
+                <div className="comment-delete">
+                  <OpenModalButton
+                    buttonText={'Delete'}
+                    modalComponent={<DeleteComment commentId={comment.id}/>}
+
+                    />
+                </div>
               </div>
 
             </div>
 
-          )
+            )}
         })}
 
       </div>
