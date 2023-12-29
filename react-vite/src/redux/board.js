@@ -97,7 +97,7 @@ export const newBoardThunk = (newBoard) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(addBoard(data));
-    dispatch(myBoardsThunk());
+    // dispatch(myBoardsThunk());
     return data.id;
   } else {
     const error = await response.json();
@@ -110,7 +110,8 @@ export const deleteBoardThunk = (boardId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(myBoardsThunk());
+    // dispatch(myBoardsThunk());
+    dispatch(deleteBoard(boardId));
     return data;
   } else {
     const error = await response.json();
@@ -130,7 +131,7 @@ export const editBoardThunk =
     if (response.ok) {
       const data = await response.json();
       dispatch(editBoard(data));
-      dispatch(myBoardsThunk());
+      // dispatch(myBoardsThunk());
       if (Number(id) === Number(currBoardId))
         dispatch(boardDetailsThunk(currBoardId));
       return data.id;

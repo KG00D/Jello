@@ -9,6 +9,7 @@ function SidePanel() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
+  const boards = useSelector((state) => state.boards);
   const myBoards = useSelector((state) => state.boards.myBoards);
   const publicBoards = useSelector((state) => state.boards.publicBoards);
   const [ownedBoards, setOwnedBoards] = useState({});
@@ -33,7 +34,7 @@ function SidePanel() {
     }
     setOwnedBoards(tempOwnedBoards);
     setSharedBoards(tempSharedBoards);
-  }, [myBoards, publicBoards, id]);
+  }, [myBoards, publicBoards, id, boards]);
 
   const toggleOwnedMenu = (e) => {
     e.stopPropagation();
