@@ -27,12 +27,12 @@ const boardDetails = (boardDetails) => {
   };
 };
 
-const addBoard = (newBoard) => {
-  return {
-    type: ADD_BOARD,
-    payload: newBoard,
-  };
-};
+// const addBoard = (newBoard) => {
+//   return {
+//     type: ADD_BOARD,
+//     payload: newBoard,
+//   };
+// };
 
 const deleteBoard = (boardId) => {
   return {
@@ -96,6 +96,7 @@ export const newBoardThunk = (newBoard) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+
     dispatch(addBoard(data));
     // dispatch(myBoardsThunk());
     return data.id;
@@ -200,6 +201,12 @@ function boardReducer(boards = initialState, action) {
       newBoards = { ...boards };
       newBoards.myBoards[action.payload.id] = action.payload;
       return newBoards;
+
+    case DELETE_BOARD:
+      newBoards = { ...boards };
+      delete newBoards.myBoards[action.payload];
+      return newBoards;
+
     default:
       return boards;
   }

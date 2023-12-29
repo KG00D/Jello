@@ -6,6 +6,10 @@ import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
 import ListCreateModal from "../ListCreateModal";
 import SidePanel from "../SidePanel";
 
+import DeleteBoardModal from "./DeleteBoardModal";
+
+
+
 import "./BoardDetails.css";
 
 function BoardDetails() {
@@ -45,11 +49,17 @@ function BoardDetails() {
     dispatch(editBoardThunk(boardDetails, id));
   };
 
+  const deleteBoard = async (e) => {
+    e.preventDefault();
+    setModalContent(<DeleteBoardModal id={id} />);
+  };
+
   const { name, background_image } = boardDetails;
 
   let Lists = {};
   if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
   return (
+
     <div className="Side-Panel">
       <SidePanel />
       <div
@@ -89,6 +99,7 @@ function BoardDetails() {
           <ListCreateModal boardId={id} />
         </div>
       </div>
+
     </div>
   );
 }

@@ -14,6 +14,7 @@ function DeleteBoardModal({ id }) {
   };
   return (
     <div className="delete-board-modal">
+
       <h3>Delete Board?</h3>
       <p>Note: This cannot be undone</p>
       <div className="delete-yesno">
@@ -22,6 +23,7 @@ function DeleteBoardModal({ id }) {
         </button>
         <button onClick={closeModal}>No</button>
       </div>
+
     </div>
   );
 }
