@@ -1,0 +1,39 @@
+.delete-container {
+  font-family: 'Open Sans';
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+  "top-row"
+  "text"
+  "button";
+  margin: 10px;
+  color: #54627b;
+}
+
+.delete-top-row {
+  grid-area: top-row;
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-header {
+  font-size: 15px;
+}
+
+.delete-x {
+  font-size: 15px;
+  background: none;
+  border: none;
+}
+
+.delete-p {
+  font-size: 15px;
+}
+
+.delete-button {
+  background-color: #c9372c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
