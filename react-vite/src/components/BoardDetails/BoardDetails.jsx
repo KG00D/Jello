@@ -149,7 +149,7 @@ function BoardDetails() {
               {/* List Cards */}
               {list.Cards &&
                 Object.values(list.Cards).map((card) => (
-                  <div key={card.id}>
+                  <div key={card.id} className="card-container">
                     <h5>Card Name: {card.name}</h5>
                     <p>Card Description: {card.description}</p>
                   </div>

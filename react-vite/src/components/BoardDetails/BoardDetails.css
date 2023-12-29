@@ -57,8 +57,8 @@
   display: flex; 
   overflow-x: auto; 
   align-items: flex-start; 
-  gap: 10px; 
-  padding: 10px; 
+  gap: 1px; 
+  padding: 1px; 
   height: calc(100vh - 60px); 
   flex-wrap: nowrap;
 }
@@ -75,7 +75,7 @@
 .list-container {
   position: relative; 
   background-color: #333; 
-  border-radius: 75px;
+  border-radius: 0px;
   padding: 10px;
   margin: 10px;
   color: white;
@@ -110,7 +110,7 @@
 }
 
 .menu-button {
-  background-color: #333; 
+  background-color: #323940; 
   border: none; 
   color: white; 
   padding: 5px 10px; 
@@ -150,4 +150,12 @@
 
 .lists-dropdown-menu button:hover {
   background-color: #f6f6f6;
+}
+
+.card-container {
+  background-color: #323940; 
+  border-radius: 10px;
+  padding: 10px; 
+  margin-bottom: 10px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
