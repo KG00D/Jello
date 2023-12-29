@@ -5,8 +5,9 @@
 }
 
 .Landing-Page {
-  background-color: rgb(38, 61, 61);
+  background-color: rgb(40, 40, 48);
   padding-left: 20px;
   width: 90vw;
   color: lightgray;
+  overflow-y: scroll;
 }
