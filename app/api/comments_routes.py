@@ -24,6 +24,7 @@ def get_all_comments():
 def edit_a_comment(comment_id):
   existing_comment = Comment.query.get(comment_id)
   form = CommentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
 
   if not existing_comment:
     return {
