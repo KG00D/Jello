@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addCardThunk } from '../../redux/cards'
+import './AddCard.css'
 
-const AddCard = ( { listId }) => {
+const AddCard = ( { list }) => {
     const dispatch = useDispatch()
     const [name, setName] = useState('')
     const [ showAddButton, setShowAddButton ] = useState(true)
     const [ addCardDisabled, setAddCardDisabled ] = useState(false)
+    const listId = list.id
 
     useEffect(() => {
         if (name.length >= 64) setAddCardDisabled(true)
@@ -36,17 +38,17 @@ const AddCard = ( { listId }) => {
         setName('')
     }
 
-    const addCardButton = <button onClick={() => setShowAddButton(!showAddButton)}>+ Add a card</button>
+    const addCardButton = <button id='add-card-button' onClick={() => setShowAddButton(!showAddButton)}>+ Add a card</button>
 
     return (
         <>
             {showAddButton && addCardButton}
             { !showAddButton &&
-             <form>
+             <form className='add-card-form-box'>
                 <input placeholder='Enter a title for this card...' id='new-card-name' type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
-                <div>
-                    <button disabled={addCardDisabled} onClick={onSubmit}>Save</button>
-                    <button onClick={reset}>X</button>
+                <div className='add-card-buttons-box'>
+                    <button id='add-card-save-button' disabled={addCardDisabled} onClick={onSubmit}>Add Card</button>
+                    <p id='cancel-add-card-save' onClick={reset}>X</p>
                 </div>
              </form>
             }
