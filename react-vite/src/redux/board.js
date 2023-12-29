@@ -4,7 +4,8 @@ const GET_BOARD_DETAILS = "board/details";
 const ADD_BOARD = "board/add";
 const EDIT_BOARD = "board/edit";
 const DELETE_BOARD = "board/delete";
-import { ADD_LIST, EDIT_LIST } from "./actionTypes";
+// const UPDATE_LIST_ORDER = "board/updateListOrder";
+import { ADD_LIST, EDIT_LIST, EDIT_LIST_ORDER } from "./actionTypes";
 
 const publicBoards = (publicBoards) => {
   return {
@@ -47,6 +48,13 @@ const editBoard = (boardDetails) => {
     payload: boardDetails,
   };
 };
+
+// const updateListOrder = (boardId, newLists) => {
+//   return {
+//     type: UPDATE_LIST_ORDER,
+//     payload: { boardId, newLists },
+//   };
+// };
 
 export const publicBoardsThunk = () => async (dispatch) => {
   const response = await fetch("/api/boards");
@@ -131,6 +139,52 @@ export const editBoardThunk = (boardDetails, id) => async (dispatch) => {
   }
 };
 
+// export const updateListOrderThunk = (boardId, newLists) => async (dispatch) => {
+//   const response = await csrfFetch(`/api/boards/${boardId}/lists/reorder`, {
+//     method: "PUT",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ lists: newLists }),
+//   });
+
+//   if (response.ok) {
+//     const updatedList = await response.json();
+//     console.log("Dispatching EDIT_LIST_ORDER with:", updatedList);
+//     // dispatch(updateListOrder(boardId, newLists));
+//     dispatch({ type: EDIT_LIST_ORDER, payload: { boardId, updatedLists: updatedList } });
+//   } else {
+//     const error = await response.json();
+//     console.error("Failed to update list order:", error);
+//   }
+// };
+
+export const updateListOrderThunk = (boardId, newOrder) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/boards/${boardId}/lists/reorder`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ new_order: newOrder })
+    });
+
+    if (response.ok) {
+    const updatedList = await response.json();
+    console.log("Dispatching EDIT_LIST_ORDER with:", updatedList);
+//     // dispatch(updateListOrder(boardId, newLists));
+    dispatch({ type: EDIT_LIST_ORDER, payload: { boardId, updatedLists: updatedList } });
+    } else {
+      // Log error details
+      const error = await response.text();
+      console.error('Error response body:', error);
+      dispatch({ type: LISTS_ERROR, error: 'Failed to update list order' });
+    }
+  } catch (error) {
+    console.error('Catch error:', error);
+    dispatch({ type: LISTS_ERROR, error });
+  }
+};
+
+
+
+
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
 function boardReducer(boards = initialState, action) {
@@ -179,7 +233,7 @@ function boardReducer(boards = initialState, action) {
         },
       };
 
-      case EDIT_LIST:
+      case EDIT_LIST: {
         const updatedList = action.payload; 
         newBoards = { ...boards };
         const boardToUpdate = newBoards.boardDetails[updatedList.board_id];
@@ -194,6 +248,24 @@ function boardReducer(boards = initialState, action) {
           }
         }
         return newBoards;
+      }
+  
+      case EDIT_LIST_ORDER: {
+        const { boardId, updatedLists } = action.payload;
+        console.log("Updated lists in reducer:", updatedLists);
+
+        return {
+          ...boards,
+          boardDetails: {
+            ...boards.boardDetails,
+            [boardId]: {
+              ...boards.boardDetails[boardId],
+              Lists: updatedLists
+            }
+
+          }
+        };
+      }
 
       case EDIT_BOARD:
       newBoards = { ...boards };

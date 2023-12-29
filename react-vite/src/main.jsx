@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider as ReduxProvider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
@@ -15,9 +15,9 @@ if (import.meta.env.MODE !== "production") {
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ReduxProvider store={store}>
       <RouterProvider router={router} />
     </ReduxProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

@@ -1,5 +1,5 @@
 import { csrfFetch } from './csrf';
-import { GET_LISTS, ADD_LIST, EDIT_LIST, DELETE_LIST, LISTS_ERROR } from './actionTypes';
+import { GET_LISTS, ADD_LIST, EDIT_LIST,EDIT_LIST_ORDER, DELETE_LIST, LISTS_ERROR } from './actionTypes';
 
 export const getLists = (boardId) => async (dispatch) => {
   try {
@@ -50,7 +50,6 @@ export const deleteListThunk = (boardId, listId) => async (dispatch) => {
   }
 };
 
-
 export const updateListTitleThunk = (boardId, listId, newTitle) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/boards/${boardId}/lists/${listId}`, {
@@ -60,19 +59,42 @@ export const updateListTitleThunk = (boardId, listId, newTitle) => async (dispat
         'Content-Type': 'application/json'
       },
     });
-    // console.log('Response Status:', response.status);
     if (response.ok) {
       const updatedList = await response.json();
-      // console.log('Updated List Data:', updatedList);
       dispatch({ type: EDIT_LIST, payload: updatedList });
     } else {
       dispatch({ type: LISTS_ERROR, error: 'Failed to Update list' });
-      // const responseData = await response.json();
-      // console.error('Response not OK:', responseData);
     }
   } catch (error) {
     dispatch({ type: LISTS_ERROR, error });
   }
 };
 
+export const updateListOrderThunk = (boardId, newOrder) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/boards/${boardId}/lists/reorder`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ new_order: newOrder })
+    });
+
+    console.log(response, 'This is the updated order')
+
+    if (response.ok) {
+    const updatedList = await response.json();
+
+    console.log(updatedList, 'LOGGING LIST FROM THINK');
+    console.log("Dispatching EDIT_LIST_ORDER with:", updatedList);
+    dispatch({ type: EDIT_LIST_ORDER, payload: { boardId, updatedLists: updatedList } });
+    } else {
+      // Log error details
+      const error = await response.text();
+      console.error('Error response body:', error);
+      dispatch({ type: LISTS_ERROR, error: 'Failed to update list order' });
+    }
+  } catch (error) {
+    console.error('Catch error:', error);
+    dispatch({ type: LISTS_ERROR, error });
+  }
+};
 

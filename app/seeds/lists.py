@@ -6,43 +6,54 @@ from sqlalchemy.sql import text
 def seed_list():
     clothes = List(
         title='Clothes',
-        board_id=1
+        board_id=1,
+        order_id=2
         )
     toys = List(
         title='Toys',
-        board_id=1
+        board_id=1,
+        order_id=1
         )
     mom = List(
         title='Mom',
-        board_id=2
+        board_id=2,
+        order_id=2
         )
     dad = List(
         title='Dad',
-        board_id=2
+        board_id=2,
+        order_id=1
         )
     kitchen = List(
         title='Kitchen',
-        board_id=3
+        board_id=3,
+        order_id=3
         )
     family_room = List(
         title='Family Room',
-        board_id=3
+        board_id=3,
+        order_id=2
         )
     upstairs = List(
         title='Dad',
-        board_id=3
+        board_id=3,
+        order_id=1
         )
     models = List(
         title='Models',
-        board_id=4
+        board_id=4,
+        order_id=3
         )
     seeds = List(
         title='Seeds',
-        board_id=4
+        board_id=4,
+        order_id=1
+
         )
     forms = List(
         title='Forms',
-        board_id=4
+        board_id=4,
+        order_id=2
         )
 
     db.session.add(clothes)

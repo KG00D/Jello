@@ -64,4 +64,12 @@
   padding-right: 10px; 
 }
 
+.buttons-container {
+  display: flex;
+  justify-content: flex-end; 
+  margin-top: 10px; 
+}
 
+.delete-board {
+  margin-left: 10px;
+}

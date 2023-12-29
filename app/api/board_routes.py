@@ -27,18 +27,19 @@ def my_boards():
 
 @board_routes.route('/<int:id>')
 def board_details(id):
-    board_query = Board.query.filter(Board.id==id).outerjoin(List).outerjoin(Card).first_or_404()
+    board_query = Board.query.filter(Board.id == id).first_or_404()
     board_details = board_query.to_dict()
+
     if board_query.board_lists:
-        board_details["Lists"] = [list_item.to_dict() for list_item in board_query.board_lists]
+        sorted_lists = sorted(board_query.board_lists, key=lambda x: x.order_id)
+        board_details["Lists"] = [list_item.to_dict() for list_item in sorted_lists]
 
-        for index, list in enumerate(board_details["Lists"]):
-            if board_query.board_lists[index].list_cards:
-                board_details["Lists"][index]["Cards"] = [card.to_dict() for card in board_query.board_lists[index].list_cards]
+        for list_item in sorted_lists:
+            if list_item.list_cards:
+                list_index = sorted_lists.index(list_item)
+                board_details["Lists"][list_index]["Cards"] = [card.to_dict() for card in list_item.list_cards]
 
-    return {
-        "Board_Details": board_details
-    }
+    return {"Board_Details": board_details}
 
 # post
 @board_routes.route('/', methods=["POST"])
