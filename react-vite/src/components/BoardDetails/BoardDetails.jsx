@@ -5,8 +5,9 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
 import ListCreateModal from "../ListCreateModal";
 import SidePanel from "../SidePanel";
-
 import DeleteBoardModal from "./DeleteBoardModal";
+import AddCard from "../AddCardComponent/AddCard";
+import Cards from "../CardsComponent/CardsComponent";
 
 
 
@@ -83,15 +84,21 @@ function BoardDetails() {
                 Object.values(list.Cards).map(
                   (
                     card // Check if Cards exist
-                  ) => (
-                    <div key={card.id}>
-                      {" "}
-                      {/* Add a key prop here */}
-                      <h5>Card Name: {card.name}</h5>
-                      <p>Card Description: {card.description}</p>
-                    </div>
-                  )
+                  ) => {
+                    card = {
+                      ...card,
+                      listTitle: list.title
+                    }
+                    return (
+                      <div key={card.id}>
+                        {" "}
+                        {/* Add a key prop here */}
+                        <Cards card={card}/>
+                      </div>
+                    )
+                  }
                 )}
+                <AddCard list={list}/>
             </div>
           ))}
         </div>
