@@ -56,7 +56,7 @@
   background-color: rgb(33, 33, 40);
   align-items: center;
   padding: 0px 20px;
-  border-bottom: solid rgb(81, 81, 102) 1px;;
+  border-bottom: solid rgb(81, 81, 102) 1px;
 }
 
 #logo {
@@ -88,4 +88,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.login-signup {
+  list-style-type: none;
+}
+
+.login-signup > li {
+  height: 20px;
+  width: 100px;
+  margin: 15px auto;
+  background-color: rgb(83, 83, 98);
+  color: lightgray;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
 }
