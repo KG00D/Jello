@@ -4,7 +4,7 @@
   right: 10px;
   border: black solid 1px;
   width: 200px;
-  height: 200px;
+  height: 110px;
   background-color: rgb(35, 57, 57);
   color: lightgray;
   border-radius: 5px;
@@ -19,6 +19,24 @@
 .profile-dropdown > h4 {
   padding: 0px;
   margin: 0px;
+}
+
+.login-button {
+  height: 35px;
+  width: 100px;
+  margin: 20px auto;
+  background-color: darkslategray;
+  color: lightgray;
+  /* font-weight: bold; */
+  font-size: medium
+}
+
+.profile-dropdown > * button {
+  height: 35px;
+  width: 100px;
+  margin: 20px auto;
+  background-color: darkslategray;
+  color: lightgray;
 }
 
 .profile-dropdown > ul {

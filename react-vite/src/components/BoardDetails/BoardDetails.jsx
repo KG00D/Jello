@@ -61,7 +61,7 @@ function BoardDetails() {
       <SidePanel />
       <div
         className="board-details"
-        style={{ backgroundColor: background_image }}
+        style={{ backgroundColor: backgroundImage }}
       >
         <div className="board-details-header">
           <input

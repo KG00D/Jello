@@ -1,0 +1,10 @@
+.login-modal {
+  background-color: white;
+
+
+}
+
+.login-modal >form {
+    display: flex;
+    flex-direction: column;
+}
