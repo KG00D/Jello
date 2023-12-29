@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import './EditCommentComponent.css'
 import { Editor } from '@tinymce/tinymce-react';
 
-const EditComment = ({commentId}) => {
+const EditComment = ({commentId, isBeingEdited, setIsBeingEdited}) => {
   const dispatch = useDispatch()
   const { user } = useSelector(state => {
     return state.session
@@ -28,7 +28,6 @@ const EditComment = ({commentId}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('in handleSubmit')
 
     const commentForm = {
       id: commentId,
@@ -38,13 +37,15 @@ const EditComment = ({commentId}) => {
     }
 
     dispatch(commentActions.editCommentThunk(commentId, commentForm))
-    console.log('after handleSubmit dispatch')
+
+    setIsBeingEdited(false)
   }
 
   const handleDiscard = async (e) => {
     e.preventDefault()
 
     // figure out how to set setIsBeingEdited(false) in comment component
+    setIsBeingEdited(false)
   }
 
   let buttonClass
