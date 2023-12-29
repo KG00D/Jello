@@ -56,7 +56,7 @@ const Comment = () => {
           let postedMinute = timeTimeSplit[1]
 
           if (isBeingEdited && editCommentId === comment.id) {
-            return <EditComment commentId={comment.id} key={comment.id}/>
+            return <EditComment commentId={comment.id} key={comment.id} isBeingEdited={isBeingEdited} setIsBeingEdited={setIsBeingEdited}/>
           } else {
             return (
               <div className="comment-container" key={comment.id}>
