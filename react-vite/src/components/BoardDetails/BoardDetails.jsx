@@ -17,6 +17,7 @@ function BoardDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
+  const boards = useSelector((state)=>state.boards)
   const [boardName, setBoardName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState("");
@@ -51,15 +52,6 @@ function BoardDetails() {
   const deleteBoard = async (e) => {
     e.preventDefault();
     setModalContent(<DeleteBoardModal id={id} />);
-  };
-
-  const updateTitle = async (e) => {
-    const boardDetails = {
-      name: boardName,
-      is_public: isPublic,
-      background_image: backgroundImage,
-    };
-    dispatch(editBoardThunk(boardDetails, id));
   };
 
   const { name, background_image } = boardDetails;

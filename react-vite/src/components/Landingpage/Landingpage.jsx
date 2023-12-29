@@ -9,6 +9,7 @@ function Landingpage() {
   //Boards disappear after refresh. only appears when code is changed
   const dispatch = useDispatch();
   const publicBoards = useSelector((state) => state.boards.publicBoards);
+  const boards = useSelector((state) => state.boards);
   const myBoards = useSelector((state) => state.boards.myBoards);
   const sessionUser = useSelector((state) => state.session.user);
   const [ownedBoards, setOwnedBoards] = useState({});
@@ -31,7 +32,7 @@ function Landingpage() {
     }
     setOwnedBoards(tempOwnedBoards);
     setSharedBoards(tempSharedBoards);
-  }, [myBoards]);
+  }, [myBoards, boards]);
 
   return (
     <div className="Side-Panel">

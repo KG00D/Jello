@@ -48,20 +48,6 @@ const editBoard = (boardDetails) => {
   };
 };
 
-const deleteBoard = (boardId) => {
-  return {
-    type: DELETE_BOARD,
-    payload: boardId,
-  };
-};
-
-const editBoard = (boardDetails) => {
-  return {
-    type: EDIT_BOARD,
-    payload: boardDetails,
-  };
-};
-
 export const publicBoardsThunk = () => async (dispatch) => {
   const response = await fetch("/api/boards");
 
@@ -112,8 +98,7 @@ export const newBoardThunk = (newBoard) => async (dispatch) => {
     const data = await response.json();
 
     dispatch(addBoard(data));
-    dispatch(myBoardsThunk());
-
+    // dispatch(myBoardsThunk());
     return data.id;
   } else {
     const error = await response.json();
@@ -126,15 +111,14 @@ export const deleteBoardThunk = (boardId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(myBoardsThunk());
-
+    // dispatch(myBoardsThunk());
+    dispatch(deleteBoard(boardId));
     return data;
   } else {
     const error = await response.json();
     return error;
   }
 };
-
 
 export const editBoardThunk =
   (boardDetails, id, currBoardId = null) =>
@@ -148,7 +132,7 @@ export const editBoardThunk =
     if (response.ok) {
       const data = await response.json();
       dispatch(editBoard(data));
-      dispatch(myBoardsThunk());
+      // dispatch(myBoardsThunk());
       if (Number(id) === Number(currBoardId))
         dispatch(boardDetailsThunk(currBoardId));
       return data.id;
@@ -157,7 +141,6 @@ export const editBoardThunk =
       return error;
     }
   };
-
 
 const initialState = { publicBoards: {}, myBoards: {}, boardDetails: {} };
 
@@ -222,29 +205,6 @@ function boardReducer(boards = initialState, action) {
     case DELETE_BOARD:
       newBoards = { ...boards };
       delete newBoards.myBoards[action.payload];
-      return newBoards;
-
-    case ADD_LIST:
-      const { boardId, list } = action.payload;
-      return {
-        ...boards,
-        boardDetails: {
-          ...boards.boardDetails,
-          [boardId]: {
-            ...boards.boardDetails[boardId],
-            Lists:
-              boards.boardDetails[boardId] && boards.boardDetails[boardId].Lists
-                ? [...boards.boardDetails[boardId].Lists, list]
-                : [list],
-          },
-        },
-      };
-    case EDIT_BOARD:
-      newBoards = { ...boards };
-      const { id, name, is_public, background_image } = action.payload;
-      newBoards.boardDetails[id].name = name;
-      newBoards.boardDetails[id].is_public = is_public;
-      newBoards.boardDetails[id].background_image = background_image;
       return newBoards;
 
     default:
