@@ -2,17 +2,29 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  color: white;
+  margin: 11px 10px;
+  font-weight: bold;
+  font-size: larger;
+  width: 80%;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+}
 
+.board-details-header {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.182);
+  height: 50px;
 }
 
 .board-details {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  padding: 10px;
+  padding: 0px;
   overflow-x: auto;
-  width: 100vw;
+  width: 100%;
 }
 
 .lists-container {
@@ -26,29 +38,4 @@
 .modal-container {
   margin-left: auto;
   padding-right: 10px;
-
 }
-
-.board-details {
-    display: flex; 
-    flex-direction: row; 
-    align-items: flex-start; 
-    gap: 10px; 
-    padding: 10px; 
-    overflow-x: auto; 
-  }
-
-.lists-container {
-    display: flex; 
-    flex-wrap: wrap;
-    justify-content: flex-start; 
-    align-items: flex-start; 
-    gap: 10px; 
-  }
-
-  .modal-container {
-    margin-left: auto;
-    padding-right: 10px; 
-  }
-
-

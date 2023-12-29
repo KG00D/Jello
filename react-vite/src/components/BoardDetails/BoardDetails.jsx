@@ -8,8 +8,6 @@ import SidePanel from "../SidePanel";
 
 import DeleteBoardModal from "./DeleteBoardModal";
 
-
-
 import "./BoardDetails.css";
 
 function BoardDetails() {
@@ -17,7 +15,7 @@ function BoardDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
-  const boards = useSelector((state)=>state.boards)
+  const boards = useSelector((state) => state.boards);
   const [boardName, setBoardName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState("");
@@ -59,22 +57,21 @@ function BoardDetails() {
   let Lists = {};
   if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
   return (
-
     <div className="Side-Panel">
       <SidePanel />
       <div
         className="board-details"
         style={{ backgroundColor: background_image }}
       >
-        <h4>
-          Board Name:{" "}
+        <div className="board-details-header">
           <input
             className="live-board-title"
             value={boardName}
             onChange={(e) => setBoardName(e.target.value)}
             onBlur={updateTitle}
           />
-        </h4>
+        </div>
+
         <div className="lists-container">
           {Object.values(Lists).map((list) => (
             <div className="list-container">
@@ -99,7 +96,6 @@ function BoardDetails() {
           <ListCreateModal boardId={id} />
         </div>
       </div>
-
     </div>
   );
 }
