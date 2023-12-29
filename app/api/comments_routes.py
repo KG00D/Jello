@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import current_user
-from app.models import Comment, Card
+from app.models import Comment, User
 from .user_routes import login_required
 from ..forms.comment_form import CommentForm
 from ..models.db import db
@@ -23,8 +23,10 @@ def get_all_comments():
 @login_required
 def edit_a_comment(comment_id):
   existing_comment = Comment.query.get(comment_id)
+  commenter_details = User.query.filter(User.id == existing_comment.user_id).first()
   form = CommentForm()
-
+  form['csrf_token'].data = request.cookies['csrf_token']
+  print('\n', 'existing_comment before: ', existing_comment.to_dict())
   if not existing_comment:
     return {
       "message": "Comment does not exist"
@@ -33,8 +35,21 @@ def edit_a_comment(comment_id):
   if form.validate_on_submit():
     existing_comment.comment_text = form.data['comment_text']
     db.session.commit()
-
-    return existing_comment.to_dict()
+    ret = {
+      "id": existing_comment.id,
+      "comment_text": existing_comment.comment_text,
+      "user_id": existing_comment.user_id,
+      "commenter_details": {
+            "username": commenter_details.username,
+            "first_name": commenter_details.first_name,
+            "last_name": commenter_details.last_name,
+          },
+      "card_id": existing_comment.card_id,
+      "created_at": existing_comment.created_at,
+      "updated_at": existing_comment.updated_at,
+    }
+    
+    return ret
 
   return {
     "message": "Bad Request",

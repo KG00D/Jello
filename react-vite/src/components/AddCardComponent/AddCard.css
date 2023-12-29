@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+#add-card-button {
+    background-color: rgba(16,18,4,255);
+    color: rgba(159,173,188,255);
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 5px;
+    box-sizing: border-box;
+    width: 248px;
+    border-radius: 5px;
+    text-align: left;
+    padding-left: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#add-card-button:hover {
+    background-color: rgba(40,47,39,255);
+}
+
+#new-card-name {
+    width: 241px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: rgba(40,47,39,255);
+    color: rgba(176,188,201,255);
+    border: none;
+    min-height: 50px;
+}
+
+#new-card-name:focus {
+    outline-width: 0;
+}
+
+
+/* .add-card-form-box {
+    background-color: rgba(16,18,4,255);
+} */
+
+.add-card-buttons-box {
+    margin-left: 5px;
+    margin-top: 5px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+#add-card-save-button {
+    background-color: rgba(87,157,255,255);
+    font-size: 14px;
+    height: 35px;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    border-radius: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+#cancel-add-card-save {
+    color: white;
+    height: 35px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#cancel-add-card-save:hover, #add-card-save-button:hover {
+    cursor: pointer;
+}

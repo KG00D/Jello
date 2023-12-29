@@ -1,0 +1,12 @@
+.edit-comment-discard {
+  font-family: 'Open Sans';
+  font-size: 13px;
+  font-weight: bold;
+  grid-area: save-button;
+  background-color: #e4e6ea;
+  color: black;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  margin: 3px;
+}

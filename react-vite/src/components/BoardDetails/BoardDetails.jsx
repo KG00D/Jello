@@ -7,6 +7,8 @@ import { deleteListThunk, updateListTitleThunk } from '../../redux/lists'; // Ad
 import DeleteBoardModal from "./DeleteBoardModal";
 import ListEditModal from "../ListEditModal";
 import SidePanel from "../SidePanel";
+import AddCard from "../AddCardComponent/AddCard";
+import Cards from "../CardsComponent/CardsComponent";
 
 import "./BoardDetails.css";
 
@@ -148,12 +150,24 @@ function BoardDetails() {
   
               {/* List Cards */}
               {list.Cards &&
-                Object.values(list.Cards).map((card) => (
-                  <div key={card.id} className="card-container">
-                    <h5>Card Name: {card.name}</h5>
-                    <p>Card Description: {card.description}</p>
-                  </div>
-                ))}
+                Object.values(list.Cards).map(
+                  (
+                    card // Check if Cards exist
+                  ) => {
+                    card = {
+                      ...card,
+                      listTitle: list.title
+                    }
+                    return (
+                      <div key={card.id}>
+                        {" "}
+                        {/* Add a key prop here */}
+                        <Cards card={card}/>
+                      </div>
+                    )
+                  }
+                )}
+                <AddCard list={list}/>
             </div>
           ))}
         </div>
