@@ -51,7 +51,9 @@ function ProfileButton() {
         </>
       ) : (
         <>
-          <button onClick={toggleMenu}>Log In</button>
+          <button className="login-button" onClick={toggleMenu}>
+            Sign in
+          </button>
         </>
       )}
 

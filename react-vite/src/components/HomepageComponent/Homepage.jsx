@@ -7,7 +7,7 @@ function Homepage() {
   const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
   if (sessionUser) navigate("/session/boards");
-  return <div>Homepage</div>;
+  return <div className="homepage">Homepage</div>;
 }
 
 export default Homepage;

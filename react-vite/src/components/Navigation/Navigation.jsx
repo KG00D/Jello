@@ -35,19 +35,24 @@ function Navigation() {
     <ul className="navigation">
       <li>
         {user ? (
-
           <NavLink id="logo" to="/session/boards">
             <i class="fa-solid fa-jar"></i> Jello
           </NavLink>
-
         ) : (
-          <NavLink to="/">Jello</NavLink>
+          <NavLink id="logo" to="/">
+            <i class="fa-solid fa-jar"></i> Jello
+          </NavLink>
         )}
       </li>
       <li>
-        <button className="new-board-button" onClick={toggleMenu}>
-          Board+
-        </button>
+        {user ? (
+          <button className="new-board-button" onClick={toggleMenu}>
+            Board+
+          </button>
+        ) : (
+          <></>
+        )}
+
         {showMenu && (
           <span ref={ulRef}>
             <CreateBoardModal />

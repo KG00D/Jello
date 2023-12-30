@@ -30,6 +30,7 @@
 
 .side-panel-component > * li {
   list-style-type: none;
+
 }
 
 .side-panel-component > * h4 {
@@ -53,6 +54,7 @@
   justify-content: start;
   white-space: nowrap;
   overflow: hidden;
+
 }
 
 .side-item:hover .item-ellipsis {

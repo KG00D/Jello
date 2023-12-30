@@ -9,6 +9,7 @@ a.board-tile {
   margin: 10px;
   white-space: normal;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Landing-Page > * a {
