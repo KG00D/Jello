@@ -17,6 +17,7 @@ function BoardDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
+  const boards = useSelector((state)=>state.boards)
   const [boardName, setBoardName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState("");
@@ -149,6 +150,9 @@ function BoardDetails() {
               )}
   
               {/* List Cards */}
+          {Object.values(Lists).map((list) => (
+            <div className="list-container">
+              <h4>List: {list.title}</h4>
               {list.Cards &&
                 Object.values(list.Cards).map(
                   (

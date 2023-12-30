@@ -170,8 +170,7 @@ function boardReducer(boards = initialState, action) {
       newBoards = { ...boards };
       delete newBoards.myBoards[action.payload];
       return newBoards;
-    
-      case ADD_LIST:
+    case ADD_LIST:
       const { boardId, list } = action.payload;
       return {
         ...boards,
