@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useModal } from "../../context/Modal";
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { addList } from "../../redux/lists";
 
-function ListCreateModal({ boardId }) {
+function ListEditModal({ boardId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  console.log("Board ID : ", boardId)
   const [title, setTitle] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
@@ -14,7 +14,7 @@ function ListCreateModal({ boardId }) {
     e.preventDefault();
     if (title.trim()) {
       dispatch(addList(boardId, title));
-      setTitle('');
+      setTitle(''); 
       setIsAdding(false);
     }
   };
@@ -40,4 +40,4 @@ function ListCreateModal({ boardId }) {
   );
 }
 
-export default ListCreateModal;
+export default ListEditModal;

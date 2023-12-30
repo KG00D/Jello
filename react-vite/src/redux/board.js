@@ -4,7 +4,7 @@ const GET_BOARD_DETAILS = "board/details";
 const ADD_BOARD = "board/add";
 const EDIT_BOARD = "board/edit";
 const DELETE_BOARD = "board/delete";
-import { ADD_LIST } from "./actionTypes";
+import { ADD_LIST, EDIT_LIST,  } from "./actionTypes";
 
 const publicBoards = (publicBoards) => {
   return {
@@ -185,6 +185,23 @@ function boardReducer(boards = initialState, action) {
           },
         },
       };
+      
+      case EDIT_LIST:
+        const updatedList = action.payload; 
+        newBoards = { ...boards };
+        const boardToUpdate = newBoards.boardDetails[updatedList.board_id];
+        if (boardToUpdate && boardToUpdate.Lists) {
+          const listIndex = boardToUpdate.Lists.findIndex(list => list.id === updatedList.id);
+          if (listIndex !== -1) {
+            boardToUpdate.Lists = [
+              ...boardToUpdate.Lists.slice(0, listIndex),
+              updatedList,
+              ...boardToUpdate.Lists.slice(listIndex + 1),
+            ];
+          }
+        }
+        return newBoards;
+
     case EDIT_BOARD:
       newBoards = { ...boards };
       const { id, name, is_public, background_image } = action.payload;
