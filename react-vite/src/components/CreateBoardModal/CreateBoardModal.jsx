@@ -10,7 +10,7 @@ function CreateBoardModal() {
 
   const [title, setTitle] = useState("");
   const [isPublic, setIsPublic] = useState(false);
-  const [previewColor, setPreviewColor] = useState("lightgrey");
+  const [previewColor, setPreviewColor] = useState("#404747");
   const [showForm, setShowForm] = useState(true);
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -47,15 +47,16 @@ function CreateBoardModal() {
             <input
               className="radio-color"
               type="radio"
-              id="burlywood"
+              id="#404747"
               name="color"
-              value="burlywood"
+              value="#404747"
               onChange={(e) => setPreviewColor(e.target.value)}
+              checked={previewColor==="#404747"}
             />
             <label
               className="radio-label"
-              for="burlywood"
-              style={{ backgroundColor: "burlywood" }}
+              for="#404747"
+              style={{ backgroundColor: "#404747" }}
             >
               {" "}
             </label>
@@ -63,15 +64,15 @@ function CreateBoardModal() {
             <input
               className="radio-color"
               type="radio"
-              id="cadetblue"
+              id="#B3754F"
               name="color"
-              value="cadetblue"
+              value="#B3754F"
               onChange={(e) => setPreviewColor(e.target.value)}
             />
             <label
               className="radio-label"
-              for="cadetblue"
-              style={{ backgroundColor: "cadetblue" }}
+              for="#B3754F"
+              style={{ backgroundColor: "#B3754F" }}
             >
               {" "}
             </label>
@@ -79,15 +80,31 @@ function CreateBoardModal() {
             <input
               className="radio-color"
               type="radio"
-              id="lightsalmon"
+              id="#25999E"
               name="color"
-              value="lightsalmon"
+              value="#25999E"
               onChange={(e) => setPreviewColor(e.target.value)}
             />
             <label
               className="radio-label"
-              for="lightsalmon"
-              style={{ backgroundColor: "lightsalmon" }}
+              for="#25999E"
+              style={{ backgroundColor: "#25999E" }}
+            >
+              {" "}
+            </label>
+            <br />
+            <input
+              className="radio-color"
+              type="radio"
+              id="#F07222"
+              name="color"
+              value="#F07222"
+              onChange={(e) => setPreviewColor(e.target.value)}
+            />
+            <label
+              className="radio-label"
+              for="#F07222"
+              style={{ backgroundColor: "#F07222" }}
             >
               {" "}
             </label>
@@ -115,8 +132,6 @@ function CreateBoardModal() {
         </form>
       )}
     </>
-
-
   );
 }
 

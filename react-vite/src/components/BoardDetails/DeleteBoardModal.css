@@ -1,5 +1,5 @@
 .delete-board-modal {
-  background-color: rgb(35, 57, 57);
+  background-color: rgb(52, 52, 61);
   color: lightgray;
   height: 100px;
   width: 200px;
@@ -38,6 +38,8 @@
   margin: 0px 5px;
   background-color: darkslategray;
   color: lightgray;
+  background-color: rgb(83, 83, 98);
+  font-weight: bold;
 }
 
 .delete-yesno > #delete-yes {

@@ -15,7 +15,7 @@ function SidePanel() {
   const [ownedBoards, setOwnedBoards] = useState({});
   const [sharedBoards, setSharedBoards] = useState({});
   const [ownedBoardsMenu, setOwnedBoardsMenu] = useState(true);
-  const [sharedBoardsMenu, setSharedBoardsMenu] = useState(true);
+  const [sharedBoardsMenu, setSharedBoardsMenu] = useState(false);
 
   useEffect(() => {
     dispatch(publicBoardsThunk());
@@ -73,8 +73,9 @@ function SidePanel() {
             <i class="fa-solid fa-angle-down"></i>
           )}
         </h4>
-        {sharedBoardsMenu &&
-          Object.values(sharedBoards).map((item) => <SideItem item={item} />)}
+        {/* {sharedBoardsMenu &&
+          Object.values(sharedBoards).map((item) => <SideItem item={item} />)} */}
+        {sharedBoardsMenu && `Feature Coming Soon!`}
       </ul>
     </div>
   );

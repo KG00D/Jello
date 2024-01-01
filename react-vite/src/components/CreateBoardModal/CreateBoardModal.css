@@ -5,12 +5,13 @@
   top: 6vh;
   border: solid black 1px;
   height: 400px;
-
   width: 200px;
-  background-color: rgb(35, 57, 57);
+  background-color: rgb(57, 57, 68);
   padding: 10px;
   color: lightgray;
   border-radius: 5px;
+  z-index: 1;
+  border: rgb(97, 97, 114) 1px solid;
 }
 .create-board > h4 {
   margin: 0px;
@@ -57,6 +58,8 @@ input[type="radio"] {
   height: 100px;
   width: 180px;
   margin: 0px auto;
+  border: rgb(136, 136, 136) 1px solid;
+  border-radius: 5px;
 }
 input[type="radio"]:checked + .radio-label {
   border: 3px solid white;
@@ -76,9 +79,9 @@ label.radio-label {
   align-items: center;
 }
 .create-board-button {
-  background-color: darkslategray;
+  background-color: rgb(83, 83, 98);
   color: lightgray;
   margin: 15px 0px;
   height: 40px;
+  font-weight: bold;
 }
-
