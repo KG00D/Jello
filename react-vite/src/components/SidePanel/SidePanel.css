@@ -3,14 +3,16 @@
 }
 
 .side-panel-component {
-  background-color: rgb(28, 46, 46);
+  background-color: rgb(40, 40, 48);
   color: lightgray;
   min-width: 250px;
   width: 250px;
   display: flex;
   flex-direction: column;
-  border-right: solid rgb(56, 94, 94) 1px;
+  border-right: solid rgb(81, 81, 102) 1px;
   height: 94vh;
+  overflow-y: scroll;
+
 }
 
 .side-panel-component > * a {
@@ -25,12 +27,11 @@
 .side-panel-component > ul {
   margin: 0px;
   padding: 0px;
-  border-bottom: solid rgb(56, 94, 94) 1px;
+  border-bottom: solid rgb(81, 81, 102) 1px;
 }
 
 .side-panel-component > * li {
   list-style-type: none;
-
 }
 
 .side-panel-component > * h4 {
@@ -54,7 +55,6 @@
   justify-content: start;
   white-space: nowrap;
   overflow: hidden;
-
 }
 
 .side-item:hover .item-ellipsis {
@@ -71,9 +71,9 @@
 }
 
 .side-item .active {
-  background-color: rgba(255, 255, 255, 0.266);
+  background-color: rgba(255, 255, 255, 0.19);
 }
 
-.toggle-menu > *  i {
+.toggle-menu > * i {
   margin-right: 10px;
 }
