@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 import './EditCardModal.css'
 import { deleteCardThunk, editCardThunk } from "../../redux/cards";
+import * as commentActions from "../../redux/comments"
 import Comment from "../CommentComponent/CommentComponent";
 import CreateComment from "../CreateCommentComponent/CreateCommentComponent";
 
@@ -10,12 +11,14 @@ function EditCardModal({cardList}) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
     const card = useSelector((state) => state.cards.Card)
+    const comments = useSelector((state) => state.comments)
     const [ nameBorderVisible, setNameBorderVisible ] = useState(false)
     const [ descriptionBorderVisible, setDescriptionBorderVisible ] = useState(false)
     const [ name, setName ] = useState(card.name)
     const [ description, setDescription ] = useState(card.description)
     const [ errors, setErrors ] = useState({})
     const [ showErrors, setShowErrors] = useState(false)
+    const [ counter, setCounter ] = useState(0)
 
     useEffect(() => {
         const error = {}
@@ -25,6 +28,10 @@ function EditCardModal({cardList}) {
 
         setErrors(error)
     }, [name])
+    
+    // useEffect(() => {
+    //     dispatch(commentActions.getCommentsThunk(card.id))
+    // }, [dispatch, counter])
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -65,16 +72,16 @@ function EditCardModal({cardList}) {
 
     const descriptionText = description === 'None'  || !description ? 'Add a more detailed description' : description
 
-    const placeholderText = description === 'None' ? '' : description 
+    const placeholderText = description === 'None' ? '' : description
 
-    console.log(description, '---description')
-    console.log(typeof description)
-    console.log(description === 'None')
-    console.log(descriptionText, '----descriptionText')
+    // console.log(description, '---description')
+    // console.log(typeof description)
+    // console.log(description === 'None')
+    // console.log(descriptionText, '----descriptionText')
 
 
     const deleteCard = () => {
-        console.log('-delete clicked')
+        // console.log('-delete clicked')
         dispatch(deleteCardThunk(card.id))
         closeModal()
     }
@@ -111,7 +118,7 @@ function EditCardModal({cardList}) {
                     <CreateComment cardId={card.id}/>
                 </div>
                 <div className='comments box'>
-                    <Comment cardId={card.id}/>
+                    <Comment cardId={card.id} counter={counter} setCounter={setCounter}/>
                 </div>
             </div>
         </>

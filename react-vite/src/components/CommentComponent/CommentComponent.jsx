@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as commentActions from "../../redux/comments"
 import './CommentComponent.css'
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteComment from "../DeleteCommentModal/DeleteCommentModal";
 import EditComment from "../EditCommentComponent/EditCommentComponent";
 
 const hourArr = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-const Comment = ({cardId}) => {
+const Comment = ({cardId, counter, setCounter}) => {
   const dispatch = useDispatch()
-  // const { cardId } = useParams()
   const comments = useSelector(state => {
     return state.comments
   })
@@ -89,24 +87,20 @@ const Comment = ({cardId}) => {
                 <div>
                   <button className="comment-edit" onClick={() => {
                     setIsBeingEdited(true)
-
                     setFocusedCommentId(comment.id)
                   }}>Edit</button>
                 </div>
+
                 <div className="comment-dot">·</div>
 
-                <div className="comment-delete">
-                  {/* <OpenModalButton
-                    buttonText={'Delete'}
-                    modalComponent={<DeleteComment commentId={comment.id}/>}
-                    /> */}
+                <div>
                   <button className='comment-delete' onClick={() => {
                     setIsBeingDeleted(true)
                     setFocusedCommentId(comment.id)
                   }}>Delete</button>
 
                   <div className='comment-delete-shown'>
-                    <DeleteComment commentId={comment.id} setIsBeingDeleted={setIsBeingDeleted}/>
+                    <DeleteComment commentId={comment.id} setIsBeingDeleted={setIsBeingDeleted} counter={counter} setCounter={setCounter} cardId={cardId}/>
                   </div>
 
                 </div>
@@ -139,17 +133,13 @@ const Comment = ({cardId}) => {
                 <div className="comment-dot">·</div>
 
                 <div className="comment-delete">
-                  {/* <OpenModalButton
-                    buttonText={'Delete'}
-                    modalComponent={<DeleteComment commentId={comment.id}/>}
-                    /> */}
                   <button className='comment-delete' onClick={() => {
                     setIsBeingDeleted(true)
                     setFocusedCommentId(comment.id)
                   }}>Delete</button>
 
                   <div className='comment-delete-hidden'>
-                    <DeleteComment commentId={comment.id} setIsBeingDeleted={setIsBeingDeleted}/>
+                    <DeleteComment commentId={comment.id} setIsBeingDeleted={setIsBeingDeleted} counter={counter} setCounter={setCounter} cardId={cardId}/>
                   </div>
 
                 </div>
