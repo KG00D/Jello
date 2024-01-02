@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import * as commentActions from "../../redux/comments"
 import { useParams } from "react-router-dom";
 import './EditCommentComponent.css'
-import { Editor } from '@tinymce/tinymce-react';
+// import { Editor } from '@tinymce/tinymce-react';
 
 const EditComment = ({commentId, isBeingEdited, setIsBeingEdited, cardId}) => {
   const dispatch = useDispatch()
