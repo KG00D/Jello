@@ -27,10 +27,6 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
-        path: "/cards",
-        element: <AddCard listId={'1'} />,
-      },
-      {
         path: "/session/boards",
         element: <Landingpage />,
       },

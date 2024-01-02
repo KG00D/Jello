@@ -113,15 +113,16 @@
 
 .card-description-text {
     /* background-color: yellow; */
-    width: 650px;
+    width: 640px;
     height: 323px;
-
+    overflow-wrap: break-word;
+    /* overflow-y: scroll; */
 }
 
 #card-description-p {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    width: 650px;
+    width: 640px;
     color: rgba(182,194,207,255);
     flex-direction: row;
     align-items: center;
@@ -130,7 +131,8 @@
 }
 
 #card-description {
-    width: 650px;
+    box-sizing: border-box;
+    width: 620px;
     background-color: rgba(34,39,43,255);
     height: 257px;
     color: rgba(182,194,207,255);
@@ -141,10 +143,11 @@
     justify-content: flex-start;
     align-items: flex-start;
     overflow-wrap: break-word;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: scroll;
     border-radius: 20px;
     margin-left: 3px;
+    padding: 10px;
 }
 
 .card-button-box {

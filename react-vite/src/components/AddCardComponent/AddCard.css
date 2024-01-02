@@ -69,3 +69,20 @@
 #cancel-add-card-save:hover, #add-card-save-button:hover {
     cursor: pointer;
 }
+
+/* #add-card-save-button .card-disabled-true {
+    background-color: grey;
+    font-size: 14px;
+    height: 35px;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    border-radius: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+} */
+
+#new-card-name {
+    resize: none;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+}

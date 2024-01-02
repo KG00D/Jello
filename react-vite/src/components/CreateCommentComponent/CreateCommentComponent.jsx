@@ -4,12 +4,12 @@ import * as commentActions from "../../redux/comments"
 import { useParams } from "react-router-dom";
 import './CreateCommentComponent.css'
 
-const CreateComment = () => {
+const CreateComment = ({cardId}) => {
   const dispatch = useDispatch()
   const { user } = useSelector(state => {
     return state.session
   })
-  const { cardId } = useParams()
+  // const { cardId } = useParams()
   const [commentText, setCommentText] = useState('')
   const [errors, setErrors] = useState({})
   const [selected, setSelected] = useState(false)
@@ -29,6 +29,7 @@ const CreateComment = () => {
       user_id: user.id,
       card_id: cardId
     }
+
     dispatch(commentActions.postCommentThunk(cardId, commentForm))
 
     setCommentText('')
@@ -61,7 +62,7 @@ const CreateComment = () => {
               onClick={() => setSelected(true)}
               value={commentText}
               placeholder="Write a comment..."
-              contentEditable
+              // contentEditable
             />
           </div>
           <button className={buttonClass}>Save</button>
