@@ -7,7 +7,8 @@
   "text"
   "button";
   margin: 10px;
-  color: #54627b;
+  color: #b6c2cf;
+  background-color: #323940;
 }
 
 .delete-top-row {
@@ -24,6 +25,7 @@
   font-size: 15px;
   background: none;
   border: none;
+  color: #b6c2cf;
 }
 
 .delete-p {

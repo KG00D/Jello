@@ -68,7 +68,7 @@ const Comment = ({cardId}) => {
 
           if (isBeingEdited && editCommentId === comment.id) {
             return <EditComment commentId={comment.id} key={comment.id} isBeingEdited={isBeingEdited} setIsBeingEdited={setIsBeingEdited} cardId={cardId}/>
-          } else /*if (comment && comment.first_name)*/ {
+          } else {
             return (
               <div className="comment-container" key={comment.id}>
 
@@ -102,9 +102,6 @@ const Comment = ({cardId}) => {
             </div>
 
             )}
-            // else {
-            //   return <div>...loading some more</div>
-            // }
         })}
 
       </div>

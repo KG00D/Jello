@@ -49,13 +49,11 @@ export const postCommentThunk = (cardId, commentForm) => async (dispatch) => {
       },
       body: JSON.stringify(commentForm)
     })
-    console.log('response: ', response)
 
     const data = await response.json()
     dispatch(postComment(data))
     return data
   } catch (error) {
-    console.log('error: ', error)
     return error
   }
 }
@@ -84,7 +82,7 @@ export const deleteCommentThunk = (commentId) => async (dispatch) => {
     })
 
     const data = await response.json()
-    dispatch(deleteComment(data))
+    dispatch(deleteComment(commentId))
   } catch (error) {
     return error
   }
