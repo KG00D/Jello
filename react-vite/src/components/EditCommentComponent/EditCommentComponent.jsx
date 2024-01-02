@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import './EditCommentComponent.css'
 import { Editor } from '@tinymce/tinymce-react';
 
-const EditComment = ({commentId, isBeingEdited, setIsBeingEdited}) => {
+const EditComment = ({commentId, isBeingEdited, setIsBeingEdited, cardId}) => {
   const dispatch = useDispatch()
   const { user } = useSelector(state => {
     return state.session
@@ -13,7 +13,7 @@ const EditComment = ({commentId, isBeingEdited, setIsBeingEdited}) => {
   const comments = useSelector(state => {
     return state.comments
   })
-  const { cardId } = useParams() 
+  // const { cardId } = useParams() // this is gonna have to change
   const [commentText, setCommentText] = useState('')
   const [errors, setErrors] = useState({})
   const [selected, setSelected] = useState(false)

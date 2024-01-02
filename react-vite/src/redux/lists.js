@@ -26,10 +26,44 @@ export const addList = (boardId, title) => async (dispatch) => {
     });
     if (response.ok) {
       const newList = await response.json();
-      // dispatch({ type: ADD_LIST, list: newList });
       dispatch({ type: ADD_LIST, payload: { boardId, list: newList } });
     } else {
       dispatch({ type: LISTS_ERROR, error: 'Failed to add list' });
+    }
+  } catch (error) {
+    dispatch({ type: LISTS_ERROR, error });
+  }
+};
+
+export const deleteListThunk = (boardId, listId) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/boards/${boardId}/lists/${listId}`, {
+      method: 'DELETE'
+    });
+    if (response.ok) {
+      dispatch({ type: DELETE_LIST, payload: { boardId, listId } });
+    } else {
+      dispatch({ type: LISTS_ERROR, error: 'Failed to delete list' });
+    }
+  } catch (error) {
+    dispatch({ type: LISTS_ERROR, error });
+  }
+};
+
+export const updateListTitleThunk = (boardId, listId, newTitle) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/boards/${boardId}/lists/${listId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ title: newTitle }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    if (response.ok) {
+      const updatedList = await response.json();
+      dispatch({ type: EDIT_LIST, payload: updatedList });
+    } else {
+      dispatch({ type: LISTS_ERROR, error: 'Failed to Update list' });
     }
   } catch (error) {
     dispatch({ type: LISTS_ERROR, error });

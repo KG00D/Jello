@@ -1,0 +1,32 @@
+.board-options {
+  position: absolute;
+  border: 1px solid black;
+  background-color: rgb(57, 57, 68);
+  left: 220px;
+  border-radius: 5px;
+  border: rgb(97, 97, 114) 1px solid;
+}
+
+.board-options > ul {
+  padding: 10px 20px;
+  margin: 0px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-options > * button {
+  margin: 10px auto;
+  margin-top: 20px;
+}
+
+.board-options > * h5 {
+  margin: 10px 0px;
+  padding: 0px;
+}
+
+.board-options > * h4 {
+  align-self: center;
+  border-bottom: solid lightgray 1px;
+  margin: 0px 0px;
+  padding: 5px 0px;
+}

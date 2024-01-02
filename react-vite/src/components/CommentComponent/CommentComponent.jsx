@@ -11,9 +11,9 @@ import EditComment from "../EditCommentComponent/EditCommentComponent";
 
 const hourArr = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-const Comment = () => {
+const Comment = ({cardId}) => {
   const dispatch = useDispatch()
-  const { cardId } = useParams()
+  // const { cardId } = useParams()
   const comments = useSelector(state => {
     return state.comments
   })
@@ -27,7 +27,8 @@ const Comment = () => {
     dispatch(commentActions.getCommentsThunk(cardId))
   }, [dispatch])
 
-  let revCommentsArrVals = Object.values(comments).reverse()
+  let cardCommentsArr = Object.values(comments).filter(comment => comment.card_id === cardId)
+  let revCommentsArrVals = cardCommentsArr.reverse()
 
   if (!comments) {
     return (
@@ -36,7 +37,6 @@ const Comment = () => {
   } else {
     return (
       <div>
-
         {revCommentsArrVals.map((comment) => {
           let updatedDateSplit = new Date(comment.updated_at).toDateString().split(' ')
           let updatedTimeSplit = new Date(comment.updated_at).toTimeString().split(' ')
@@ -67,8 +67,8 @@ const Comment = () => {
 
 
           if (isBeingEdited && editCommentId === comment.id) {
-            return <EditComment commentId={comment.id} key={comment.id} isBeingEdited={isBeingEdited} setIsBeingEdited={setIsBeingEdited}/>
-          } else {
+            return <EditComment commentId={comment.id} key={comment.id} isBeingEdited={isBeingEdited} setIsBeingEdited={setIsBeingEdited} cardId={cardId}/>
+          } else /*if (comment && comment.first_name)*/ {
             return (
               <div className="comment-container" key={comment.id}>
 
@@ -102,6 +102,9 @@ const Comment = () => {
             </div>
 
             )}
+            // else {
+            //   return <div>...loading some more</div>
+            // }
         })}
 
       </div>

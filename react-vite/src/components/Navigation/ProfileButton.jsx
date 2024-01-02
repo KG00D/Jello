@@ -27,7 +27,7 @@ function ProfileButton() {
       }
     };
 
-    document.addEventListener("click", closeMenu);
+    document.addEventListener("click", closeMenu, true);
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
@@ -45,13 +45,15 @@ function ProfileButton() {
     <div>
       {user ? (
         <>
-          <button onClick={toggleMenu}>
+          <button className="profile-logged-in" onClick={toggleMenu}>
             {user.first_name[0] + user.last_name[0]}
           </button>
         </>
       ) : (
         <>
-          <button onClick={toggleMenu}>Log In</button>
+          <button className="login-button" onClick={toggleMenu}>
+            Sign in
+          </button>
         </>
       )}
 
@@ -59,7 +61,8 @@ function ProfileButton() {
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
+              <h4>Account</h4>
+              <li>{`${user.username} ${user.last_name[0]}`}</li>
               <li>{user.email}</li>
               <li>
                 <button onClick={logout}>Log Out</button>

@@ -1,4 +1,5 @@
 import { useModal } from '../../context/Modal';
+import './CardsComponent.css'
 
 function OpenModalCardEdit({
   modalComponent, // component to render inside the modal
@@ -15,7 +16,7 @@ function OpenModalCardEdit({
   };
 
   return (
-    <li onClick={onClick}>{itemText}</li>
+    <li className='card-modal-text' onClick={onClick}>{itemText}</li>
   );
 }
 

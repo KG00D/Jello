@@ -8,6 +8,8 @@
   "initials text-area"
   "initials text-area"
   ". save-button";
+  margin-top: 15px;
+  margin-left: 10px;
 }
 
 .create-comment-initials {
@@ -23,21 +25,21 @@
 
 .create-comment-text-container {
   grid-area: text-area;
-  background-color: red;
 }
 
 .create-comment-text {
   /* grid-area: text-area; */
   font-family: 'Open Sans';
   font-size: 13px;
-  background-color: white;
+  color: #b6c2cf;
+  background-color: #323940;
   border: 1px solid #e9ebee;
   border-radius: 10px;
   box-shadow: 0px 1px #b7bdc8;
   padding: 4px 10px;
   margin: 3px;
   height: 25px;
-  width: 98%;
+  width: 90%;
   display: flex;
   align-items: center;
   overflow: hidden;
