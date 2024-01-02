@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import * as commentActions from "../../redux/comments"
-import { useParams } from "react-router-dom";
 import './EditCommentComponent.css'
-// import { Editor } from '@tinymce/tinymce-react';
+const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
 
-const EditComment = ({commentId, isBeingEdited, setIsBeingEdited, cardId}) => {
   const dispatch = useDispatch()
   const { user } = useSelector(state => {
     return state.session
@@ -13,9 +11,7 @@ const EditComment = ({commentId, isBeingEdited, setIsBeingEdited, cardId}) => {
   const comments = useSelector(state => {
     return state.comments
   })
-  // const { cardId } = useParams() // this is gonna have to change
   const [commentText, setCommentText] = useState('')
-  const [errors, setErrors] = useState({})
   const [selected, setSelected] = useState(false)
 
   const initials = `${user.first_name[0]}${user.last_name[0]}`
@@ -64,6 +60,7 @@ const EditComment = ({commentId, isBeingEdited, setIsBeingEdited, cardId}) => {
 
       <form onSubmit={handleSubmit}>
         <div className="create-comment-form">
+
           <div className="create-comment-text-container">
             <textarea
               id= "comment-text"
@@ -76,30 +73,8 @@ const EditComment = ({commentId, isBeingEdited, setIsBeingEdited, cardId}) => {
               // contentEditable
             />
           </div>
-          {/* <div id="editor">
-            text?
-            <Editor
-              tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
-              onInit={(evt, editor) => editorRef.current = editor}
-              initialValue='<p>This is the initial content of the editor.</p>'
-              init={{
-                height: 500,
-                menubar: false,
-                plugins: [
-                  'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',
-                  'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                  'insertdatetime', 'media', 'table', 'preview', 'help', 'wordcount'
-                ],
-                toolbar: 'undo redo | blocks | ' +
-                  'bold italic forecolor | alignleft aligncenter ' +
-                  'alignright alignjustify | bullist numlist outdent indent | ' +
-                  'removeformat | help',
-                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-              }}
-            />
-          </div> */}
 
-          <button className={'create-comment-save-enabled'} onClick={handleSubmit}>Save</button>
+          <button className={buttonClass} onClick={handleSubmit}>Save</button>
           <button className="edit-comment-discard" onClick={handleDiscard}>Discard changes</button>
         </div>
       </form>

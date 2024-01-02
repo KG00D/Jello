@@ -82,7 +82,7 @@ export const deleteCommentThunk = (commentId) => async (dispatch) => {
     })
 
     const data = await response.json()
-    dispatch(deleteComment(data))
+    dispatch(deleteComment(commentId))
   } catch (error) {
     return error
   }
