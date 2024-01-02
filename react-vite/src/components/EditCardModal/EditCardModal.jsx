@@ -64,6 +64,8 @@ function EditCardModal({cardList}) {
 
     const descriptionText = description === 'None'  || !description ? 'Add a more detailed description' : description
 
+    const placeholderText = description === 'None' ? '' : description 
+
     console.log(description, '---description')
     console.log(typeof description)
     console.log(description === 'None')
@@ -97,7 +99,7 @@ function EditCardModal({cardList}) {
                     </div>
                     <div className='card-description-text'>
                         <p id='card-description-p'>Description</p>
-                        <input onClick={showDescriptionBorder} placeholder={descriptionText} id='card-description' className={ showDescriptionBorder ? `card-description-border-visible` : 'card-description-border-hidden'} type='text' onChange={(e) => setDescription(e.target.value)} ></input>
+                        <textarea maxlength='1000' onClick={showDescriptionBorder} placeholder={descriptionText} id='card-description' className={ showDescriptionBorder ? `card-description-border-visible` : 'card-description-border-hidden'} type='text' onChange={(e) => setDescription(e.target.value)} value={placeholderText}></textarea>
                     </div>
                 </div>
                 <div className='comments box'>

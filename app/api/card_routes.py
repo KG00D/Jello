@@ -68,12 +68,14 @@ def post_comment_on_card(card_id):
 def update_card(card_id):
     card_data = request.json
     card = Card.query.filter(Card.id == card_id).first()
+
     if not card:
         return { "message": "Card does not exist" }
-    card_data = request.json
+
     card.name = card_data["name"]
     card.description = card_data["description"]
     db.session.commit()
+
     card = Card.query.filter(Card.id == card_id).all()
     card_dict = [card[0].to_dict()][0]
     return { "Card": card_dict}
