@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 import './EditCardModal.css'
 import { deleteCardThunk, editCardThunk } from "../../redux/cards";
+import Comment from "../CommentComponent/CommentComponent";
+import CreateComment from "../CreateCommentComponent/CreateCommentComponent";
 
 function EditCardModal({cardList}) {
     const dispatch = useDispatch()
@@ -23,7 +25,6 @@ function EditCardModal({cardList}) {
 
         setErrors(error)
     }, [name])
-
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -102,12 +103,15 @@ function EditCardModal({cardList}) {
                         <textarea maxlength='1000' onClick={showDescriptionBorder} placeholder={descriptionText} id='card-description' className={ showDescriptionBorder ? `card-description-border-visible` : 'card-description-border-hidden'} type='text' onChange={(e) => setDescription(e.target.value)} value={placeholderText}></textarea>
                     </div>
                 </div>
-                <div className='comments box'>
-
-                </div>
                 <div className='card-button-box'>
                     <button onClick={onSubmit}>Save</button>
                     <button id='card-delete-button' onClick={deleteCard}>Delete</button>
+                </div>
+                <div>
+                    <CreateComment cardId={card.id}/>
+                </div>
+                <div className='comments box'>
+                    <Comment cardId={card.id}/>
                 </div>
             </div>
         </>

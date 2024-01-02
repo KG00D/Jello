@@ -11,11 +11,14 @@ import EditComment from "../EditCommentComponent/EditCommentComponent";
 
 const hourArr = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-const Comment = () => {
+const Comment = ({cardId}) => {
   const dispatch = useDispatch()
-  const { cardId } = useParams()
+  // const { cardId } = useParams()
   const comments = useSelector(state => {
     return state.comments
+  })
+  const { user } = useSelector(state => {
+    return state.session
   })
   const [ isBeingEdited, setIsBeingEdited ] = useState(false)
   const [ editCommentId, setEditCommentId ] = useState()
@@ -24,7 +27,8 @@ const Comment = () => {
     dispatch(commentActions.getCommentsThunk(cardId))
   }, [dispatch])
 
-  let revCommentsArrVals = Object.values(comments).reverse()
+  let cardCommentsArr = Object.values(comments).filter(comment => comment.card_id === cardId)
+  let revCommentsArrVals = cardCommentsArr.reverse()
 
   if (!comments) {
     return (
@@ -33,8 +37,6 @@ const Comment = () => {
   } else {
     return (
       <div>
-        <h1>Comments: (this isn't staying)</h1>
-
         {revCommentsArrVals.map((comment) => {
           let updatedDateSplit = new Date(comment.updated_at).toDateString().split(' ')
           let updatedTimeSplit = new Date(comment.updated_at).toTimeString().split(' ')
@@ -55,9 +57,18 @@ const Comment = () => {
           }
           let postedMinute = timeTimeSplit[1]
 
-          if (isBeingEdited && editCommentId === comment.id) {
-            return <EditComment commentId={comment.id} key={comment.id} isBeingEdited={isBeingEdited} setIsBeingEdited={setIsBeingEdited}/>
+          let editDeleteButtonClass
+
+          if (user && comment.user_id !== user.id) {
+            editDeleteButtonClass = 'comment-edit-delete-hidden'
           } else {
+            editDeleteButtonClass = 'comment-edit-delete'
+          }
+
+
+          if (isBeingEdited && editCommentId === comment.id) {
+            return <EditComment commentId={comment.id} key={comment.id} isBeingEdited={isBeingEdited} setIsBeingEdited={setIsBeingEdited} cardId={cardId}/>
+          } else /*if (comment && comment.first_name)*/ {
             return (
               <div className="comment-container" key={comment.id}>
 
@@ -66,17 +77,18 @@ const Comment = () => {
               <div className="comment-name-time">
                 <div className="comment-name">{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
 
-                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div> {/*look into Moment.js */}
+                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
               </div>
 
               <div className="comment-text">{comment.comment_text}</div>
 
-              <div className="comment-edit-delete">
-                <button className="comment-edit" onClick={() => {
-                  setIsBeingEdited(true)
-                  setEditCommentId(comment.id)
-                }}
-                >Edit</button>
+              <div className={editDeleteButtonClass}>
+                <div>
+                  <button className="comment-edit" onClick={() => {
+                    setIsBeingEdited(true)
+                    setEditCommentId(comment.id)
+                  }}>Edit</button>
+                </div>
                 <div className="comment-dot">·</div>
                 <div className="comment-delete">
                   <OpenModalButton
@@ -90,6 +102,9 @@ const Comment = () => {
             </div>
 
             )}
+            // else {
+            //   return <div>...loading some more</div>
+            // }
         })}
 
       </div>

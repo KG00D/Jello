@@ -3,6 +3,9 @@ import { useModal } from "../../context/Modal";
 import { useDispatch } from 'react-redux';
 import { addList } from "../../redux/lists";
 
+import './ListEditModal.css'
+
+
 function ListEditModal({ boardId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
@@ -22,18 +25,23 @@ function ListEditModal({ boardId }) {
   return (
     <div className="create-list">
       {!isAdding ? (
-        <button onClick={() => setIsAdding(true)}>Add another list</button>
+        <button className="create-list-button" onClick={() => setIsAdding(true)}>Add another list</button>
       ) : (
         <>
-          <input
+        <div className='new-list-input-container'>
+          <input 
+          className='new-list-input'
             type="text"
-            placeholder="Enter List Title"
+            placeholder="Enter list title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
             maxLength="50"
           />
-          <button onClick={handleSubmit}>Add List</button>
+        <button className="create-list-add" onClick={handleSubmit}>Add List</button>
+
+         
+        </div>
         </>
       )}
     </div>
