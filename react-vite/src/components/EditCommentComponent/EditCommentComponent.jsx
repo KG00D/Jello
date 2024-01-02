@@ -13,7 +13,7 @@ const EditComment = ({commentId, isBeingEdited, setIsBeingEdited}) => {
   const comments = useSelector(state => {
     return state.comments
   })
-  const { cardId } = useParams() // this is gonna have to change
+  const { cardId } = useParams() 
   const [commentText, setCommentText] = useState('')
   const [errors, setErrors] = useState({})
   const [selected, setSelected] = useState(false)
@@ -43,8 +43,6 @@ const EditComment = ({commentId, isBeingEdited, setIsBeingEdited}) => {
 
   const handleDiscard = async (e) => {
     e.preventDefault()
-
-    // figure out how to set setIsBeingEdited(false) in comment component
     setIsBeingEdited(false)
   }
 
