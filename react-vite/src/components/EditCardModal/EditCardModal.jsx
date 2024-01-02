@@ -30,7 +30,6 @@ function EditCardModal({cardList}) {
         e.preventDefault()
         if (errors.name) {
             setShowErrors(true)
-            console.log(errors, '----we are in errors')
         }
         else {
             const updatedCard = {
@@ -40,7 +39,6 @@ function EditCardModal({cardList}) {
             }
 
             const updatedCardRes = dispatch(editCardThunk(updatedCard))
-            console.log(updatedCardRes, '----updatedCardRes')
             closeModal()
             reset()
         }
@@ -65,16 +63,9 @@ function EditCardModal({cardList}) {
 
     const descriptionText = description === 'None'  || !description ? 'Add a more detailed description' : description
 
-    const placeholderText = description === 'None' ? '' : description 
-
-    console.log(description, '---description')
-    console.log(typeof description)
-    console.log(description === 'None')
-    console.log(descriptionText, '----descriptionText')
-
+    const placeholderText = description === 'None' ? '' : description
 
     const deleteCard = () => {
-        console.log('-delete clicked')
         dispatch(deleteCardThunk(card.id))
         closeModal()
     }

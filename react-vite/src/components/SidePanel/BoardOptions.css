@@ -5,6 +5,7 @@
   left: 220px;
   border-radius: 5px;
   border: rgb(97, 97, 114) 1px solid;
+  z-index: 1;
 }
 
 .board-options > ul {
