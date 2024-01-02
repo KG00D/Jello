@@ -42,18 +42,20 @@ export const getCommentsThunk = (cardId) => async (dispatch) => {
 
 export const postCommentThunk = (cardId, commentForm) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/cards/${cardId}/comments`, {
+    const response = await fetch(`/api/cards/${+cardId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(commentForm)
     })
+    console.log('response: ', response)
 
     const data = await response.json()
     dispatch(postComment(data))
     return data
   } catch (error) {
+    console.log('error: ', error)
     return error
   }
 }
