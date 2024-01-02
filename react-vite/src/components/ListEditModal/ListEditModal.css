@@ -1,0 +1,100 @@
+
+.create-list-button {
+    gap: 1px;
+    padding: 1px;
+    align-self: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-list-button:hover {
+    /* background-color: #45a049; */
+    background-color: rgba(255, 255, 255, 0.5);
+
+  }
+  
+  .create-list-button:active {
+    transform: translateY(2px); 
+  }
+
+  .create-list-title {
+    gap: 1px;
+    padding: 1px;
+    align-self: center;
+    background-color: #cacaca; 
+    color: white;
+    color: black;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-list-title:hover {
+    background-color: #45a049;
+  }
+  
+  .create-list-title:active {
+    transform: translateY(2px); 
+  }
+
+  .create-list-add {
+    /* align-self: flex-start; */
+    background-color: rgba(87,157,255,255);
+    font-size: 14px;
+    height: 35px;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    border-radius: 5px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  
+  .create-list-add:hover {
+    background-color: #e5e5e5;
+  }
+  
+  .create-list-add:active {
+    transform: translateY(2px); 
+  }
+
+  .new-list-input-container{
+    position: relative;
+    background-color: #333;
+    border-radius: 15.5px;
+    padding: 1.5rem;
+    color: white;
+    width: 300px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+    margin-block-end: 1rem;
+  }
+
+  .new-list-input{
+    /* max-width: 300px; */
+    width: 90%;
+    border-radius: 5px;
+    padding: 1rem;
+    background: rgba(40,47,39,255);
+    color: rgba(176,188,201,255);
+    border: none;
+    height: 25px;
+    appearance: none;
+    outline: none;
+  }
+  
+  
+  

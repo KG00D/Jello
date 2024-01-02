@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.cards-component-box {
+    box-sizing: border-box;
+    width: 248px;
+    background-color: rgba(34,39,43,255);
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.cards-component-box:hover {
+    cursor: pointer;
+}
+
+.card-modal-text {
+    color: rgba(176,188,201,255);
+    list-style: none;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    padding: 8px;
+    
+}

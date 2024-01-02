@@ -4,6 +4,7 @@ import { getCardsThunk, addCardThunk, editCardThunk, deleteCardThunk, getCardThu
 import { useModal } from '../../context/Modal';
 import EditCardModal from '../EditCardModal/EditCardModal';
 import OpenModalCardEdit from './OpenModalCardEdit';
+import './CardsComponent.css'
 
 const Cards = ({ card }) => {
     const dispatch = useDispatch()
@@ -13,7 +14,10 @@ const Cards = ({ card }) => {
         id: 11,
         description: 'we have a hat',
         listId: 1,
-        
+    }
+
+    const cardList = {
+        listTitle: card.listTitle
     }
 
     const currentCard = card ? card : cardPlaceholder
@@ -22,13 +26,13 @@ const Cards = ({ card }) => {
     
     const openEditCardModal = () => {
         dispatch(getCardThunk(currentCard))
-        return <EditCardModal />
+        return <EditCardModal cardList={cardList}/>
     }
 
 
     return (
         <>
-            <div>
+            <div className='cards-component-box'>
                 <OpenModalCardEdit modalComponent={openEditCardModal} itemText={card ? card.name : cardPlaceholder.name}/>
             </div>
         </>

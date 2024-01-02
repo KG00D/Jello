@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useModal } from "../../context/Modal";
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { addList } from "../../redux/lists";
 
-function ListCreateModal({ boardId }) {
+import './ListEditModal.css'
+
+
+function ListEditModal({ boardId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+  console.log("Board ID : ", boardId)
   const [title, setTitle] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
@@ -14,7 +17,7 @@ function ListCreateModal({ boardId }) {
     e.preventDefault();
     if (title.trim()) {
       dispatch(addList(boardId, title));
-      setTitle('');
+      setTitle(''); 
       setIsAdding(false);
     }
   };
@@ -22,22 +25,27 @@ function ListCreateModal({ boardId }) {
   return (
     <div className="create-list">
       {!isAdding ? (
-        <button onClick={() => setIsAdding(true)}>Add another list</button>
+        <button className="create-list-button" onClick={() => setIsAdding(true)}>Add another list</button>
       ) : (
         <>
-          <input
+        <div className='new-list-input-container'>
+          <input 
+          className='new-list-input'
             type="text"
-            placeholder="Enter List Title"
+            placeholder="Enter list title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
             maxLength="50"
           />
-          <button onClick={handleSubmit}>Add List</button>
+        <button className="create-list-add" onClick={handleSubmit}>Add List</button>
+
+         
+        </div>
         </>
       )}
     </div>
   );
 }
 
-export default ListCreateModal;
+export default ListEditModal;
