@@ -39,7 +39,7 @@ function BoardDetails() {
 
   if (!boardDetails)
     return (
-      <div>
+      <div style={{ backgroundColor: "rgb(40, 40, 48)" }}>
         <SidePanel />
       </div>
     );
