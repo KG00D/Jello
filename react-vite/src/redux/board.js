@@ -76,15 +76,12 @@ export const myBoardsThunk = () => async (dispatch) => {
 
 export const boardDetailsThunk = (id) => async (dispatch) => {
   const response = await fetch(`/api/boards/${id}`);
-  const error = await response.json();
-  console.log("error---->", response);
   if (response.ok) {
     const data = await response.json();
     dispatch(boardDetails(data.Board_Details));
     return data;
   } else {
     const error = await response.json();
-    console.log("error---->", error);
     return error;
   }
 };
