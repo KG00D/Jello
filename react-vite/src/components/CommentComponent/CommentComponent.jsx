@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom"
-import { useModal } from "../../context/Modal";
 import * as commentActions from "../../redux/comments"
 import './CommentComponent.css'
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
@@ -21,7 +18,8 @@ const Comment = ({cardId}) => {
     return state.session
   })
   const [ isBeingEdited, setIsBeingEdited ] = useState(false)
-  const [ editCommentId, setEditCommentId ] = useState()
+  const [ focusedCommentId, setFocusedCommentId ] = useState()
+  const [ isBeingDeleted, setIsBeingDeleted ] = useState(false)
 
   useEffect(() => {
     dispatch(commentActions.getCommentsThunk(cardId))
@@ -40,10 +38,8 @@ const Comment = ({cardId}) => {
         {revCommentsArrVals.map((comment) => {
           let updatedDateSplit = new Date(comment.updated_at).toDateString().split(' ')
           let updatedTimeSplit = new Date(comment.updated_at).toTimeString().split(' ')
-          let dateDay = updatedDateSplit[0]
           let dateMonth = updatedDateSplit[1]
           let dateDate = updatedDateSplit[2]
-          let dateYear = updatedDateSplit[3]
           let timeTimeSplit = updatedTimeSplit[0].split(':')
           let timeHour = timeTimeSplit[0]
           let postedHour
@@ -58,16 +54,65 @@ const Comment = ({cardId}) => {
           let postedMinute = timeTimeSplit[1]
 
           let editDeleteButtonClass
-
           if (user && comment.user_id !== user.id) {
             editDeleteButtonClass = 'comment-edit-delete-hidden'
           } else {
             editDeleteButtonClass = 'comment-edit-delete'
           }
 
+          let deleteButtonClass
+          if (isBeingDeleted) {
+            deleteButtonClass = 'comment-delete-shown'
+          } else {
+            deleteButtonClass = 'comment-delete-hidden'
+          }
 
-          if (isBeingEdited && editCommentId === comment.id) {
-            return <EditComment commentId={comment.id} key={comment.id} isBeingEdited={isBeingEdited} setIsBeingEdited={setIsBeingEdited} cardId={cardId}/>
+
+          if (isBeingEdited && focusedCommentId === comment.id) {
+            return <EditComment commentId={comment.id} key={comment.id} setIsBeingEdited={setIsBeingEdited} cardId={cardId}/>
+          } else if (isBeingDeleted && focusedCommentId === comment.id) {
+            return (
+            <div className="comment-container" key={comment.id}>
+
+              <div className="comment-initials-logo">{comment.commenter_details.first_name[0]}{comment.commenter_details.last_name[0]}</div>
+
+              <div className="comment-name-time">
+                <div className="comment-name">{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
+
+                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
+              </div>
+
+              <div className="comment-text">{comment.comment_text}</div>
+
+              <div className={editDeleteButtonClass}>
+                <div>
+                  <button className="comment-edit" onClick={() => {
+                    setIsBeingEdited(true)
+                    setFocusedCommentId(comment.id)
+                  }}>Edit</button>
+                </div>
+
+                <div className="comment-dot">·</div>
+
+                <div className="comment-delete">
+                  {/* <OpenModalButton
+                    buttonText={'Delete'}
+                    modalComponent={<DeleteComment commentId={comment.id}/>}
+                    /> */}
+                  <button className='comment-delete' onClick={() => {
+                    setIsBeingDeleted(true)
+                    setFocusedCommentId(comment.id)
+                  }}>Delete</button>
+
+                  <div className='comment-delete-shown'>
+                    <DeleteComment commentId={comment.id} setIsBeingDeleted={setIsBeingDeleted}/>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          )
           } else {
             return (
               <div className="comment-container" key={comment.id}>
@@ -86,24 +131,32 @@ const Comment = ({cardId}) => {
                 <div>
                   <button className="comment-edit" onClick={() => {
                     setIsBeingEdited(true)
-                    setEditCommentId(comment.id)
+                    setFocusedCommentId(comment.id)
                   }}>Edit</button>
                 </div>
+
                 <div className="comment-dot">·</div>
+
                 <div className="comment-delete">
-                  <OpenModalButton
+                  {/* <OpenModalButton
                     buttonText={'Delete'}
                     modalComponent={<DeleteComment commentId={comment.id}/>}
+                    /> */}
+                  <button className='comment-delete' onClick={() => {
+                    setIsBeingDeleted(true)
+                    setFocusedCommentId(comment.id)
+                  }}>Delete</button>
 
-                    />
+                  <div className='comment-delete-hidden'>
+                    <DeleteComment commentId={comment.id} setIsBeingDeleted={setIsBeingDeleted}/>
+                  </div>
+
                 </div>
+
               </div>
-
             </div>
-
             )}
         })}
-
       </div>
       )
     }

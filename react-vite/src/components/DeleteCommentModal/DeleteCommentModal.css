@@ -6,7 +6,7 @@
   "top-row"
   "text"
   "button";
-  margin: 10px;
+  padding: 10px;
   color: #b6c2cf;
   background-color: #323940;
 }
@@ -19,6 +19,7 @@
 
 .delete-header {
   font-size: 15px;
+  align-self: center;
 }
 
 .delete-x {
@@ -26,6 +27,7 @@
   background: none;
   border: none;
   color: #b6c2cf;
+  align-self: center;
 }
 
 .delete-p {
