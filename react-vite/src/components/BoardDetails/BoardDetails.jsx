@@ -39,7 +39,7 @@ function BoardDetails() {
 
   if (!boardDetails)
     return (
-      <div>
+      <div style={{ backgroundColor: "rgb(40, 40, 48)" }}>
         <SidePanel />
       </div>
     );
@@ -156,7 +156,7 @@ function BoardDetails() {
                   className="edit-list-title-input"
                 />
               ) : (
-                <h4 onClick={() => handleEditListTitle(list)}>{list.title}</h4>
+                <h4 className="lists-title" onClick={() => handleEditListTitle(list)}>{list.title}</h4>
               )}
 
               {/* List Cards */}
@@ -167,11 +167,12 @@ function BoardDetails() {
                   </div>
                 ))}
               <AddCard list={list} />
+     
             </div>
           ))}
+                 <div className="add-list-modal">
+          <ListEditModal className="add-list-modal" boardId={id} />
         </div>
-        <div className="modal-container">
-          <ListEditModal boardId={id} /> {/* Assuming id is a prop or state */}
         </div>
       </div>
     </div>

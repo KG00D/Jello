@@ -11,7 +11,7 @@ const AddCard = ( { list }) => {
     const listId = list.id
 
     useEffect(() => {
-        if (name.length >= 64) setAddCardDisabled(true)
+        if (name.length > 64) setAddCardDisabled(true)
         else setAddCardDisabled(false)
     }, [name])
 
@@ -45,9 +45,9 @@ const AddCard = ( { list }) => {
             {showAddButton && addCardButton}
             { !showAddButton &&
              <form className='add-card-form-box'>
-                <input placeholder='Enter a title for this card...' id='new-card-name' type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
+                <textarea maxlength='64' placeholder='Enter a title for this card...' id='new-card-name' type='text' onChange={(e) => setName(e.target.value)} value={name}></textarea>
                 <div className='add-card-buttons-box'>
-                    <button id='add-card-save-button' disabled={addCardDisabled} onClick={onSubmit}>Add Card</button>
+                    <button id='add-card-save-button' className={`card-disabled-${addCardDisabled}`} disabled={addCardDisabled} onClick={onSubmit}>Add Card</button>
                     <p id='cancel-add-card-save' onClick={reset}>X</p>
                 </div>
              </form>
