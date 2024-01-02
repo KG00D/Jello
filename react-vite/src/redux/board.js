@@ -4,7 +4,7 @@ const GET_BOARD_DETAILS = "board/details";
 const ADD_BOARD = "board/add";
 const EDIT_BOARD = "board/edit";
 const DELETE_BOARD = "board/delete";
-import { ADD_LIST, EDIT_LIST,  } from "./actionTypes";
+import { ADD_LIST, EDIT_LIST } from "./actionTypes";
 
 const publicBoards = (publicBoards) => {
   return {
@@ -76,13 +76,15 @@ export const myBoardsThunk = () => async (dispatch) => {
 
 export const boardDetailsThunk = (id) => async (dispatch) => {
   const response = await fetch(`/api/boards/${id}`);
-
+  const error = await response.json();
+  console.log("error---->", response);
   if (response.ok) {
     const data = await response.json();
     dispatch(boardDetails(data.Board_Details));
     return data;
   } else {
     const error = await response.json();
+    console.log("error---->", error);
     return error;
   }
 };
@@ -185,22 +187,24 @@ function boardReducer(boards = initialState, action) {
           },
         },
       };
-      
-      case EDIT_LIST:
-        const updatedList = action.payload; 
-        newBoards = { ...boards };
-        const boardToUpdate = newBoards.boardDetails[updatedList.board_id];
-        if (boardToUpdate && boardToUpdate.Lists) {
-          const listIndex = boardToUpdate.Lists.findIndex(list => list.id === updatedList.id);
-          if (listIndex !== -1) {
-            boardToUpdate.Lists = [
-              ...boardToUpdate.Lists.slice(0, listIndex),
-              updatedList,
-              ...boardToUpdate.Lists.slice(listIndex + 1),
-            ];
-          }
+
+    case EDIT_LIST:
+      const updatedList = action.payload;
+      newBoards = { ...boards };
+      const boardToUpdate = newBoards.boardDetails[updatedList.board_id];
+      if (boardToUpdate && boardToUpdate.Lists) {
+        const listIndex = boardToUpdate.Lists.findIndex(
+          (list) => list.id === updatedList.id
+        );
+        if (listIndex !== -1) {
+          boardToUpdate.Lists = [
+            ...boardToUpdate.Lists.slice(0, listIndex),
+            updatedList,
+            ...boardToUpdate.Lists.slice(listIndex + 1),
+          ];
         }
-        return newBoards;
+      }
+      return newBoards;
 
     case EDIT_BOARD:
       newBoards = { ...boards };
