@@ -17,6 +17,9 @@ const Comment = ({cardId}) => {
   const comments = useSelector(state => {
     return state.comments
   })
+  const { user } = useSelector(state => {
+    return state.session
+  })
   const [ isBeingEdited, setIsBeingEdited ] = useState(false)
   const [ editCommentId, setEditCommentId ] = useState()
 
@@ -54,6 +57,15 @@ const Comment = ({cardId}) => {
           }
           let postedMinute = timeTimeSplit[1]
 
+          let editDeleteButtonClass
+
+          if (user && comment.user_id !== user.id) {
+            editDeleteButtonClass = 'comment-edit-delete-hidden'
+          } else {
+            editDeleteButtonClass = 'comment-edit-delete'
+          }
+
+
           if (isBeingEdited && editCommentId === comment.id) {
             return <EditComment commentId={comment.id} key={comment.id} isBeingEdited={isBeingEdited} setIsBeingEdited={setIsBeingEdited} cardId={cardId}/>
           } else /*if (comment && comment.first_name)*/ {
@@ -65,17 +77,18 @@ const Comment = ({cardId}) => {
               <div className="comment-name-time">
                 <div className="comment-name">{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
 
-                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div> {/*look into Moment.js */}
+                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
               </div>
 
               <div className="comment-text">{comment.comment_text}</div>
 
-              <div className="comment-edit-delete">
-                <button className="comment-edit" onClick={() => {
-                  setIsBeingEdited(true)
-                  setEditCommentId(comment.id)
-                }}
-                >Edit</button>
+              <div className={editDeleteButtonClass}>
+                <div>
+                  <button className="comment-edit" onClick={() => {
+                    setIsBeingEdited(true)
+                    setEditCommentId(comment.id)
+                  }}>Edit</button>
+                </div>
                 <div className="comment-dot">·</div>
                 <div className="comment-delete">
                   <OpenModalButton

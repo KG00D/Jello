@@ -65,6 +65,10 @@
   display: flex;
 }
 
+.comment-edit-delete-hidden {
+  display: none;
+}
+
 .comment-edit {
   grid-area: edit-button;
   background: none;

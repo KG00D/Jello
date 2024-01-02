@@ -43,7 +43,6 @@ const EditComment = ({commentId, isBeingEdited, setIsBeingEdited, cardId}) => {
 
   const handleDiscard = async (e) => {
     e.preventDefault()
-
     setIsBeingEdited(false)
   }
 
