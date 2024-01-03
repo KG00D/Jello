@@ -48,7 +48,7 @@ def edit_a_comment(comment_id):
       "created_at": existing_comment.created_at,
       "updated_at": existing_comment.updated_at,
     }
-    
+
     return ret
 
   return {
@@ -60,7 +60,7 @@ def edit_a_comment(comment_id):
 @comments_routes.route('/<int:comment_id>', methods=['DELETE'])
 @login_required
 def delete_a_comment(comment_id):
-  comment_to_delete = Comment.query.get(comment_id)
+  comment_to_delete = Comment.query.filter(Comment.id == comment_id).first()
 
   if not comment_to_delete:
     return {
