@@ -27,6 +27,12 @@ const Comment = ({cardId}) => {
     dispatch(commentActions.getCommentsThunk(cardId))
   }, [dispatch])
 
+  if (!comments) {
+    return (
+      <div>...loading</div>
+    )
+  }
+
   let cardCommentsArr = Object.values(comments).filter(comment => comment.card_id === cardId)
   let revCommentsArrVals = cardCommentsArr.reverse()
 
