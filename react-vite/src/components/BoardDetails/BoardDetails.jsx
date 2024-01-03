@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
 import { deleteListThunk, updateListTitleThunk } from "../../redux/lists"; // Add these imports
 import DeleteBoardModal from "./DeleteBoardModal";
@@ -13,10 +13,12 @@ import Cards from "../CardsComponent/CardsComponent";
 import "./BoardDetails.css";
 
 function BoardDetails() {
+  const navigate = useNavigate();
   const { setModalContent } = useModal();
   const dispatch = useDispatch();
   const { id } = useParams();
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
+  const user = useSelector((state) => state.session.user);
   const boards = useSelector((state) => state.boards);
   const [boardName, setBoardName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
@@ -26,8 +28,10 @@ function BoardDetails() {
   const [editingTitle, setEditingTitle] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
 
-  useEffect(() => {
-    dispatch(boardDetailsThunk(id));
+  useEffect( () => {
+    dispatch(boardDetailsThunk(id))
+    // console.log("--------->response",response)
+    // return null;
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -43,6 +47,10 @@ function BoardDetails() {
         <SidePanel />
       </div>
     );
+
+  if (String(boardDetails.user_id) !== String(user.id)) {
+    navigate("/session/boards");
+  }
 
   const updateTitle = async (e) => {
     const boardDetails = {
@@ -156,7 +164,12 @@ function BoardDetails() {
                   className="edit-list-title-input"
                 />
               ) : (
-                <h4 className="lists-title" onClick={() => handleEditListTitle(list)}>{list.title}</h4>
+                <h4
+                  className="lists-title"
+                  onClick={() => handleEditListTitle(list)}
+                >
+                  {list.title}
+                </h4>
               )}
 
               {/* List Cards */}
@@ -167,12 +180,11 @@ function BoardDetails() {
                   </div>
                 ))}
               <AddCard list={list} />
-     
             </div>
           ))}
-                 <div className="add-list-modal">
-          <ListEditModal className="add-list-modal" boardId={id} />
-        </div>
+          <div className="add-list-modal">
+            <ListEditModal className="add-list-modal" boardId={id} />
+          </div>
         </div>
       </div>
     </div>

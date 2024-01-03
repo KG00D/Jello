@@ -22,8 +22,7 @@ const Cards = ({ card }) => {
 
     const currentCard = card ? card : cardPlaceholder
 
-    console.log(currentCard)
-    
+
     const openEditCardModal = () => {
         dispatch(getCardThunk(currentCard))
         return <EditCardModal cardList={cardList}/>

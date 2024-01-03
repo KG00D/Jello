@@ -6,7 +6,8 @@ import './ListDetails.css';
 const ListDetails = ({ boardId }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const lists = useSelector((state) => state.lists); 
+  const lists = useSelector((state) => state.lists);
+
 
   useEffect(() => {
     dispatch(getLists(boardId)).then(() => setLoading(false));
