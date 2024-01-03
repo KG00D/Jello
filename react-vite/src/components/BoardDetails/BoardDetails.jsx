@@ -28,9 +28,11 @@ function BoardDetails() {
   const [editingTitle, setEditingTitle] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
 
-  useEffect( () => {
-    dispatch(boardDetailsThunk(id))
-
+  useEffect(() => {
+    dispatch(boardDetailsThunk(id));
+    if (!boards.myBoards[id]) {
+      navigate("/session/boards");
+    }
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -64,9 +66,7 @@ function BoardDetails() {
     try {
       await dispatch(deleteListThunk(id, listId));
       dispatch(boardDetailsThunk(id));
-    } catch (error) {
-      console.error("Failed to delete list:", error);
-    }
+    } catch (error) {}
   };
 
   const handleEditListTitle = (list) => {
@@ -82,7 +82,6 @@ function BoardDetails() {
         dispatch(boardDetailsThunk(id));
       }
     } catch (error) {
-      console.error("Failed to save title:", error);
     } finally {
       setEditingListId(null);
     }

@@ -26,7 +26,6 @@ def edit_a_comment(comment_id):
   commenter_details = User.query.filter(User.id == existing_comment.user_id).first()
   form = CommentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-  print('\n', 'existing_comment before: ', existing_comment.to_dict())
   if not existing_comment:
     return {
       "message": "Comment does not exist"
