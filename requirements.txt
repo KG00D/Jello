@@ -9,6 +9,7 @@ flask-sqlalchemy==3.0.2; python_version >= '3.7'
 flask-wtf==1.1.1; python_version >= '3.7'
 greenlet==3.0.1; python_version >= '3.7'
 gunicorn==20.1.0; python_version >= '3.5'
+# Try removing python versions if render is not working
 importlib-metadata==6.9.0; python_version < '3.10'
 itsdangerous==2.1.2; python_version >= '3.7'
 jinja2==3.1.2; python_version >= '3.7'
