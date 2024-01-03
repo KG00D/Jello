@@ -42,7 +42,6 @@ function ProfileButton() {
     navigate("/");
   };
 
-
   const demoUser = async () => {
 
     const demoUser = {

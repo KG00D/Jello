@@ -45,7 +45,7 @@ const AddCard = ( { list }) => {
             {showAddButton && addCardButton}
             { !showAddButton &&
              <form className='add-card-form-box'>
-                <textarea maxlength='64' placeholder='Enter a title for this card...' id='new-card-name' type='text' onChange={(e) => setName(e.target.value)} value={name}></textarea>
+                <textarea maxLength='64' placeholder='Enter a title for this card...' id='new-card-name' type='text' onChange={(e) => setName(e.target.value)} value={name}></textarea>
                 <div className='add-card-buttons-box'>
                     <button id='add-card-save-button' className={`card-disabled-${addCardDisabled}`} disabled={addCardDisabled} onClick={onSubmit}>Add Card</button>
                     <p id='cancel-add-card-save' onClick={reset}>X</p>

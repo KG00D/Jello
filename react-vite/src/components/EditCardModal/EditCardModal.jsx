@@ -6,11 +6,17 @@ import { deleteCardThunk, editCardThunk } from "../../redux/cards";
 import * as commentActions from "../../redux/comments"
 import Comment from "../CommentComponent/CommentComponent";
 import CreateComment from "../CreateCommentComponent/CreateCommentComponent";
+import { boardDetailsThunk } from "../../redux/board";
+import { useNavigate } from "react-router-dom";
 
-function EditCardModal({cardList}) {
+
+function EditCardModal({currCard}) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
     const card = useSelector((state) => state.cards.Card)
+    const board = useSelector((state) => state.boards.boardDetails)
+    const boardId = currCard.boardId
+    const list = board[boardId].Lists.find((list) => list.id === currCard.listId)
     const comments = useSelector((state) => state.comments)
     const [ nameBorderVisible, setNameBorderVisible ] = useState(false)
     const [ descriptionBorderVisible, setDescriptionBorderVisible ] = useState(false)
@@ -18,7 +24,15 @@ function EditCardModal({cardList}) {
     const [ description, setDescription ] = useState(card.description)
     const [ errors, setErrors ] = useState({})
     const [ showErrors, setShowErrors] = useState(false)
+    const [ deleteCounter, setDeleteCounter ] = useState(0)
+
+
+    useEffect(() => {
+        dispatch(boardDetailsThunk(boardId))
+    }, [deleteCounter])
+
     const [ counter, setCounter ] = useState(0)
+
 
     useEffect(() => {
         const error = {}
@@ -32,6 +46,8 @@ function EditCardModal({cardList}) {
     // useEffect(() => {
     //     dispatch(commentActions.getCommentsThunk(card.id))
     // }, [dispatch, counter])
+
+    
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -70,14 +86,16 @@ function EditCardModal({cardList}) {
 
     const descriptionText = description === 'None'  || !description ? 'Add a more detailed description' : description
 
-    const placeholderText = description === 'None' ? '' : description
+    const placeholderText = description === 'None' ? '' : description 
 
 
-    const deleteCard = () => {
-        dispatch(deleteCardThunk(card.id))
+    const deleteCard = async () => {
+        setDeleteCounter(deleteCounter + 1)
+        await dispatch(deleteCardThunk(currCard))
         closeModal()
     }
 
+    if (!card) return <h1>loading...</h1>
 
     return (
         <>
