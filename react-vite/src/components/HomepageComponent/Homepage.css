@@ -1,4 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
 .homepage {
   background-color: rgb(38, 61, 61);
   height: 100vh;
+  margin-top: 0px;
+  border-top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+#homepage-welcome {
+  font-size: 34px;
+  color: whitesmoke;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.homepage-description {
+  text-align: center;
+  color: whitesmoke;
+  font-size: 20px;
+}
+
+.homepage-image {
+  width: 580px;
+  background-color: antiquewhite;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+#homepage-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 75px;
+}
+
+#homepage-board-content, #homepage-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
