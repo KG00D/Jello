@@ -77,11 +77,10 @@ export const editCommentThunk = (commentId, commentForm) => async (dispatch) => 
 
 export const deleteCommentThunk = (commentId) => async (dispatch) => {
   try {
-    const response = fetch(`/api/comments/${commentId}`, {
+    const response = await fetch(`/api/comments/${commentId}`, {
       method: "DELETE"
     })
 
-    const data = await response.json()
     dispatch(deleteComment(commentId))
   } catch (error) {
     return error
