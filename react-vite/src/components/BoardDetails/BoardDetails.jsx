@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
-import { deleteListThunk, updateListTitleThunk } from "../../redux/lists"; 
+import { deleteListThunk, updateListTitleThunk } from "../../redux/lists";
 import AddCard from "../AddCardComponent/AddCard";
 import Cards from "../CardsComponent/CardsComponent";
 import ListEditModal from "../ListEditModal";
@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import "./BoardDetails.css";
 
 function BoardDetails() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { setModalContent } = useModal();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -33,13 +33,15 @@ function BoardDetails() {
 
   useEffect( () => {
     dispatch(boardDetailsThunk(id))
-
+    if (!boards.myBoards[id]) {
+      navigate("/session/boards");
+    }
   }, [dispatch, id]);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setOpenMenuId(null); 
+        setOpenMenuId(null);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
