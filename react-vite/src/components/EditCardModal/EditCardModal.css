@@ -1,13 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .edit-card-form {
+    position: relative;
+    top: -100px;
+    left: 25px;
     width: 768px;
-    height: 827px;
+    height: 725px;
     background-color: rgba(50,57,64,255);
     margin-top: 200px;
     border-radius: 25px;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .card-name-border-visible {
