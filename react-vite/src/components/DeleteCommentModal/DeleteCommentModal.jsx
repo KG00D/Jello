@@ -1,12 +1,10 @@
-import { useModal } from "../../context/Modal";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import './DeleteCommentModal.css'
 import * as commentActions from "../../redux/comments"
 
-const DeleteComment = ({commentId, isBeingDeleted, setIsBeingDeleted}) => {
+const DeleteComment = ({commentId, setIsBeingDeleted, counter, setCounter, cardId}) => {
   const dispatch = useDispatch()
-  const { closeModal } = useModal()
 
   useEffect(() => {
 
@@ -15,15 +13,13 @@ const DeleteComment = ({commentId, isBeingDeleted, setIsBeingDeleted}) => {
   const handleDelete = (e) => {
     e.preventDefault()
 
-    dispatch(commentActions.deleteCommentThunk(commentId))
-
+    dispatch(commentActions.deleteCommentThunk(commentId, cardId))
     setIsBeingDeleted(false)
-    // closeModal()
+    setCounter(+counter+1)
   }
 
   const handleDiscard = () => {
     setIsBeingDeleted(false)
-    // closeModal()
   }
 
   return (
