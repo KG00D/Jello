@@ -1,13 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .edit-card-form {
+    position: relative;
+    top: -100px;
+    left: 25px;
     width: 768px;
-    height: 827px;
+    height: 725px;
     background-color: rgba(50,57,64,255);
     margin-top: 200px;
     border-radius: 25px;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .card-name-border-visible {
@@ -113,15 +117,16 @@
 
 .card-description-text {
     /* background-color: yellow; */
-    width: 650px;
+    width: 640px;
     height: 323px;
-
+    overflow-wrap: break-word;
+    /* overflow-y: scroll; */
 }
 
 #card-description-p {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    width: 650px;
+    width: 640px;
     color: rgba(182,194,207,255);
     flex-direction: row;
     align-items: center;
@@ -130,7 +135,8 @@
 }
 
 #card-description {
-    width: 650px;
+    box-sizing: border-box;
+    width: 620px;
     background-color: rgba(34,39,43,255);
     height: 257px;
     color: rgba(182,194,207,255);
@@ -141,10 +147,11 @@
     justify-content: flex-start;
     align-items: flex-start;
     overflow-wrap: break-word;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: scroll;
     border-radius: 20px;
     margin-left: 3px;
+    padding: 10px;
 }
 
 .card-button-box {

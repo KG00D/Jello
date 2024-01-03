@@ -49,11 +49,13 @@ export const postCommentThunk = (cardId, commentForm) => async (dispatch) => {
       },
       body: JSON.stringify(commentForm)
     })
+    console.log('response: ', response)
 
     const data = await response.json()
     dispatch(postComment(data))
     return data
   } catch (error) {
+    console.log('error: ', error)
     return error
   }
 }

@@ -54,6 +54,7 @@ const Comment = ({cardId}) => {
           let postedMinute = timeTimeSplit[1]
 
           let editDeleteButtonClass
+
           if (user && comment.user_id !== user.id) {
             editDeleteButtonClass = 'comment-edit-delete-hidden'
           } else {
@@ -88,10 +89,10 @@ const Comment = ({cardId}) => {
                 <div>
                   <button className="comment-edit" onClick={() => {
                     setIsBeingEdited(true)
+
                     setFocusedCommentId(comment.id)
                   }}>Edit</button>
                 </div>
-
                 <div className="comment-dot">·</div>
 
                 <div className="comment-delete">
@@ -156,6 +157,9 @@ const Comment = ({cardId}) => {
               </div>
             </div>
             )}
+            // else {
+            //   return <div>...loading some more</div>
+            // }
         })}
       </div>
       )

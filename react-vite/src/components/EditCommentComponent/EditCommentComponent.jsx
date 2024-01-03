@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import * as commentActions from "../../redux/comments"
 import './EditCommentComponent.css'
-
 const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
+
   const dispatch = useDispatch()
   const { user } = useSelector(state => {
     return state.session
