@@ -59,6 +59,7 @@
   border: none;
   border-radius: 4px;
   margin: 3px;
+  cursor: context-menu;
 }
 
 .create-comment-save-enabled {
@@ -75,5 +76,14 @@
 }
 
 .create-comment-save-hidden {
+  display: none;
+}
+
+.comment-length-error-error {
+  color: #db1a1a;
+  padding-left: 6px;
+}
+
+.comment-length-error {
   display: none;
 }
