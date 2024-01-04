@@ -76,7 +76,7 @@ const CreateComment = ({cardId}) => {
 
       <div className="create-comment-initials">{initials}</div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="create-comment-form">
         <div className="create-comment-form">
           <div className="create-comment-text-container">
             <textarea

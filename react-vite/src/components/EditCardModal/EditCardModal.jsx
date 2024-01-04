@@ -29,7 +29,7 @@ function EditCardModal({currCard}) {
     console.log('---console log in modal')
     console.log(card.description)
     console.log(currCard, '----currCard in edit card modal')
-    
+
 
     useEffect(() => {
         console.log('---rerender in boardDetails use effect triggered')
@@ -41,7 +41,7 @@ function EditCardModal({currCard}) {
     //     console.log('----re render in getCard use effect triggered')
     //     dispatch(getCardThunk(card))
     // }, [card])
-  
+
 
     const [ counter, setCounter ] = useState(0)
 
@@ -54,12 +54,12 @@ function EditCardModal({currCard}) {
 
         setErrors(error)
     }, [name])
-    
+
     // useEffect(() => {
     //     dispatch(commentActions.getCommentsThunk(card.id))
     // }, [dispatch, counter])
 
-    
+
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -76,12 +76,12 @@ function EditCardModal({currCard}) {
                 id: card.id
             }
 
-            // const updatedCardRes = await 
-            
+            // const updatedCardRes = await
+
             dispatch(editCardThunk(updatedCard))
                 closeModal()
                 reset()
-            
+
             // const newCardLoad = await updatedCardRes.json()
             // console.log(updatedCardRes, '-----updatedCardRes')
             // dispatch(getCardThunk(updatedCardRes.Card)).then(() => {
@@ -113,7 +113,7 @@ function EditCardModal({currCard}) {
 
     const descriptionText = description === 'None'  || !description ? 'Add a more detailed description' : description
 
-    const placeholderText = description === 'None' ? '' : description 
+    const placeholderText = description === 'None' ? '' : description
 
 
     const deleteCard = async () => {
@@ -151,11 +151,14 @@ function EditCardModal({currCard}) {
                     <button onClick={onSubmit}>Save</button>
                     <button id='card-delete-button' onClick={deleteCard}>Delete</button>
                 </div>
-                <div>
-                    <CreateComment cardId={card.id}/>
-                </div>
-                <div className='comments box'>
-                    <Comment cardId={card.id} counter={counter} setCounter={setCounter}/>
+
+                <div className="comments-super-container">
+                    <div className="create-comment-super-container">
+                        <CreateComment cardId={card.id}/>
+                    </div>
+                    <div className='comments box'>
+                        <Comment cardId={card.id} counter={counter} setCounter={setCounter}/>
+                    </div>
                 </div>
             </div>
         </>
