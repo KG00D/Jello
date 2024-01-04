@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
-import { useModal } from "../../context/Modal";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
-import { deleteListThunk, updateListTitleThunk } from "../../redux/lists"; // Add these imports
-import DeleteBoardModal from "./DeleteBoardModal";
-import ListEditModal from "../ListEditModal";
-import SidePanel from "../SidePanel";
+import { deleteListThunk, updateListTitleThunk } from "../../redux/lists"; 
 import AddCard from "../AddCardComponent/AddCard";
 import Cards from "../CardsComponent/CardsComponent";
+import ListEditModal from "../ListEditModal";
+import SidePanel from "../SidePanel";
+import DeleteBoardModal from "./DeleteBoardModal";
 
 import "./BoardDetails.css";
 
@@ -17,6 +17,8 @@ function BoardDetails() {
   const { setModalContent } = useModal();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const dropdownRef = useRef(null);
+
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
   const user = useSelector((state) => state.session.user);
   const boards = useSelector((state) => state.boards);
@@ -32,6 +34,18 @@ function BoardDetails() {
     dispatch(boardDetailsThunk(id))
 
   }, [dispatch, id]);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpenMenuId(null); 
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (!boardDetails) return;
@@ -142,14 +156,19 @@ function BoardDetails() {
               </button>
               {/* Dropdown menu */}
               {isMenuOpen(list.id) && (
-                <div className="lists-dropdown-menu">
+                <div className="lists-dropdown-menu" ref={dropdownRef}>
                   <button
                     className="delete-list-button"
                     onClick={() => handleDeleteList(list.id)}
                   >
                     Delete List
                   </button>
-                  {/* Add more menu items here if we want */}
+                  <button
+                className="edit-list-title-button"
+                onClick={() => handleEditListTitle(list)}
+              >
+                Edit List Title
+              </button>
                 </div>
               )}
 
@@ -162,16 +181,9 @@ function BoardDetails() {
                   autoFocus
                   className="edit-list-title-input"
                 />
-              ) : (
-                <h4
-                  className="lists-title"
-                  onClick={() => handleEditListTitle(list)}
-                >
-                  {list.title}
-                </h4>
+              )  : (
+                <h4 className="lists-title">{list.title}</h4>
               )}
-
-              {/* List Cards */}
               {list.Cards &&
                 Object.values(list.Cards).map((card) => {
                   let currCard = {
@@ -189,8 +201,8 @@ function BoardDetails() {
               <AddCard list={list} />
             </div>
           ))}
-          <div className="add-list-modal">
-            <ListEditModal className="add-list-modal" boardId={id} />
+                 <div className="add-list-modal">
+          <ListEditModal className="add-list-modal" boardId={id} />
           </div>
         </div>
       </div>
