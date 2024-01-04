@@ -1,7 +1,7 @@
 /* TODO: Add sitewide styles */
 html {
   margin: 0px auto;
-  height: 100%;
+  min-height: 100vh;
   margin: 0;
   overflow-y: hidden;
 }
@@ -12,6 +12,6 @@ button,
 }
 
 body {
-  height: 100%;
+  min-height: 100vh;
   margin: 0;
 }

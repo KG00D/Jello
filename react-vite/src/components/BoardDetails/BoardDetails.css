@@ -25,7 +25,7 @@
   gap: 10px;
   padding: 0px;
   overflow-x: auto;
-  width: 100%;
+  min-width: 100vw;
 }
 
 .lists-container {
@@ -134,7 +134,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
 .lists-dropdown-menu {
   background-color: #ffffff;
   border: 1px solid #dddddd;
@@ -164,4 +163,3 @@
   color: #000000;
   transition: background-color 0.3s;
 }
-
