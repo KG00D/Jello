@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
 import "./SignupForm.css";
+
+const validateEmail = (email) => {
+  if (email.indexOf('@') < 1 || email.indexOf('.') < 3 || email.indexOf('.') === email.length - 1 ) return false
+  else return true
+}
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -14,6 +19,12 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [disabled, setDisabled] = useState(true)
+
+  useEffect(() => {
+    if (!email.length || username.length < 4 || password.length < 6 || !firstName.length || !lastName.length || confirmPassword.length < 6 || !validateEmail(email)) setDisabled(true)
+    else setDisabled(false)
+  }, [email, username, firstName, lastName, password, confirmPassword])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +35,7 @@ function SignupFormModal() {
           "Confirm Password field must be the same as the Password field",
       });
     }
+
 
     const serverResponse = await dispatch(
       thunkSignup({
@@ -97,7 +109,7 @@ function SignupFormModal() {
         />
 
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button id={disabled ? `sign-up-button-disabled` : 'sign-up-button-not-disabled'}disabled={disabled} type="submit">Sign Up</button>
       </form>
     </div>
   );

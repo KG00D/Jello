@@ -9,6 +9,7 @@ function Homepage() {
   const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
   if (sessionUser) navigate("/session/boards");
+  
   return (
   <div className="homepage">
     <h1 id='homepage-welcome'>Welcome to Jello!</h1>

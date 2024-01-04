@@ -18,5 +18,6 @@
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
     padding: 8px;
+    overflow-wrap: break-word;
     
 }
