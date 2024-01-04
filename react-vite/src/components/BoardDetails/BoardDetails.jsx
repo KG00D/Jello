@@ -30,8 +30,7 @@ function BoardDetails() {
 
   useEffect( () => {
     dispatch(boardDetailsThunk(id))
-    // console.log("--------->response",response)
-    // return null;
+
   }, [dispatch, id]);
 
   useEffect(() => {
