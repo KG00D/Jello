@@ -76,36 +76,30 @@ const Comment = ({cardId, counter, setCounter}) => {
 
               <div className="comment-initials-logo">{comment.commenter_details.first_name[0]}{comment.commenter_details.last_name[0]}</div>
 
-              <div className="comment-name-time">
-                <div className="comment-name">{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
-
-                <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
-              </div>
-
-              <div className="comment-text">{comment.comment_text}</div>
-
-              <div className={editDeleteButtonClass}>
-                <div>
-                  <button className="comment-edit" onClick={() => {
-                    setIsBeingEdited(true)
-                    setFocusedCommentId(comment.id)
-                  }}>Edit</button>
+              <div className="comment-non-initials">
+                <div className="comment-name-time">
+                  <div className="comment-name">{comment.commenter_details.first_name} {comment.commenter_details.last_name}</div>
+                  <div className="comment-timestamp">{dateMonth} {dateDate} at {postedHour}:{postedMinute} {meridiem}</div>
                 </div>
-
-                <div className="comment-dot">·</div>
-
-                <div>
-                  <button className='comment-delete' onClick={() => {
-                    setIsBeingDeleted(true)
-                    setFocusedCommentId(comment.id)
-                  }}>Delete</button>
-
-                  <div className='comment-delete-shown'>
-                    <DeleteComment commentId={comment.id} setIsBeingDeleted={setIsBeingDeleted} counter={counter} setCounter={setCounter} cardId={cardId}/>
+                <div className="comment-text">{comment.comment_text}</div>
+                <div className={editDeleteButtonClass}>
+                  <div>
+                    <button className="comment-edit" onClick={() => {
+                      setIsBeingEdited(true)
+                      setFocusedCommentId(comment.id)
+                    }}>Edit</button>
                   </div>
-
+                  <div className="comment-dot">·</div>
+                  <div>
+                    <button className='comment-delete' onClick={() => {
+                      setIsBeingDeleted(true)
+                      setFocusedCommentId(comment.id)
+                    }}>Delete</button>
+                    <div className='comment-delete-shown'>
+                      <DeleteComment commentId={comment.id} setIsBeingDeleted={setIsBeingDeleted} counter={counter} setCounter={setCounter} cardId={cardId}/>
+                    </div>
+                  </div>
                 </div>
-
               </div>
             </div>
           )
