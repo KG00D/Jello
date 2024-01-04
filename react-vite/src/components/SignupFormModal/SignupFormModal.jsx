@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
 import "./SignupForm.css";
+
+const validateEmail = (email) => {
+  if (email.indexOf('@') < 1 || email.indexOf('.') < 3 || email.indexOf('.') === email.length - 1 ) return false
+  else return true
+}
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -14,6 +19,12 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [disabled, setDisabled] = useState(true)
+
+  useEffect(() => {
+    if (!email.length || username.length < 4 || password.length < 6 || !firstName.length || !lastName.length || confirmPassword.length < 6 || !validateEmail(email)) setDisabled(true)
+    else setDisabled(false)
+  }, [email, username, firstName, lastName, password, confirmPassword])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +35,7 @@ function SignupFormModal() {
           "Confirm Password field must be the same as the Password field",
       });
     }
+
 
     const serverResponse = await dispatch(
       thunkSignup({
@@ -45,7 +57,7 @@ function SignupFormModal() {
   return (
     <div className="signup-modal">
       <h2>Sign Up</h2>
-      {errors.server && <p>{errors.server}</p>}
+      {errors.server && <p className='sign-up-error'>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label>First Name</label>
         <input
@@ -69,7 +81,7 @@ function SignupFormModal() {
           required
         />
 
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className='sign-up-error'>{errors.email}</p>}
         <label>Username</label>
         <input
           type="text"
@@ -78,7 +90,7 @@ function SignupFormModal() {
           required
         />
 
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className='sign-up-error'>{errors.username}</p>}
         <label>Password</label>
         <input
           type="password"
@@ -87,7 +99,7 @@ function SignupFormModal() {
           required
         />
 
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className='sign-up-error'>{errors.password}</p>}
         <label>Confirm Password</label>
         <input
           type="password"
@@ -96,8 +108,13 @@ function SignupFormModal() {
           required
         />
 
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+
+        {errors.confirmPassword && <p className='sign-up-error'>{errors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
+
+        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        <button id={disabled ? `sign-up-button-disabled` : 'sign-up-button-not-disabled'}disabled={disabled} type="submit">Sign Up</button>
+
       </form>
     </div>
   );

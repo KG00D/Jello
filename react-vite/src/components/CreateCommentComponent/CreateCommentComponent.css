@@ -1,19 +1,19 @@
-.create-comment-container {
+.comment-container {
   font-family: 'Open Sans';
   font-size: 14px;
   display: grid;
-  grid-template-columns: 50px auto;
-  grid-template-rows: 30px 1fr 30px;
+  grid-template-columns: 50px 2fr 2fr 5fr;
+  grid-template-rows: 15px 45px 15px;
   grid-template-areas:
-  "initials text-area"
-  "initials text-area"
-  ". save-button";
-  margin-top: 15px;
+  "initials name-time name-time ."
+  "initials comment-text comment-text comment-text"
+  ". edit-delete edit-delete .";
+  margin: 15px auto;
+  margin-bottom: 25px;
   margin-left: 10px;
-  margin-bottom: 10px;
 }
 
-.create-comment-initials {
+.comment-initials-logo {
   grid-area: initials;
   background-color: lightcoral;
   border-radius: 100px;
@@ -24,14 +24,32 @@
   align-items: center;
 }
 
-.create-comment-text-container {
-  grid-area: text-area;
+.comment-name-time {
+  grid-area: name-time;
+  display: flex;
+  align-items: center;
 }
 
-.create-comment-text {
-  /* grid-area: text-area; */
-  font-family: 'Open Sans';
-  font-size: 13px;
+.comment-name {
+  grid-area: NTname;
+  font-weight: bold;
+  padding-left: 5px;
+  margin-bottom: 3px;
+  color: #b6c2cf;
+}
+
+.comment-timestamp {
+  grid-area: NTtime;
+  font-size: 12px;
+  color: #808b9d;
+  padding-left: 10px;
+  margin-bottom: 3px;
+}
+
+.comment-text {
+  grid-area: comment-text;
+  display: flex;
+  align-items: center;
   color: #b6c2cf;
   background-color: #323940;
   border: 1px solid #e9ebee;
@@ -39,41 +57,51 @@
   box-shadow: 0px 1px #b7bdc8;
   padding: 4px 10px;
   margin: 3px;
-  height: 25px;
   width: 90%;
+}
+
+.comment-edit-delete {
+  grid-area: edit-delete;
   display: flex;
-  align-items: center;
-  overflow: hidden;
-  resize: vertical;
-  /* min-height: 80px; */
 }
 
-.create-comment-save {
-  font-family: 'Open Sans';
-  font-size: 13px;
-  font-weight: 300;
-  grid-area: save-button;
-  background-color: #e9ebee;
-  color: #808b9d;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 4px;
-  margin: 3px;
-}
-
-.create-comment-save-enabled {
-  font-family: 'Open Sans';
-  font-size: 13px;
-  font-weight: bold;
-  grid-area: save-button;
-  color: white;
-  background-color: #0c66e4;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 4px;
-  margin: 3px;
-}
-
-.create-comment-save-hidden {
+.comment-edit-delete-hidden {
   display: none;
+}
+
+.comment-edit {
+  grid-area: edit-button;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #808b9d;
+  font-size: 12px;
+}
+
+.comment-dot {
+  grid-area: dot;
+  color: #808b9d;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0px 5px;
+}
+
+.comment-delete {
+  grid-area: delete-button;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #808b9d;
+  font-size: 12px;
+}
+
+.comment-delete-hidden {
+  display: none;
+}
+
+.comment-delete-shown {
+  position: absolute;
+  border: 3px solid #000000;
+  border-radius: 5px;
+  box-shadow: 0px 5px 4px #808b9d;
 }
