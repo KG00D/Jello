@@ -12,7 +12,7 @@ def view_lists(board_id):
     board_query = Board.query.filter(Board.id == board_id).join(List).first_or_404()
     board_details = board_query.to_dict()
 
-    lists = List.query.filter_by(board_id=board_id).order_by(asc(Card.created_at)).all()
+    lists = List.query.filter_by(board_id=board_id).order_by(asc(List.created_at)).all()
     return jsonify([{'id': lst.id, 'title': lst.title} for lst in lists]), 200
 
 @lists_routes.route('/boards/<int:board_id>/lists', methods=['POST'])
