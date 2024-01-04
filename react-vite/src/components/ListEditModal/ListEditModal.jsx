@@ -9,7 +9,6 @@ import './ListEditModal.css'
 function ListEditModal({ boardId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-  console.log("Board ID : ", boardId)
   const [title, setTitle] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
@@ -17,7 +16,7 @@ function ListEditModal({ boardId }) {
     e.preventDefault();
     if (title.trim()) {
       dispatch(addList(boardId, title));
-      setTitle(''); 
+      setTitle('');
       setIsAdding(false);
     }
   };
@@ -29,7 +28,7 @@ function ListEditModal({ boardId }) {
       ) : (
         <>
         <div className='new-list-input-container'>
-          <input 
+          <input
           className='new-list-input'
             type="text"
             placeholder="Enter list title"

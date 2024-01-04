@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { boardDetailsThunk, editBoardThunk } from "../../redux/board";
-import { deleteListThunk, updateListTitleThunk } from "../../redux/lists"; // Add these imports
+import { deleteListThunk, updateListTitleThunk } from "../../redux/lists"; 
 import AddCard from "../AddCardComponent/AddCard";
 import Cards from "../CardsComponent/CardsComponent";
 import ListEditModal from "../ListEditModal";
@@ -13,12 +13,14 @@ import DeleteBoardModal from "./DeleteBoardModal";
 import "./BoardDetails.css";
 
 function BoardDetails() {
+  const navigate = useNavigate();
   const { setModalContent } = useModal();
   const dispatch = useDispatch();
   const { id } = useParams();
   const dropdownRef = useRef(null);
 
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
+  const user = useSelector((state) => state.session.user);
   const boards = useSelector((state) => state.boards);
   const [boardName, setBoardName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
@@ -28,8 +30,9 @@ function BoardDetails() {
   const [editingTitle, setEditingTitle] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
 
-  useEffect(() => {
-    dispatch(boardDetailsThunk(id));
+  useEffect( () => {
+    dispatch(boardDetailsThunk(id))
+
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -57,6 +60,10 @@ function BoardDetails() {
         <SidePanel />
       </div>
     );
+
+  if (String(boardDetails.user_id) !== String(user.id)) {
+    navigate("/session/boards");
+  }
 
   const updateTitle = async (e) => {
     const boardDetails = {
@@ -174,21 +181,29 @@ function BoardDetails() {
                   autoFocus
                   className="edit-list-title-input"
                 />
-              ) : (
+              )  : (
                 <h4 className="lists-title">{list.title}</h4>
               )}
               {list.Cards &&
-                Object.values(list.Cards).map((card) => (
+                Object.values(list.Cards).map((card) => {
+                  let currCard = {
+                    ...card,
+                    boardId: id,
+                    listId: list.id
+                  }
+                  return (
                   <div key={card.id}>
-                    <Cards card={card} />
+                    <Cards currCard={currCard} />
                   </div>
-                ))}
+                  )
+                }
+                )}
               <AddCard list={list} />
             </div>
           ))}
                  <div className="add-list-modal">
           <ListEditModal className="add-list-modal" boardId={id} />
-        </div>
+          </div>
         </div>
       </div>
     </div>

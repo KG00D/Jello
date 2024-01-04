@@ -3,19 +3,36 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 import './EditCardModal.css'
 import { deleteCardThunk, editCardThunk } from "../../redux/cards";
+import * as commentActions from "../../redux/comments"
 import Comment from "../CommentComponent/CommentComponent";
 import CreateComment from "../CreateCommentComponent/CreateCommentComponent";
+import { boardDetailsThunk } from "../../redux/board";
+import { useNavigate } from "react-router-dom";
 
-function EditCardModal({cardList}) {
+
+function EditCardModal({currCard}) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
     const card = useSelector((state) => state.cards.Card)
+    const board = useSelector((state) => state.boards.boardDetails)
+    const boardId = currCard.boardId
+    const list = board[boardId].Lists.find((list) => list.id === currCard.listId)
+    const comments = useSelector((state) => state.comments)
     const [ nameBorderVisible, setNameBorderVisible ] = useState(false)
     const [ descriptionBorderVisible, setDescriptionBorderVisible ] = useState(false)
     const [ name, setName ] = useState(card.name)
     const [ description, setDescription ] = useState(card.description)
     const [ errors, setErrors ] = useState({})
     const [ showErrors, setShowErrors] = useState(false)
+    const [ deleteCounter, setDeleteCounter ] = useState(0)
+
+
+    useEffect(() => {
+        dispatch(boardDetailsThunk(boardId))
+    }, [deleteCounter])
+
+    const [ counter, setCounter ] = useState(0)
+
 
     useEffect(() => {
         const error = {}
@@ -25,12 +42,17 @@ function EditCardModal({cardList}) {
 
         setErrors(error)
     }, [name])
+    
+    // useEffect(() => {
+    //     dispatch(commentActions.getCommentsThunk(card.id))
+    // }, [dispatch, counter])
+
+    
 
     const onSubmit = async (e) => {
         e.preventDefault()
         if (errors.name) {
             setShowErrors(true)
-            console.log(errors, '----we are in errors')
         }
         else {
             const updatedCard = {
@@ -40,7 +62,6 @@ function EditCardModal({cardList}) {
             }
 
             const updatedCardRes = dispatch(editCardThunk(updatedCard))
-            console.log(updatedCardRes, '----updatedCardRes')
             closeModal()
             reset()
         }
@@ -67,18 +88,14 @@ function EditCardModal({cardList}) {
 
     const placeholderText = description === 'None' ? '' : description 
 
-    console.log(description, '---description')
-    console.log(typeof description)
-    console.log(description === 'None')
-    console.log(descriptionText, '----descriptionText')
 
-
-    const deleteCard = () => {
-        console.log('-delete clicked')
-        dispatch(deleteCardThunk(card.id))
+    const deleteCard = async () => {
+        setDeleteCounter(deleteCounter + 1)
+        await dispatch(deleteCardThunk(currCard))
         closeModal()
     }
 
+    if (!card) return <h1>loading...</h1>
 
     return (
         <>
@@ -111,7 +128,7 @@ function EditCardModal({cardList}) {
                     <CreateComment cardId={card.id}/>
                 </div>
                 <div className='comments box'>
-                    <Comment cardId={card.id}/>
+                    <Comment cardId={card.id} counter={counter} setCounter={setCounter}/>
                 </div>
             </div>
         </>

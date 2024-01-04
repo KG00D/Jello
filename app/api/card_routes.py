@@ -39,6 +39,7 @@ def get_all_comments_for_card(card_id):
 @login_required
 def post_comment_on_card(card_id):
   card = Card.query.get(card_id)
+  commenter_details = User.query.filter(User.id == current_user.id).first()
   form = CommentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -56,7 +57,21 @@ def post_comment_on_card(card_id):
     db.session.add(new_comment)
     db.session.commit()
 
-    return new_comment.to_dict()
+    ret = {
+      "id": new_comment.id,
+      "comment_text": new_comment.comment_text,
+      "user_id": new_comment.user_id,
+      "commenter_details": {
+            "username": commenter_details.username,
+            "first_name": commenter_details.first_name,
+            "last_name": commenter_details.last_name,
+          },
+      "card_id": new_comment.card_id,
+      "created_at": new_comment.created_at,
+      "updated_at": new_comment.updated_at,
+    }
+
+    return ret
 
   return {
     "message": "Bad Request",
