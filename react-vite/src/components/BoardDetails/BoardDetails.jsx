@@ -9,6 +9,7 @@ import Cards from "../CardsComponent/CardsComponent";
 import ListEditModal from "../ListEditModal";
 import SidePanel from "../SidePanel";
 import DeleteBoardModal from "./DeleteBoardModal";
+import { useNavigate } from "react-router-dom";
 
 import "./BoardDetails.css";
 
@@ -125,6 +126,8 @@ function BoardDetails() {
   };
 
   const { name, background_image } = boardDetails;
+
+
 
   let Lists = {};
   if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
