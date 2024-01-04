@@ -16,11 +16,7 @@ const Cards = ({ currCard }) => {
         listId: 1,
     }
 
-   
 
-    // const cardList = {
-    //     listTitle: currCard.listTitle
-    // }
 
     const currentCard = currCard ? currCard : cardPlaceholder
 

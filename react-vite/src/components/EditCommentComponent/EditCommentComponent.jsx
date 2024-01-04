@@ -12,7 +12,9 @@ const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
     return state.comments
   })
   const [commentText, setCommentText] = useState('')
+  const [ validationErrors, setValidationErrors ] = useState({})
   const [selected, setSelected] = useState(false)
+  const [ validity, setValidity ] = useState(false)
 
   const initials = `${user.first_name[0]}${user.last_name[0]}`
 
@@ -21,6 +23,37 @@ const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
   useEffect(() => {
     setCommentText(comment.comment_text)
   }, [dispatch])
+
+  useEffect(() => {
+    if (commentText.length < 257) setValidity(true)
+    else setValidity(false)
+  }, [commentText])
+
+  useEffect(() => {
+    const errors = {}
+
+    if (commentText.length >= 257) {
+      errors.comment_text = 'Comment must be 256 characters or less'
+      setValidity(false)
+    }
+
+    setValidationErrors(errors)
+
+  }, [commentText])
+
+  let buttonClass
+  if (!selected) {
+    buttonClass = "edit-comment-save-hidden"
+  }
+  if (selected) {
+    buttonClass = "edit-comment-save"
+  }
+  if (selected && commentText) {
+    buttonClass = "edit-comment-save-enabled"
+  }
+  if (validationErrors.comment_text) {
+    buttonClass = "edit-comment-save"
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -32,7 +65,9 @@ const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
       card_id: cardId
     }
 
-    dispatch(commentActions.editCommentThunk(commentId, commentForm))
+    if (!Object.values(validationErrors).length) {
+      dispatch(commentActions.editCommentThunk(commentId, commentForm))
+    }
 
     setIsBeingEdited(false)
   }
@@ -42,29 +77,21 @@ const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
     setIsBeingEdited(false)
   }
 
-  let buttonClass
-  if (!selected) {
-    buttonClass = "create-comment-save-hidden"
-  }
-  if (selected) {
-    buttonClass = "create-comment-save"
-  }
-  if (selected && commentText) {
-    buttonClass = "create-comment-save-enabled"
-  }
+  const commentLengthErrorClass = 'comment-length-error' + (validity ? '' : '-error')
+
 
   return (
-    <div className="create-comment-container">
+    <div className="edit-comment-container">
 
-      <div className="create-comment-initials">{initials}</div>
+      <div className="edit-comment-initials">{initials}</div>
 
       <form onSubmit={handleSubmit}>
-        <div className="create-comment-form">
+        <div className="edit-comment-form">
 
-          <div className="create-comment-text-container">
+          <div className="edit-comment-text-container">
             <textarea
               id= "comment-text"
-              className="create-comment-text"
+              className="edit-comment-text"
               type="text"
               onChange={e => setCommentText(e.target.value)}
               onClick={() => setSelected(true)}
@@ -73,8 +100,8 @@ const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
               // contentEditable
             />
           </div>
-
-          <button className={buttonClass} onClick={handleSubmit}>Save</button>
+          <div className={commentLengthErrorClass}>Comment must be 256 characters or less</div>
+          <button className={buttonClass} disabled={!validity ? true : false}>Save</button>
           <button className="edit-comment-discard" onClick={handleDiscard}>Discard changes</button>
         </div>
       </form>
