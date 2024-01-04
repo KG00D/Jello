@@ -2,7 +2,7 @@ import { useModal } from "../../context/Modal";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 import './EditCardModal.css'
-import { deleteCardThunk, editCardThunk } from "../../redux/cards";
+import { deleteCardThunk, editCardThunk, getCardThunk } from "../../redux/cards";
 import * as commentActions from "../../redux/comments"
 import Comment from "../CommentComponent/CommentComponent";
 import CreateComment from "../CreateCommentComponent/CreateCommentComponent";
@@ -26,10 +26,22 @@ function EditCardModal({currCard}) {
     const [ showErrors, setShowErrors] = useState(false)
     const [ deleteCounter, setDeleteCounter ] = useState(0)
 
+    console.log('---console log in modal')
+    console.log(card.description)
+    console.log(currCard, '----currCard in edit card modal')
+    
 
     useEffect(() => {
+        console.log('---rerender in boardDetails use effect triggered')
         dispatch(boardDetailsThunk(boardId))
     }, [deleteCounter])
+
+    // useEffect(() => {
+    //     console.log(card, '-------card in use effect')
+    //     console.log('----re render in getCard use effect triggered')
+    //     dispatch(getCardThunk(card))
+    // }, [card])
+  
 
     const [ counter, setCounter ] = useState(0)
 
@@ -51,6 +63,9 @@ function EditCardModal({currCard}) {
 
     const onSubmit = async (e) => {
         e.preventDefault()
+        console.log(card, '----card in onsubmit')
+        console.log(card.id, '---card.id in onSubmit')
+        console.log(description, '----description in onsubmit')
         if (errors.name) {
             setShowErrors(true)
         }
@@ -61,9 +76,21 @@ function EditCardModal({currCard}) {
                 id: card.id
             }
 
-            const updatedCardRes = dispatch(editCardThunk(updatedCard))
-            closeModal()
-            reset()
+            // const updatedCardRes = await 
+            
+            dispatch(editCardThunk(updatedCard))
+                closeModal()
+                reset()
+            
+            // const newCardLoad = await updatedCardRes.json()
+            // console.log(updatedCardRes, '-----updatedCardRes')
+            // dispatch(getCardThunk(updatedCardRes.Card)).then(() => {
+            //     closeModal()
+            //     reset()
+            // })
+            // setDeleteCounter(deleteCounter + 1)
+            // closeModal()
+            // reset()
         }
 
     }
@@ -105,7 +132,7 @@ function EditCardModal({currCard}) {
                         <p><i className="fa-sharp fa-regular fa-credit-card"></i></p>
                     </div>
                     <div className='card-name-right'>
-                        <input onClick={showNameBorder} placeholder={card.name} id='card-name' className={ showNameBorder ? `card-name-border-visible` : 'card-name-border-hidden'} type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
+                        <input maxLength='64' onClick={showNameBorder} placeholder={card.name} id='card-name' className={ showNameBorder ? `card-name-border-visible` : 'card-name-border-hidden'} type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
                     </div>
                     <div className='card-x' onClick={closeModal}>
                         X
@@ -117,7 +144,7 @@ function EditCardModal({currCard}) {
                     </div>
                     <div className='card-description-text'>
                         <p id='card-description-p'>Description</p>
-                        <textarea maxlength='1000' onClick={showDescriptionBorder} placeholder={descriptionText} id='card-description' className={ showDescriptionBorder ? `card-description-border-visible` : 'card-description-border-hidden'} type='text' onChange={(e) => setDescription(e.target.value)} value={placeholderText}></textarea>
+                        <textarea maxLength='1000' onClick={showDescriptionBorder} placeholder={descriptionText} id='card-description' className={ showDescriptionBorder ? `card-description-border-visible` : 'card-description-border-hidden'} type='text' onChange={(e) => setDescription(e.target.value)} value={placeholderText}></textarea>
                     </div>
                 </div>
                 <div className='card-button-box'>

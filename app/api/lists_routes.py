@@ -61,7 +61,7 @@ def delete_list(board_id, list_id):
 @lists_routes.route("/lists/<int:list_id>/cards")
 @login_required
 def view_all_cards(list_id):
-    cards = Card.query.filter(Card.list_id == list_id).all()
+    cards = Card.query.filter(Card.list_id == list_id).order_by(desc(Card.updated_at)).all()
     response = []
     for single_card in cards:
         card_dict = single_card.to_dict()
