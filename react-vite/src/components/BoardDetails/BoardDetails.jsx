@@ -161,11 +161,19 @@ function BoardDetails() {
 
               {/* List Cards */}
               {list.Cards &&
-                Object.values(list.Cards).map((card) => (
+                Object.values(list.Cards).map((card) => {
+                  let currCard = {
+                    ...card,
+                    boardId: id,
+                    listId: list.id
+                  }
+                  return (
                   <div key={card.id}>
-                    <Cards card={card} />
+                    <Cards currCard={currCard} />
                   </div>
-                ))}
+                  )
+                }
+                )}
               <AddCard list={list} />
      
             </div>

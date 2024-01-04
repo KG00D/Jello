@@ -43,7 +43,6 @@ function ProfileButton() {
   };
 
   const demoLogin = () => {
-    console.log('in demo login')
     try {
       let res = dispatch(thunkLogin({
         email: "demo@demo.io",

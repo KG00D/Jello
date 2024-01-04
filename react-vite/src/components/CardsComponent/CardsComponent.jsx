@@ -6,7 +6,7 @@ import EditCardModal from '../EditCardModal/EditCardModal';
 import OpenModalCardEdit from './OpenModalCardEdit';
 import './CardsComponent.css'
 
-const Cards = ({ card }) => {
+const Cards = ({ currCard }) => {
     const dispatch = useDispatch()
 
     const cardPlaceholder = {
@@ -16,24 +16,25 @@ const Cards = ({ card }) => {
         listId: 1,
     }
 
-    const cardList = {
-        listTitle: card.listTitle
-    }
+   
 
-    const currentCard = card ? card : cardPlaceholder
+    // const cardList = {
+    //     listTitle: currCard.listTitle
+    // }
 
-    console.log(currentCard)
+    const currentCard = currCard ? currCard : cardPlaceholder
+
     
     const openEditCardModal = () => {
         dispatch(getCardThunk(currentCard))
-        return <EditCardModal cardList={cardList}/>
+        return <EditCardModal currCard={currCard}/>
     }
 
 
     return (
         <>
             <div className='cards-component-box'>
-                <OpenModalCardEdit modalComponent={openEditCardModal} itemText={card ? card.name : cardPlaceholder.name}/>
+                <OpenModalCardEdit modalComponent={openEditCardModal} itemText={currCard ? currCard.name : cardPlaceholder.name}/>
             </div>
         </>
     )
