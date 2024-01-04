@@ -31,8 +31,10 @@ function BoardDetails() {
   const [editingTitle, setEditingTitle] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
 
-  useEffect(() => {
-    dispatch(boardDetailsThunk(id));
+
+  useEffect( () => {
+    dispatch(boardDetailsThunk(id))
+
     if (!boards.myBoards[id]) {
       navigate("/session/boards");
     }
