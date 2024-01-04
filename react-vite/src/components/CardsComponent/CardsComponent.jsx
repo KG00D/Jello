@@ -24,7 +24,6 @@ const Cards = ({ currCard }) => {
 
     const currentCard = currCard ? currCard : cardPlaceholder
 
-    
     const openEditCardModal = () => {
         dispatch(getCardThunk(currentCard))
         return <EditCardModal currCard={currCard}/>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 import './EditCardModal.css'
 import { deleteCardThunk, editCardThunk } from "../../redux/cards";
+import * as commentActions from "../../redux/comments"
 import Comment from "../CommentComponent/CommentComponent";
 import CreateComment from "../CreateCommentComponent/CreateCommentComponent";
 import { boardDetailsThunk } from "../../redux/board";
@@ -16,6 +17,7 @@ function EditCardModal({currCard}) {
     const board = useSelector((state) => state.boards.boardDetails)
     const boardId = currCard.boardId
     const list = board[boardId].Lists.find((list) => list.id === currCard.listId)
+    const comments = useSelector((state) => state.comments)
     const [ nameBorderVisible, setNameBorderVisible ] = useState(false)
     const [ descriptionBorderVisible, setDescriptionBorderVisible ] = useState(false)
     const [ name, setName ] = useState(card.name)
@@ -29,6 +31,9 @@ function EditCardModal({currCard}) {
         dispatch(boardDetailsThunk(boardId))
     }, [deleteCounter])
 
+    const [ counter, setCounter ] = useState(0)
+
+
     useEffect(() => {
         const error = {}
 
@@ -37,6 +42,10 @@ function EditCardModal({currCard}) {
 
         setErrors(error)
     }, [name])
+    
+    // useEffect(() => {
+    //     dispatch(commentActions.getCommentsThunk(card.id))
+    // }, [dispatch, counter])
 
     
 
@@ -119,7 +128,7 @@ function EditCardModal({currCard}) {
                     <CreateComment cardId={card.id}/>
                 </div>
                 <div className='comments box'>
-                    <Comment cardId={card.id}/>
+                    <Comment cardId={card.id} counter={counter} setCounter={setCounter}/>
                 </div>
             </div>
         </>

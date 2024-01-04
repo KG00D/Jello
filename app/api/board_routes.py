@@ -27,7 +27,9 @@ def my_boards():
 
 @board_routes.route('/<int:id>')
 def board_details(id):
-    board_query = Board.query.filter(Board.id==id).outerjoin(List).outerjoin(Card).first_or_404()
+    print("------>board route")
+    board_query = Board.query.filter(Board.id==id).outerjoin(List).outerjoin(Card).first_or_404(description="No board found")
+
     board_details = board_query.to_dict()
     if board_query.board_lists:
         board_details["Lists"] = [list_item.to_dict() for list_item in board_query.board_lists]
@@ -35,7 +37,7 @@ def board_details(id):
         for index, list in enumerate(board_details["Lists"]):
             if board_query.board_lists[index].list_cards:
                 board_details["Lists"][index]["Cards"] = [card.to_dict() for card in board_query.board_lists[index].list_cards]
-
+    print("boards----->",board_details)
     return {
         "Board_Details": board_details
     }

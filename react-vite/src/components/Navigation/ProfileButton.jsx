@@ -42,13 +42,17 @@ function ProfileButton() {
     navigate("/");
   };
 
-  const demoLogin = () => {
-    try {
-      let res = dispatch(thunkLogin({
-        email: "demo@demo.io",
-        password: "password"
-      }))
-    } catch (e) {
+  const demoUser = async () => {
+
+    const demoUser = {
+      email: 'demo@demo.io',
+      password: 'password'
+    }
+    const serverResponse = await dispatch(
+      thunkLogin(demoUser)
+    );
+
+    if (serverResponse) {
       dispatch(thunkSignup({
         email: "demo@demo.io",
         username: "demouser",
@@ -56,8 +60,10 @@ function ProfileButton() {
         first_name: "demo",
         last_name: "user",
       }))
+    } else {
+      navigate("/session/boards");
     }
-  }
+  };
 
   return (
     <div>
@@ -98,7 +104,7 @@ function ProfileButton() {
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
-              <p onClick={demoLogin} id='demo-login'>Demo Login</p>
+              <p onClick={demoUser} id='demo-login'>Demo Login</p>
             </div>
           )}
         </ul>
