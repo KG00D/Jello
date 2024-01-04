@@ -13,7 +13,7 @@ import DeleteBoardModal from "./DeleteBoardModal";
 import "./BoardDetails.css";
 
 function BoardDetails() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { setModalContent } = useModal();
   const dispatch = useDispatch();
   const { id } = useParams();
