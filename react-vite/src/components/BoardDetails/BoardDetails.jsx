@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import "./BoardDetails.css";
 
 function BoardDetails() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { setModalContent } = useModal();
   const dispatch = useDispatch();
   const { id } = useParams();
