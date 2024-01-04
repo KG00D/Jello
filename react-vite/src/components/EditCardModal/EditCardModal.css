@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 .edit-card-form {
     position: relative;
@@ -81,7 +82,9 @@
     height: 40px;
     color: rgba(182,194,207,255);
     font-family: 'Roboto', sans-serif;
+    font-weight: 500;
     margin-right: 20px;
+    font-size: 18px;
 
 }
 
