@@ -132,7 +132,7 @@ function EditCardModal({currCard}) {
                         <p><i className="fa-sharp fa-regular fa-credit-card"></i></p>
                     </div>
                     <div className='card-name-right'>
-                        <input onClick={showNameBorder} placeholder={card.name} id='card-name' className={ showNameBorder ? `card-name-border-visible` : 'card-name-border-hidden'} type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
+                        <input maxLength='64' onClick={showNameBorder} placeholder={card.name} id='card-name' className={ showNameBorder ? `card-name-border-visible` : 'card-name-border-hidden'} type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
                     </div>
                     <div className='card-x' onClick={closeModal}>
                         X
