@@ -185,11 +185,19 @@ function BoardDetails() {
                 <h4 className="lists-title">{list.title}</h4>
               )}
               {list.Cards &&
-                Object.values(list.Cards).map((card) => (
+                Object.values(list.Cards).map((card) => {
+                  let currCard = {
+                    ...card,
+                    boardId: id,
+                    listId: list.id
+                  }
+                  return (
                   <div key={card.id}>
-                    <Cards card={card} />
+                    <Cards currCard={currCard} />
                   </div>
-                ))}
+                  )
+                }
+                )}
               <AddCard list={list} />
             </div>
           ))}

@@ -1,4 +1,5 @@
 import { GET_CARD, GET_CARDS, ADD_CARD, EDIT_CARD, DELETE_CARD, CARD_ERROR } from './actionTypes';
+import { boardDetailsThunk } from './board';
 
 const getCards = (cards) => {
     return {
@@ -45,8 +46,6 @@ export const getCardsThunk = (listId) => async (dispatch) => {
 
 
 export const addCardThunk = ({card}) => async (dispatch) => {
-//    const { listId, card } = data
-
    const fetchObj = {
         method: "POST",
         headers: {
@@ -96,7 +95,8 @@ export const editCardThunk = (card) => async (dispatch) => {
    }
 }
 
-export const deleteCardThunk = (cardId) => async (dispatch) => {
+export const deleteCardThunk = (currCard) => async (dispatch) => {
+    const cardId = currCard.id
     const fetchObj = {
         method: "DELETE",
    }
@@ -107,7 +107,7 @@ export const deleteCardThunk = (cardId) => async (dispatch) => {
         if (message.message === "Card does not exist") {
             dispatch(cardError(message))
         } else {
-            dispatch(deleteCard(message))
+            dispatch(boardDetailsThunk(currCard.boardId))
         }
         return message
    } else {
