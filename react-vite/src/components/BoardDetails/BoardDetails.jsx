@@ -31,8 +31,10 @@ function BoardDetails() {
   const [editingTitle, setEditingTitle] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
 
+
   useEffect( () => {
     dispatch(boardDetailsThunk(id))
+
     if (!boards.myBoards[id]) {
       navigate("/session/boards");
     }
@@ -44,9 +46,9 @@ function BoardDetails() {
         setOpenMenuId(null);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -81,9 +83,7 @@ function BoardDetails() {
     try {
       await dispatch(deleteListThunk(id, listId));
       dispatch(boardDetailsThunk(id));
-    } catch (error) {
-      console.error("Failed to delete list:", error);
-    }
+    } catch (error) {}
   };
 
   const handleEditListTitle = (list) => {
@@ -99,7 +99,6 @@ function BoardDetails() {
         dispatch(boardDetailsThunk(id));
       }
     } catch (error) {
-      console.error("Failed to save title:", error);
     } finally {
       setEditingListId(null);
     }
@@ -128,8 +127,6 @@ function BoardDetails() {
   };
 
   const { name, background_image } = boardDetails;
-
-
 
   let Lists = {};
   if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
@@ -169,11 +166,11 @@ function BoardDetails() {
                     Delete List
                   </button>
                   <button
-                className="edit-list-title-button"
-                onClick={() => handleEditListTitle(list)}
-              >
-                Edit List Title
-              </button>
+                    className="edit-list-title-button"
+                    onClick={() => handleEditListTitle(list)}
+                  >
+                    Edit List Title
+                  </button>
                 </div>
               )}
 
@@ -186,7 +183,7 @@ function BoardDetails() {
                   autoFocus
                   className="edit-list-title-input"
                 />
-              )  : (
+              ) : (
                 <h4 className="lists-title">{list.title}</h4>
               )}
               {list.Cards &&
@@ -194,20 +191,19 @@ function BoardDetails() {
                   let currCard = {
                     ...card,
                     boardId: id,
-                    listId: list.id
-                  }
+                    listId: list.id,
+                  };
                   return (
-                  <div key={card.id}>
-                    <Cards currCard={currCard} />
-                  </div>
-                  )
-                }
-                )}
+                    <div key={card.id}>
+                      <Cards currCard={currCard} />
+                    </div>
+                  );
+                })}
               <AddCard list={list} />
             </div>
           ))}
-                 <div className="add-list-modal">
-          <ListEditModal className="add-list-modal" boardId={id} />
+          <div className="add-list-modal">
+            <ListEditModal className="add-list-modal" boardId={id} />
           </div>
         </div>
       </div>
