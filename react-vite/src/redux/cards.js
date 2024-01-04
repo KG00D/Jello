@@ -71,6 +71,7 @@ export const addCardThunk = ({card, boardId}) => async (dispatch) => {
 }
 
 export const editCardThunk = (card) => async (dispatch) => {
+    console.log(card, '----card in editCardTHunk')
     const fetchObj = {
         method: "PUT",
         headers: {
@@ -87,7 +88,11 @@ export const editCardThunk = (card) => async (dispatch) => {
             dispatch(cardError(updatedCard))
             return updatedCard
         } else {
-            dispatch(getCard(updatedCard))
+            console.log('---beofre dispatching getCard')
+            console.log(updatedCard, '---updatedCard in thunk')
+            dispatch(getCard(updatedCard.Card))
+            // dispatch(getCardThunk(card))
+            console.log('----after dispatching getCard')
             return updatedCard
         }
    } else {
