@@ -8,14 +8,33 @@ const CreateComment = ({cardId}) => {
   const { user } = useSelector(state => {
     return state.session
   })
-  const [commentText, setCommentText] = useState('')
-  const [selected, setSelected] = useState(false)
+  const [ commentText, setCommentText ] = useState('')
+  const [ validationErrors, setValidationErrors ] = useState({})
+  const [ selected, setSelected ] = useState(false)
+  const [ validity, setValidity ] = useState(false)
 
   const initials = `${user.first_name[0]}${user.last_name[0]}`
 
   useEffect(() => {
 
   }, [dispatch])
+
+  useEffect(() => {
+    if (commentText.length < 257) setValidity(true)
+    else setValidity(false)
+  }, [commentText])
+
+  useEffect(() => {
+    const errors = {}
+
+    if (commentText.length >= 257) {
+      errors.comment_text = 'Comment must be 256 characters or less'
+      setValidity(false)
+    }
+
+    setValidationErrors(errors)
+
+  }, [commentText])
 
   let buttonClass
   if (!selected) {
@@ -27,6 +46,9 @@ const CreateComment = ({cardId}) => {
   if (selected && commentText) {
     buttonClass = "create-comment-save-enabled"
   }
+  if (validationErrors.comment_text) {
+    buttonClass = "create-comment-save"
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -37,11 +59,16 @@ const CreateComment = ({cardId}) => {
       card_id: cardId
     }
 
-    dispatch(commentActions.postCommentThunk(cardId, commentForm))
+    if (!Object.values(validationErrors).length) {
+      dispatch(commentActions.postCommentThunk(cardId, commentForm))
+    }
+
 
     setCommentText('')
     setSelected(false)
   }
+
+  const commentLengthErrorClass = 'comment-length-error' + (validity ? '' : '-error')
 
 
   return (
@@ -60,10 +87,10 @@ const CreateComment = ({cardId}) => {
               onClick={() => setSelected(true)}
               value={commentText}
               placeholder="Write a comment..."
-              // contentEditable
             />
           </div>
-          <button className={buttonClass}>Save</button>
+          <div className={commentLengthErrorClass}>Comment must be 256 characters or less</div>
+          <button className={buttonClass} disabled={!validity ? true : false}>Save</button>
         </div>
       </form>
 
