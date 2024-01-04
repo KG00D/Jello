@@ -46,8 +46,7 @@ export const getCardsThunk = (listId) => async (dispatch) => {
 
 export const addCardThunk = ({card}) => async (dispatch) => {
 //    const { listId, card } = data
-//    console.log(listId, '----listID in thunk')
-   console.log(card, '----card in thunk')
+
    const fetchObj = {
         method: "POST",
         headers: {

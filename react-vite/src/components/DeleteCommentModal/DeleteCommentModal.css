@@ -6,8 +6,10 @@
   "top-row"
   "text"
   "button";
-  margin: 10px;
-  color: #54627b;
+  padding: 10px;
+  color: #b6c2cf;
+  background-color: #323940;
+  height: 120px;
 }
 
 .delete-top-row {
@@ -18,12 +20,15 @@
 
 .delete-header {
   font-size: 15px;
+  align-self: center;
 }
 
 .delete-x {
   font-size: 15px;
   background: none;
   border: none;
+  color: #b6c2cf;
+  align-self: center;
 }
 
 .delete-p {

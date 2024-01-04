@@ -8,9 +8,11 @@ import { useModal } from "../../context/Modal";
 
 function Navigation() {
   const { setModalContent } = useModal();
+
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
+
 
   const toggleMenu = (e) => {
     e.stopPropagation();

@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import * as commentActions from "../../redux/comments"
-import { useParams } from "react-router-dom";
 import './CreateCommentComponent.css'
 
 const CreateComment = ({cardId}) => {
@@ -9,9 +8,7 @@ const CreateComment = ({cardId}) => {
   const { user } = useSelector(state => {
     return state.session
   })
-  // const { cardId } = useParams()
   const [commentText, setCommentText] = useState('')
-  const [errors, setErrors] = useState({})
   const [selected, setSelected] = useState(false)
 
   const initials = `${user.first_name[0]}${user.last_name[0]}`
@@ -20,6 +17,16 @@ const CreateComment = ({cardId}) => {
 
   }, [dispatch])
 
+  let buttonClass
+  if (!selected) {
+    buttonClass = "create-comment-save-hidden"
+  }
+  if (selected) {
+    buttonClass = "create-comment-save"
+  }
+  if (selected && commentText) {
+    buttonClass = "create-comment-save-enabled"
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -33,18 +40,9 @@ const CreateComment = ({cardId}) => {
     dispatch(commentActions.postCommentThunk(cardId, commentForm))
 
     setCommentText('')
+    setSelected(false)
   }
 
-  let buttonClass
-  if (!selected) {
-    buttonClass = "create-comment-save-hidden"
-  }
-  if (selected) {
-    buttonClass = "create-comment-save"
-  }
-  if (selected && commentText) {
-    buttonClass = "create-comment-save-enabled"
-  }
 
   return (
     <div className="create-comment-container">

@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { thunkLogout } from "../../redux/session";
+import { thunkLogin, thunkLogout, thunkSignup } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import './Navigation.css'
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -39,6 +40,30 @@ function ProfileButton() {
     dispatch(thunkLogout());
     closeMenu();
     navigate("/");
+  };
+
+
+  const demoUser = async () => {
+
+    const demoUser = {
+      email: 'demo@demo.io',
+      password: 'password'
+    }
+    const serverResponse = await dispatch(
+      thunkLogin(demoUser)
+    );
+
+    if (serverResponse) {
+      dispatch(thunkSignup({
+        email: "demo@demo.io",
+        username: "demouser",
+        password: "password",
+        first_name: "demo",
+        last_name: "user",
+      }))
+    } else {
+      navigate("/session/boards");
+    }
   };
 
   return (
@@ -80,6 +105,7 @@ function ProfileButton() {
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
+              <p onClick={demoUser} id='demo-login'>Demo Login</p>
             </div>
           )}
         </ul>
