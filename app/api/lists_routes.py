@@ -12,7 +12,7 @@ def view_lists(board_id):
     board_query = Board.query.filter(Board.id == board_id).join(List).first_or_404()
     board_details = board_query.to_dict()
 
-    lists = List.query.filter_by(board_id=board_id).all()
+    lists = List.query.filter_by(board_id=board_id).order_by(asc(List.created_at)).all()
     return jsonify([{'id': lst.id, 'title': lst.title} for lst in lists]), 200
 
 @lists_routes.route('/boards/<int:board_id>/lists', methods=['POST'])
@@ -61,7 +61,7 @@ def delete_list(board_id, list_id):
 @lists_routes.route("/lists/<int:list_id>/cards")
 @login_required
 def view_all_cards(list_id):
-    cards = Card.query.filter(Card.list_id == list_id).all()
+    cards = Card.query.filter(Card.list_id == list_id).order_by(asc(Card.created_at)).all()
     response = []
     for single_card in cards:
         card_dict = single_card.to_dict()

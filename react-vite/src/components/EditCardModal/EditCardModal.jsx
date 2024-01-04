@@ -26,13 +26,10 @@ function EditCardModal({currCard}) {
     const [ showErrors, setShowErrors] = useState(false)
     const [ deleteCounter, setDeleteCounter ] = useState(0)
 
-    console.log('---console log in modal')
-    console.log(card.description)
-    console.log(currCard, '----currCard in edit card modal')
-    
+
+
 
     useEffect(() => {
-        console.log('---rerender in boardDetails use effect triggered')
         dispatch(boardDetailsThunk(boardId))
     }, [deleteCounter])
 
@@ -41,7 +38,7 @@ function EditCardModal({currCard}) {
     //     console.log('----re render in getCard use effect triggered')
     //     dispatch(getCardThunk(card))
     // }, [card])
-  
+
 
     const [ counter, setCounter ] = useState(0)
 
@@ -54,18 +51,16 @@ function EditCardModal({currCard}) {
 
         setErrors(error)
     }, [name])
-    
+
     // useEffect(() => {
     //     dispatch(commentActions.getCommentsThunk(card.id))
     // }, [dispatch, counter])
 
-    
+
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        console.log(card, '----card in onsubmit')
-        console.log(card.id, '---card.id in onSubmit')
-        console.log(description, '----description in onsubmit')
+
         if (errors.name) {
             setShowErrors(true)
         }
@@ -76,12 +71,12 @@ function EditCardModal({currCard}) {
                 id: card.id
             }
 
-            // const updatedCardRes = await 
-            
+            // const updatedCardRes = await
+
             dispatch(editCardThunk(updatedCard))
                 closeModal()
                 reset()
-            
+
             // const newCardLoad = await updatedCardRes.json()
             // console.log(updatedCardRes, '-----updatedCardRes')
             // dispatch(getCardThunk(updatedCardRes.Card)).then(() => {
@@ -113,7 +108,7 @@ function EditCardModal({currCard}) {
 
     const descriptionText = description === 'None'  || !description ? 'Add a more detailed description' : description
 
-    const placeholderText = description === 'None' ? '' : description 
+    const placeholderText = description === 'None' ? '' : description
 
 
     const deleteCard = async () => {
@@ -132,7 +127,7 @@ function EditCardModal({currCard}) {
                         <p><i className="fa-sharp fa-regular fa-credit-card"></i></p>
                     </div>
                     <div className='card-name-right'>
-                        <input onClick={showNameBorder} placeholder={card.name} id='card-name' className={ showNameBorder ? `card-name-border-visible` : 'card-name-border-hidden'} type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
+                        <input maxLength='64' onClick={showNameBorder} placeholder={card.name} id='card-name' className={ showNameBorder ? `card-name-border-visible` : 'card-name-border-hidden'} type='text' onChange={(e) => setName(e.target.value)} value={name}></input>
                     </div>
                     <div className='card-x' onClick={closeModal}>
                         X
