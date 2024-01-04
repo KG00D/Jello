@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Landingpage.css";
 import { publicBoardsThunk, myBoardsThunk } from "../../redux/board";
 import BoardTile from "./BoardTile";
 import SidePanel from "../SidePanel";
+import CreateBoardModal from "../CreateBoardModal";
 
 function Landingpage() {
-  //Boards disappear after refresh. only appears when code is changed
   const dispatch = useDispatch();
   const publicBoards = useSelector((state) => state.boards.publicBoards);
   const boards = useSelector((state) => state.boards);
@@ -14,6 +14,8 @@ function Landingpage() {
   const sessionUser = useSelector((state) => state.session.user);
   const [ownedBoards, setOwnedBoards] = useState({});
   const [sharedBoards, setSharedBoards] = useState({});
+  const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef();
 
   useEffect(() => {
     dispatch(publicBoardsThunk());
@@ -34,6 +36,23 @@ function Landingpage() {
     setSharedBoards(tempSharedBoards);
   }, [myBoards, boards]);
 
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu, true);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    setShowMenu(!showMenu);
+  };
   return (
     <div className="Side-Panel">
       <SidePanel />
@@ -43,6 +62,14 @@ function Landingpage() {
           {Object.values(ownedBoards).map((board) => {
             return <BoardTile board={board} />;
           })}
+          <div onClick={toggleMenu} className="create-new-board">
+            Create new Board
+          </div>
+          {showMenu && (
+            <span ref={ulRef}>
+              <CreateBoardModal />
+            </span>
+          )}
         </div>
         <h4>SHARED BOARDS</h4>
         <div className="guest-workspaces"></div>
