@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addCardThunk } from '../../redux/cards'
 import './AddCard.css'
 
@@ -8,6 +8,8 @@ const AddCard = ( { list }) => {
     const [name, setName] = useState('')
     const [ showAddButton, setShowAddButton ] = useState(true)
     const [ addCardDisabled, setAddCardDisabled ] = useState(false)
+    const board = useSelector((state) => state.boards.boardDetails)
+    const boardId = Object.keys(board)
     const listId = list.id
 
     useEffect(() => {
@@ -24,8 +26,9 @@ const AddCard = ( { list }) => {
             const data = {
                 card: {
                     name,
-                    list_id: listId
-                }
+                    list_id: listId,
+                },
+                boardId: boardId
             }
             const newCardRes = dispatch(addCardThunk(data))
             reset()

@@ -45,7 +45,7 @@ export const getCardsThunk = (listId) => async (dispatch) => {
 }
 
 
-export const addCardThunk = ({card}) => async (dispatch) => {
+export const addCardThunk = ({card, boardId}) => async (dispatch) => {
    const fetchObj = {
         method: "POST",
         headers: {
@@ -62,6 +62,7 @@ export const addCardThunk = ({card}) => async (dispatch) => {
         return newCard.message
     }
     dispatch(getCardsThunk(card.list_id))
+    dispatch(boardDetailsThunk(boardId))
     return newCard
    } else {
     const error = res.json()
