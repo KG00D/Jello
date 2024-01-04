@@ -37,9 +37,7 @@ function ListEditModal({ boardId }) {
             required
             maxLength="50"
           />
-        <button className="create-list-add" onClick={handleSubmit}>Add List</button>
-
-
+        <button className="create-list-add" onClick={handleSubmit}>Add List</button>         
         </div>
         </>
       )}
