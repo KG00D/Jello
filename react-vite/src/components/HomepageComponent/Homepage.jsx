@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Homepage.css";
@@ -8,7 +8,11 @@ import card from "./images/card.png";
 function Homepage() {
   const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
-  if (sessionUser) navigate("/session/boards");
+
+  useEffect(() => {
+    if (sessionUser) navigate("/session/boards");
+  }, [sessionUser]);
+
   return (
     <div className="homepage">
       <h1 id="homepage-welcome">Welcome to Jello!</h1>
