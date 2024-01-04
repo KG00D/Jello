@@ -7,7 +7,8 @@
   font-family: 'Open Sans';
   font-size: 14px;
   display: grid;
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
   grid-template-columns: 50px 2fr 2fr 5fr;
   grid-template-rows: 15px 45px 15px;
   grid-template-areas:
@@ -17,6 +18,8 @@
   margin: 15px auto;
   margin-bottom: 25px;
   margin-left: 10px;
+  height: fit-content;
+  box-sizing: border-box;
 }
 
 .comment-initials-logo {
@@ -28,6 +31,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0px 1.828px;
+}
+
+.comment-non-initials {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 23px;
 }
 
 .comment-name-time {
@@ -63,7 +74,8 @@
   box-shadow: 0px 1px #b7bdc8;
   padding: 4px 10px;
   margin: 3px;
-  width: 90%;
+  width: 82%;
+  height: fit-content;
 }
 
 .comment-edit-delete {
@@ -91,7 +103,6 @@
   color: #808b9d;
   font-size: 12px;
   font-weight: bold;
-  padding: 0px 5px;
 }
 
 .comment-delete {
