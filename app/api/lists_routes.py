@@ -76,7 +76,7 @@ def create_new_card(list_id):
     form = CardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     list_query = List.query.filter(List.id == list_id).all()
-    
+
     if not list_query:
         return { "message": "List does not exist" }
 
@@ -90,8 +90,5 @@ def create_new_card(list_id):
         db.session.commit()
         return { "Card": new_card.to_dict() }
     else:
-        print('----we are in else statement----')
-        print(request.json, '----request.json')
+
         return { "Message": "validation error"}
-
-
