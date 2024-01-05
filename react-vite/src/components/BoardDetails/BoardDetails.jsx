@@ -31,9 +31,8 @@ function BoardDetails() {
   const [editingTitle, setEditingTitle] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
 
-
-  useEffect( () => {
-    dispatch(boardDetailsThunk(id))
+  useEffect(() => {
+    dispatch(boardDetailsThunk(id));
 
     if (!boards.myBoards[id]) {
       navigate("/session/boards");
@@ -71,12 +70,22 @@ function BoardDetails() {
   }
 
   const updateTitle = async (e) => {
-    const boardDetails = {
-      name: boardName,
-      is_public: isPublic,
-      background_image: backgroundImage,
-    };
-    dispatch(editBoardThunk(boardDetails, id));
+    if (boardName) {
+      const boardDetails = {
+        name: boardName,
+        is_public: isPublic,
+        background_image: backgroundImage,
+      };
+      dispatch(editBoardThunk(boardDetails, id));
+    } else {
+      const boardDetails = {
+        name: "New Board",
+        is_public: isPublic,
+        background_image: backgroundImage,
+      };
+      dispatch(editBoardThunk(boardDetails, id));
+      setBoardName("New Board");
+    }
   };
 
   const handleDeleteList = async (listId) => {
@@ -144,6 +153,8 @@ function BoardDetails() {
             value={boardName}
             onChange={(e) => setBoardName(e.target.value)}
             onBlur={updateTitle}
+            maxlength="50"
+            minlength="1"
           />
         </div>
 

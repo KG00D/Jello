@@ -51,7 +51,7 @@ function CreateBoardModal() {
               name="color"
               value="#404747"
               onChange={(e) => setPreviewColor(e.target.value)}
-              checked={previewColor==="#404747"}
+              checked={previewColor === "#404747"}
             />
             <label
               className="radio-label"
@@ -116,6 +116,7 @@ function CreateBoardModal() {
             onChange={(e) => setTitle(e.target.value)}
             required
             maxlength="50"
+            minlength="1"
           />
 
           <h5>Visibility</h5>
