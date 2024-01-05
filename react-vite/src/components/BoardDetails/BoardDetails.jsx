@@ -19,6 +19,7 @@ function BoardDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const dropdownRef = useRef(null);
+  const card = useSelector((state) => state.cards.Card);
 
   const boardDetails = useSelector((state) => state.boards.boardDetails[id]);
   const user = useSelector((state) => state.session.user);
@@ -37,7 +38,7 @@ function BoardDetails() {
     if (!boards.myBoards[id]) {
       navigate("/session/boards");
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, card]);
 
   useEffect(() => {
     function handleClickOutside(event) {
