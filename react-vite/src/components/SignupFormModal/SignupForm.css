@@ -37,6 +37,8 @@
   .sign-up-error {
     color: red
 
+  }
+
   #sign-up-button-disabled {
     background-color: darkgrey;
   }
