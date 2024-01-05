@@ -35,7 +35,7 @@ function ListEditModal({ boardId }) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            maxLength="50"
+            maxLength="20"
           />
         <button className="create-list-add" onClick={handleSubmit}>Add List</button>         
         </div>
