@@ -26,13 +26,9 @@ function EditCardModal({currCard}) {
     const [ showErrors, setShowErrors] = useState(false)
     const [ deleteCounter, setDeleteCounter ] = useState(0)
 
-    console.log('---console log in modal')
-    console.log(card.description)
-    console.log(currCard, '----currCard in edit card modal')
 
 
     useEffect(() => {
-        console.log('---rerender in boardDetails use effect triggered')
         dispatch(boardDetailsThunk(boardId))
     }, [deleteCounter])
 
@@ -63,9 +59,7 @@ function EditCardModal({currCard}) {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        console.log(card, '----card in onsubmit')
-        console.log(card.id, '---card.id in onSubmit')
-        console.log(description, '----description in onsubmit')
+
         if (errors.name) {
             setShowErrors(true)
         }
