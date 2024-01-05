@@ -46,7 +46,7 @@ function EditCardModal({currCard}) {
         const error = {}
 
         if (name.length === 0) error.name = 'Name is required'
-        if (name.length >= 64) error.name = 'Name must be less than 64 characters'
+        if (name.length > 64) error.name = 'Name must be less than 64 characters'
 
         setErrors(error)
     }, [name])
@@ -59,6 +59,8 @@ function EditCardModal({currCard}) {
 
     const onSubmit = async (e) => {
         e.preventDefault()
+
+
 
         if (errors.name) {
             setShowErrors(true)
