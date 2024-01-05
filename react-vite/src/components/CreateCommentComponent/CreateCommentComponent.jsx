@@ -76,7 +76,7 @@ const CreateComment = ({cardId}) => {
 
       <div className="create-comment-initials">{initials}</div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="create-comment-form">
         <div className="create-comment-form">
           <div className="create-comment-text-container">
             <textarea
@@ -89,8 +89,12 @@ const CreateComment = ({cardId}) => {
               placeholder="Write a comment..."
             />
           </div>
-          <div className={commentLengthErrorClass}>Comment must be 256 characters or less</div>
-          <button className={buttonClass} disabled={!validity ? true : false}>Save</button>
+
+          <div className="button-validation-combo">
+            <div className={commentLengthErrorClass}>Comment must be 256 characters or less</div>
+            <button className={buttonClass} disabled={!validity ? true : false}>Save</button>
+          </div>
+
         </div>
       </form>
 

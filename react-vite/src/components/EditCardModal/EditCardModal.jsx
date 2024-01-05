@@ -28,7 +28,6 @@ function EditCardModal({currCard}) {
 
 
 
-
     useEffect(() => {
         dispatch(boardDetailsThunk(boardId))
     }, [deleteCounter])
@@ -146,11 +145,14 @@ function EditCardModal({currCard}) {
                     <button onClick={onSubmit}>Save</button>
                     <button id='card-delete-button' onClick={deleteCard}>Delete</button>
                 </div>
-                <div>
-                    <CreateComment cardId={card.id}/>
-                </div>
-                <div className='comments box'>
-                    <Comment cardId={card.id} counter={counter} setCounter={setCounter}/>
+
+                <div className="comments-super-container">
+                    <div className="create-comment-super-container">
+                        <CreateComment cardId={card.id}/>
+                    </div>
+                    <div className='comments box'>
+                        <Comment cardId={card.id} counter={counter} setCounter={setCounter}/>
+                    </div>
                 </div>
             </div>
         </>

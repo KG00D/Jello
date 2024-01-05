@@ -43,16 +43,16 @@ const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
 
   let buttonClass
   if (!selected) {
-    buttonClass = "edit-comment-save-hidden"
+    buttonClass = "create-comment-save-hidden"
   }
   if (selected) {
-    buttonClass = "edit-comment-save"
+    buttonClass = "create-comment-save"
   }
   if (selected && commentText) {
-    buttonClass = "edit-comment-save-enabled"
+    buttonClass = "create-comment-save-enabled"
   }
   if (validationErrors.comment_text) {
-    buttonClass = "edit-comment-save"
+    buttonClass = "create-comment-save"
   }
 
   const handleSubmit = async (e) => {
@@ -81,28 +81,31 @@ const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
 
 
   return (
-    <div className="edit-comment-container">
+    <div className="create-comment-container">
 
-      <div className="edit-comment-initials">{initials}</div>
+      <div className="create-comment-initials">{initials}</div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="edit-comment-form">
+      <form onSubmit={handleSubmit} className="create-comment-form">
+        <div className="create-comment-form">
 
-          <div className="edit-comment-text-container">
+          <div className="create-comment-text-container">
             <textarea
               id= "comment-text"
-              className="edit-comment-text"
+              className="create-comment-text"
               type="text"
               onChange={e => setCommentText(e.target.value)}
               onClick={() => setSelected(true)}
               value={commentText}
               placeholder="Write a comment..."
-              // contentEditable
             />
           </div>
-          <div className={commentLengthErrorClass}>Comment must be 256 characters or less</div>
-          <button className={buttonClass} disabled={!validity ? true : false}>Save</button>
-          <button className="edit-comment-discard" onClick={handleDiscard}>Discard changes</button>
+
+          <div className="edit-button-validation-combo">
+            <button className={buttonClass} disabled={!validity ? true : false}>Save</button>
+            <button className="edit-comment-discard" onClick={handleDiscard}>Discard changes</button>
+            <div className={commentLengthErrorClass}>Comment must be 256 characters or less</div>
+          </div>
+
         </div>
       </form>
 
