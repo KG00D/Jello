@@ -177,3 +177,8 @@
 #card-delete-button {
     margin-left: 10px;
 }
+
+.comments-super-container {
+    display: flex;
+    flex-direction: column;
+}

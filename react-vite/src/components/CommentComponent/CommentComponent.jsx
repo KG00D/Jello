@@ -32,7 +32,7 @@ const Comment = ({cardId, counter, setCounter}) => {
     )
   } else {
     return (
-      <div>
+      <div className="comment-super-container">
         {revCommentsArrVals.map((comment) => {
           let updatedDateSplit = new Date(comment.updated_at).toDateString().split(' ')
           let updatedTimeSplit = new Date(comment.updated_at).toTimeString().split(' ')
