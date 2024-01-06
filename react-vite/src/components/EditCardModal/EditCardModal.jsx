@@ -43,7 +43,7 @@ function EditCardModal({currCard}) {
 
 
     useEffect(() => {
-        const error = {}
+        let error = {}
 
         if (name.length === 0) error.name = 'Name is required'
         else if (name.length > 64) error.name = 'Name must be less than 64 characters'
