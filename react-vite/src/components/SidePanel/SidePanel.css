@@ -1,5 +1,7 @@
 .Side-Panel {
   display: flex;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 .side-panel-component {
@@ -10,9 +12,8 @@
   display: flex;
   flex-direction: column;
   border-right: solid rgb(81, 81, 102) 1px;
-  height: 94vh;
+  min-height: 94vh;
   overflow-y: scroll;
-
 }
 
 .side-panel-component > * a {
