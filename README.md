@@ -1,6 +1,6 @@
 # Jello
 
-By [Alex Alfadel](https://github.com/alexalfadel), ...
+By [Alex Alfadel](https://github.com/alexalfadel), [Matthew Hung](https://github.com/MHung31), [Kyle Mooney](https://github.com/stuba2) ,[Kyle Good](https://github.com/KG00D) 
 
 Checkout [Jello](https://jello-t8wp.onrender.com/)
 
@@ -56,7 +56,13 @@ Once a comment is created, Users can edit or delete their comments.
 
 <img width="768" alt="Screenshot 2024-01-06 at 10 24 04 AM" src="https://github.com/KG00D/Jello/assets/117706901/88ec674d-c1f2-4022-894a-70f373b33074">
 
-
+# Challenges
+* Challenges included integration of each developers components to ensure they worked together
+* Styling was difficult to ensure consistency
+* Ensuring redux store was refreshing and registering changes appropriately between components
+* Github synchronization
+* Enforcing validations
+* Coming soon features such as drag and drop and shared boards
 
 
 
