@@ -193,6 +193,7 @@ function BoardDetails() {
                   onBlur={() => handleSaveTitle(list.id)}
                   autoFocus
                   className="edit-list-title-input"
+                  maxLength="20"
                 />
               ) : (
                 <h4 className="lists-title">{list.title}</h4>
