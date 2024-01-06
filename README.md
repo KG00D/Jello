@@ -1,6 +1,6 @@
 # Jello
 
-By [Alex Alfadel](https://github.com/alexalfadel), ...
+By [Alex Alfadel](https://github.com/alexalfadel), [Matthew Hung] (https://github.com/MHung31)...
 
 Checkout [Jello](https://jello-t8wp.onrender.com/)
 
