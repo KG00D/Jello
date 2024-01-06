@@ -3,6 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import List, Board, Card, db
 from flask import current_app
 from app.forms.card_form import CardForm
+from sqlalchemy import asc
 
 lists_routes = Blueprint('lists', __name__)
 
