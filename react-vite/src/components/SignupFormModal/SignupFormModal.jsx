@@ -5,9 +5,14 @@ import { thunkSignup } from "../../redux/session";
 import "./SignupForm.css";
 
 const validateEmail = (email) => {
-  if (email.indexOf('@') < 1 || email.indexOf('.') < 3 || email.indexOf('.') === email.length - 1 ) return false
-  else return true
-}
+  if (
+    email.indexOf("@") < 1 ||
+    email.indexOf(".") < 3 ||
+    email.indexOf(".") === email.length - 1
+  )
+    return false;
+  else return true;
+};
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -19,12 +24,21 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-  const [disabled, setDisabled] = useState(true)
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    if (!email.length || username.length < 4 || password.length < 6 || !firstName.length || !lastName.length || confirmPassword.length < 6 || !validateEmail(email)) setDisabled(true)
-    else setDisabled(false)
-  }, [email, username, firstName, lastName, password, confirmPassword])
+    if (
+      !email.length ||
+      username.length < 4 ||
+      password.length < 6 ||
+      !firstName.length ||
+      !lastName.length ||
+      confirmPassword.length < 6 ||
+      !validateEmail(email)
+    )
+      setDisabled(true);
+    else setDisabled(false);
+  }, [email, username, firstName, lastName, password, confirmPassword]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +49,6 @@ function SignupFormModal() {
           "Confirm Password field must be the same as the Password field",
       });
     }
-
 
     const serverResponse = await dispatch(
       thunkSignup({
@@ -57,10 +70,13 @@ function SignupFormModal() {
   return (
     <div className="signup-modal">
       <h2>Sign Up</h2>
-      {errors.server && <p className='sign-up-error'>{errors.server}</p>}
+      <p >(Fill in all fields)</p>
+
+      {errors.server && <p className="sign-up-error">{errors.server}</p>}
       <form onSubmit={handleSubmit}>
-        <label>First Name</label>
+        <label>First Name </label>
         <input
+          id="signup-first-input"
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -79,27 +95,30 @@ function SignupFormModal() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          placeholder="email@email.com"
         />
 
-        {errors.email && <p className='sign-up-error'>{errors.email}</p>}
-        <label>Username</label>
+        {errors.email && <p className="sign-up-error">{errors.email}</p>}
+        <label>Username </label>
         <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          placeholder="Must be at least 4 characters"
         />
 
-        {errors.username && <p className='sign-up-error'>{errors.username}</p>}
-        <label>Password</label>
+        {errors.username && <p className="sign-up-error">{errors.username}</p>}
+        <label>Password </label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          placeholder="Must be at least 6 characters"
         />
 
-        {errors.password && <p className='sign-up-error'>{errors.password}</p>}
+        {errors.password && <p className="sign-up-error">{errors.password}</p>}
         <label>Confirm Password</label>
         <input
           type="password"
@@ -109,8 +128,15 @@ function SignupFormModal() {
         />
 
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button id={disabled ? `sign-up-button-disabled` : 'sign-up-button-not-disabled'}disabled={disabled} type="submit">Sign Up</button>
-
+        <button
+          id={
+            disabled ? `sign-up-button-disabled` : "sign-up-button-not-disabled"
+          }
+          disabled={disabled}
+          type="submit"
+        >
+          Sign Up
+        </button>
       </form>
     </div>
   );
