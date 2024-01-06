@@ -26,6 +26,7 @@ function BoardDetails() {
   const [boardName, setBoardName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState("");
+  const card = useSelector((state) => state.cards.Card);
 
   const [editingListId, setEditingListId] = useState(null);
   const [editingTitle, setEditingTitle] = useState("");
@@ -37,7 +38,7 @@ function BoardDetails() {
     if (!boards.myBoards[id]) {
       navigate("/session/boards");
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, card]);
 
   useEffect(() => {
     function handleClickOutside(event) {
