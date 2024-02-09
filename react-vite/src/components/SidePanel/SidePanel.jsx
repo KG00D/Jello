@@ -51,6 +51,7 @@ function SidePanel() {
     setSharedBoardsMenu(!sharedBoardsMenu);
   };
 
+
   return (
     <div className="side-panel-component">
       <ul>
@@ -64,8 +65,21 @@ function SidePanel() {
             <i class="fa-solid fa-angle-down"></i>
           )}
         </h4>
-        {ownedBoardsMenu &&
-          Object.values(ownedBoards).map((item) => <SideItem item={item} />)}
+        {ownedBoardsMenu && (
+          <>
+            {Object.values(ownedBoards).length ? (
+              <>
+                {Object.values(ownedBoards).map((item) => (
+                  <SideItem item={item} />
+                ))}
+              </>
+            ) : (
+              <div className="side-panel-noboards">
+                No boards have been added yet
+              </div>
+            )}
+          </>
+        )}
       </ul>
       <ul>
         <h4 className="toggle-menu" onClick={toggleSharedMenu}>
