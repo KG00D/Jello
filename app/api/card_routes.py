@@ -84,6 +84,9 @@ def update_card(card_id):
     card_data = request.json
     card = Card.query.filter(Card.id == card_id).first()
 
+    if card.cards_list.lists_board.boards_owner.id != current_user.id:
+        return {"message": "Unauthorized"}, 401
+
     if not card:
         return { "message": "Card does not exist" }
 
@@ -99,6 +102,8 @@ def update_card(card_id):
 @login_required
 def delete_card(card_id):
     card = Card.query.filter(Card.id == card_id).first()
+    if card.cards_list.lists_board.boards_owner.id != current_user.id:
+        return {"message": "Unauthorized"}, 401
     if not card:
         return { "message": "Card does not exist" }
     db.session.delete(card)

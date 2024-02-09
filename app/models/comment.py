@@ -27,6 +27,8 @@ class Comment(db.Model, UserMixin):
             'comment_text': self.comment_text,
             'user_id': self.user_id,
             "card_id": self.card_id,
+            "comments_card": self.comments_card,
+            "comments_user": self.comments_user.to_dict(),
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }

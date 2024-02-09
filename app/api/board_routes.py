@@ -64,6 +64,8 @@ def new_board():
 @login_required
 def update_board(id):
     board = Board.query.get(id)
+    if board.boards_owner.id != current_user.id:
+        return {"message": "Unauthorized"}, 401
     if not board:
         return {"message": "Board not found"}
 
@@ -83,6 +85,8 @@ def update_board(id):
 @login_required
 def delete_board(id):
     board = Board.query.get(id)
+    if board.boards_owner.id != current_user.id:
+        return {"message": "Unauthorized"}, 401
     if not board:
         return {"message": "Board not found"}
     db.session.delete(board)

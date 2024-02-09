@@ -97,6 +97,7 @@ const EditComment = ({commentId, setIsBeingEdited, cardId}) => {
               onClick={() => setSelected(true)}
               value={commentText}
               placeholder="Write a comment..."
+              maxLength='256'
             />
           </div>
 

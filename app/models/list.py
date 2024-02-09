@@ -25,6 +25,7 @@ class List(db.Model, UserMixin):
             'id': self.id,
             'title': self.title,
             'board_id': self.board_id,
+            'lists_board': self.lists_board.to_dict(),
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }

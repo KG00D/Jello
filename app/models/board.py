@@ -30,6 +30,7 @@ class Board(db.Model, UserMixin):
             'name': self.name,
             'is_public': self.is_public,
             "background_image": self.background_image,
+            "boards_owner": self.boards_owner.to_dict(),
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "user_id": self.user_id
