@@ -32,6 +32,7 @@ class Card(db.Model, UserMixin):
             'name': self.name,
             'description': self.description,
             "list_id": self.list_id,
+            "cards_list": self.cards_list.to_dict(),
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }

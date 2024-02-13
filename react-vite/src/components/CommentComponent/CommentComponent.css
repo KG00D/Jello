@@ -76,6 +76,7 @@
   margin: 3px;
   width: 82%;
   height: fit-content;
+  word-break: break-all;
 }
 
 .comment-edit-delete {

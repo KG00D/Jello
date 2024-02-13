@@ -23,9 +23,12 @@ def get_all_comments():
 @login_required
 def edit_a_comment(comment_id):
   existing_comment = Comment.query.get(comment_id)
-  commenter_details = User.query.filter(User.id == existing_comment.user_id).first()
+  commenter_details = existing_comment.comments_user
   form = CommentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
+
+  if existing_comment.user_id != current_user.id:
+        return {"message": "Unauthorized"}, 401
   if not existing_comment:
     return {
       "message": "Comment does not exist"
@@ -60,6 +63,9 @@ def edit_a_comment(comment_id):
 @login_required
 def delete_a_comment(comment_id):
   comment_to_delete = Comment.query.filter(Comment.id == comment_id).first()
+
+  if comment_to_delete.user_id != current_user.id:
+        return {"message": "Unauthorized"}, 401
 
   if not comment_to_delete:
     return {
