@@ -78,3 +78,8 @@
 .toggle-menu > * i {
   margin-right: 10px;
 }
+
+.side-panel-noboards {
+  font-style: italic;
+  margin-left: 10px;
+}

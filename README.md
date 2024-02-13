@@ -8,7 +8,7 @@ Jello is an intuitive kan-ban style, task tracking software for collaborators to
 
 # Index
 * [MVP List](https://github.com/KG00D/Jello/wiki/MVP-List)
-* [React Components](https://github.com/KG00D/Jello/wiki/React-Componentsd)
+* [React Components](https://github.com/KG00D/Jello/wiki/React-Components)
 * [Database Schema](https://github.com/KG00D/Jello/wiki/Database-Schema)
 * [API Routes](https://github.com/KG00D/Jello/wiki/API-Routes)
 * [User Stories](https://github.com/KG00D/Jello/wiki/User-Stories)

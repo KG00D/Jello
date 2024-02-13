@@ -138,8 +138,10 @@ function BoardDetails() {
 
   const { name, background_image } = boardDetails;
 
-  let Lists = {};
-  if (boardDetails.Lists) Lists = { ...boardDetails.Lists };
+  let Lists = [];
+  if (boardDetails.Lists) Lists = [...boardDetails.Lists];
+
+  Lists = Lists.sort((a, b) => (a.createdAt < b.createdAt ? -1 : 1));
 
   return (
     <div className="Side-Panel">
@@ -160,7 +162,7 @@ function BoardDetails() {
         </div>
 
         <div className="lists-container">
-          {Object.values(boardDetails.Lists || {}).map((list) => (
+          {Lists.map((list) => (
             <div className="list-container" key={list.id}>
               <button
                 className="menu-button"
@@ -200,18 +202,20 @@ function BoardDetails() {
                 <h4 className="lists-title">{list.title}</h4>
               )}
               {list.Cards &&
-                Object.values(list.Cards).map((card) => {
-                  let currCard = {
-                    ...card,
-                    boardId: id,
-                    listId: list.id,
-                  };
-                  return (
-                    <div key={card.id}>
-                      <Cards currCard={currCard} />
-                    </div>
-                  );
-                })}
+                Object.values(list.Cards)
+                  .sort((a, b) => (a.createdAt < b.createdAt ? -1 : 1))
+                  .map((card) => {
+                    let currCard = {
+                      ...card,
+                      boardId: id,
+                      listId: list.id,
+                    };
+                    return (
+                      <div key={card.id}>
+                        <Cards currCard={currCard} />
+                      </div>
+                    );
+                  })}
               <AddCard list={list} />
             </div>
           ))}
