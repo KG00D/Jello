@@ -7,7 +7,7 @@ function BoardTile({ board }) {
     <NavLink
       to={`/boards/${id}`}
       className="board-tile"
-      style={{ backgroundColor: background_image }}
+      style={{ background: background_image }}
     >
       {name}
     </NavLink>

@@ -7,25 +7,25 @@ def seed_boards():
     wish_list = Board(
         name='Wish List',
         is_public=True,
-        background_image="red",
+        background_image="linear-gradient(to left top, #ff0000, #590202)",
         user_id=1
         )
     gift_ideas = Board(
         name='Gift Ideas',
         is_public=False,
-        background_image="orange",
+        background_image="linear-gradient(to left top, #FFA500, #914604)",
         user_id=2
         )
     chores = Board(
         name='Chores',
         is_public=False,
-        background_image="yellow",
+        background_image="linear-gradient(to left top, #FFFF00, #9e5405)",
         user_id=3
         )
     group_project = Board(
         name='Group Project',
         is_public=True,
-        background_image="green",
+        background_image="linear-gradient(to left top, #5dd45d, #008000)",
         user_id=3
         )
 

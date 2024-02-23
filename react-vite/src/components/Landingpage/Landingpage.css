@@ -30,7 +30,7 @@
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: rgb(76, 79, 107);
+  background: linear-gradient(to left top, #4c4f6b, #181b40);
 }
 
 .create-new-board:hover {

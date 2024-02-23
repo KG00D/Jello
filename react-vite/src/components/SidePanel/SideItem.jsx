@@ -30,7 +30,7 @@ function SideItem({ item }) {
         <div>
           <div
             className="item-preview"
-            style={{ backgroundColor: item.background_image }}
+            style={{ background: item.background_image }}
           >
             {" "}
           </div>
