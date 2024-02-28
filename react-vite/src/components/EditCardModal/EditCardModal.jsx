@@ -156,7 +156,7 @@ function EditCardModal({ currCard }) {
         <div className="card-description-box">
           <div className="card-description-logo">
             <p>
-              <i class="fa-solid fa-bars-staggered"></i>
+              <i className="fa-solid fa-bars-staggered"></i>
             </p>
           </div>
           <div className="card-description-text">

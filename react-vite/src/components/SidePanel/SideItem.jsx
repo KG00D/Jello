@@ -37,7 +37,7 @@ function SideItem({ item }) {
           {item.name}
         </div>
         <span className="item-ellipsis" onClick={toggleMenu}>
-          <i class="fa-solid fa-ellipsis"></i>
+          <i className="fa-solid fa-ellipsis"></i>
         </span>
       </NavLink>
       {showMenu && (

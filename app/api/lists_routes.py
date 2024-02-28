@@ -37,7 +37,7 @@ def create_list(board_id):
 def edit_list(board_id, list_id):
     lst = List.query.filter_by(id=list_id, board_id=board_id).first()
 
-    if lst.lists_board.id != current_user.id:
+    if lst.lists_board.user_id != current_user.id:
         return {"message": "Unauthorized"}, 401
 
     if not lst:
@@ -56,7 +56,7 @@ def edit_list(board_id, list_id):
 @login_required
 def delete_list(board_id, list_id):
     lst = List.query.filter_by(id=list_id, board_id=board_id).first()
-    if lst.lists_board.id != current_user.id:
+    if lst.lists_board.user_id != current_user.id:
         return {"message": "Unauthorized"}, 401
     if not lst:
         return jsonify({'errors': 'List not found'}), 404
