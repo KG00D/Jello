@@ -46,16 +46,16 @@ function BoardOptions({ item }) {
               <input
                 className="radio-color"
                 type="radio"
-                id="#404747"
+                id='linear-gradient(to left top, #404747, #919e9e)'
                 name="color"
-                value="#404747"
+                value='linear-gradient(to left top, #404747, #919e9e)'
                 onChange={(e) => setPreviewColor(e.target.value)}
-                checked={previewColor === "#404747"}
+                checked={previewColor === 'linear-gradient(to left top, #404747, #919e9e)'}
               />
               <label
                 className="radio-label"
-                for="#404747"
-                style={{ backgroundColor: "#404747" }}
+                for='linear-gradient(to left top, #404747, #919e9e)'
+                style={{ background: 'linear-gradient(to left top, #404747, #919e9e)' }}
               >
                 {" "}
               </label>
@@ -63,16 +63,16 @@ function BoardOptions({ item }) {
               <input
                 className="radio-color"
                 type="radio"
-                id="#B3754F"
+                id="linear-gradient(to left top, #70311f, #B3754F)"
                 name="color"
-                value="#B3754F"
-                checked={previewColor === "#B3754F"}
+                value="linear-gradient(to left top, #70311f, #B3754F)"
+                checked={previewColor === "linear-gradient(to left top, #70311f, #B3754F)"}
                 onChange={(e) => setPreviewColor(e.target.value)}
               />
               <label
                 className="radio-label"
-                for="#B3754F"
-                style={{ backgroundColor: "#B3754F" }}
+                for="linear-gradient(to left top, #70311f, #B3754F)"
+                style={{ background: "linear-gradient(to left top, #70311f, #B3754F)" }}
               >
                 {" "}
               </label>
@@ -80,16 +80,16 @@ function BoardOptions({ item }) {
               <input
                 className="radio-color"
                 type="radio"
-                id="#25999E"
+                id="linear-gradient(to left top, #203e6e, #25999E)"
                 name="color"
-                value="#25999E"
+                value="linear-gradient(to left top, #203e6e, #25999E)"
                 onChange={(e) => setPreviewColor(e.target.value)}
-                checked={previewColor === "#25999E"}
+                checked={previewColor === "linear-gradient(to left top, #203e6e, #25999E)"}
               />
               <label
                 className="radio-label"
-                for="#25999E"
-                style={{ backgroundColor: "#25999E" }}
+                for="linear-gradient(to left top, #203e6e, #25999E)"
+                style={{ background: "linear-gradient(to left top, #203e6e, #25999E)" }}
               >
                 {" "}
               </label>
@@ -97,16 +97,16 @@ function BoardOptions({ item }) {
               <input
                 className="radio-color"
                 type="radio"
-                id="#F07222"
+                id="linear-gradient(to left top, #450f0a, #F07222)"
                 name="color"
-                value="#F07222"
-                checked={previewColor === "#F07222"}
+                value="linear-gradient(to left top, #450f0a, #F07222)"
+                checked={previewColor === "linear-gradient(to left top, #450f0a, #F07222)"}
                 onChange={(e) => setPreviewColor(e.target.value)}
               />
               <label
                 className="radio-label"
-                for="#F07222"
-                style={{ backgroundColor: "#F07222" }}
+                for="linear-gradient(to left top, #450f0a, #F07222)"
+                style={{ background: "linear-gradient(to left top, #450f0a, #F07222)" }}
               >
                 {" "}
               </label>
