@@ -57,12 +57,12 @@ function SidePanel() {
       <ul>
         <h4 className="toggle-menu" onClick={toggleOwnedMenu}>
           <span>
-            <i class="fa-solid fa-user fa"></i> Your Boards
+            <i className="fa-solid fa-user fa"></i> Your Boards
           </span>
           {ownedBoardsMenu ? (
-            <i class="fa-solid fa-angle-up"></i>
+            <i className="fa-solid fa-angle-up"></i>
           ) : (
-            <i class="fa-solid fa-angle-down"></i>
+            <i className="fa-solid fa-angle-down"></i>
           )}
         </h4>
         {ownedBoardsMenu && (
@@ -70,7 +70,7 @@ function SidePanel() {
             {Object.values(ownedBoards).length ? (
               <>
                 {Object.values(ownedBoards).map((item) => (
-                  <SideItem item={item} />
+                  <SideItem item={item} key={item.id}/>
                 ))}
               </>
             ) : (
@@ -84,12 +84,12 @@ function SidePanel() {
       <ul>
         <h4 className="toggle-menu" onClick={toggleSharedMenu}>
           <span>
-            <i class="fa-solid fa-users fa-2xs"></i>Shared Boards
+            <i className="fa-solid fa-users fa-2xs"></i>Shared Boards
           </span>
           {sharedBoardsMenu ? (
-            <i class="fa-solid fa-angle-up"></i>
+            <i className="fa-solid fa-angle-up"></i>
           ) : (
-            <i class="fa-solid fa-angle-down"></i>
+            <i className="fa-solid fa-angle-down"></i>
           )}
         </h4>
         {/* {sharedBoardsMenu &&

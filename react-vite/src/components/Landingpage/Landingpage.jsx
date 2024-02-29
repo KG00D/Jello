@@ -60,7 +60,7 @@ function Landingpage() {
         <h4>YOUR BOARDS</h4>
         <div className="your-workspaces">
           {Object.values(ownedBoards).map((board) => {
-            return <BoardTile board={board} />;
+            return <BoardTile board={board} key={board.id}/>;
           })}
           <div onClick={toggleMenu} className="create-new-board">
             Create new Board

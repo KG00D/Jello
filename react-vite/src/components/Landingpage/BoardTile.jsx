@@ -8,6 +8,7 @@ function BoardTile({ board }) {
       to={`/boards/${id}`}
       className="board-tile"
       style={{ background: background_image }}
+      key={id}
     >
       {name}
     </NavLink>

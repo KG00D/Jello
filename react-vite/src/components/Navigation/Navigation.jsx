@@ -38,11 +38,11 @@ function Navigation() {
       <li>
         {user ? (
           <NavLink id="logo" to="/session/boards">
-            <i class="fa-solid fa-jar"></i> Jello
+            <i className="fa-solid fa-jar"></i> Jello
           </NavLink>
         ) : (
           <NavLink id="logo" to="/">
-            <i class="fa-solid fa-jar"></i> Jello
+            <i className="fa-solid fa-jar"></i> Jello
           </NavLink>
         )}
       </li>
