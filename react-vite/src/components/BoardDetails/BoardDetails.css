@@ -12,7 +12,7 @@
 }
 
 .board-details-header {
-  width: 300vw;
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.182);
   height: 50px;
   padding-top: 5px;
@@ -24,45 +24,42 @@
   align-items: flex-start;
   gap: 10px;
   padding: 0px;
-  overflow-x: auto;
+  overflow-x: scroll;
   min-width: 100vw;
 }
 
 .lists-container {
   display: flex;
-  overflow-x: auto;
   align-items: flex-start;
   gap: 1px;
   padding: 1px;
   height: calc(100vh - 60px);
   flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
-::-webkit-scrollbar {
-  display: none;
+.board-details::-webkit-scrollbar,
+.lists-container::-webkit-scrollbar {
+  height: 10px;
 }
 
-.lists-container::after {
-  content: "";
-  flex: 0 0 10px;
+.board-details::-webkit-scrollbar-thumb,
+.lists-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
 }
 
 .list-container {
   position: relative;
   background-color: #333;
-  padding: 10px;
   margin: 10px;
   color: white;
   min-width: 300px;
-  height: auto;
-  margin-right: 10px;
-  padding: 10px;
   border-radius: 15.5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  overflow: visible;
   max-height: calc(100vh - 100px);
 }
 
